@@ -1,0 +1,289 @@
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<div class="flex flex-col w-full pb-16">
+<!-- Greeting Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h1 class="text-headline-xl font-headline text-[#F6EFE3]">Welcome back, Chef James</h1>
+<p class="text-body-md text-[#B7C7BF] mt-1">Culinary platform analytics and administrative oversight.</p>
+</div>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D98A56] hover:bg-[#E8A173] text-[#0A211E] text-title-md transition-all shadow-[0_4px_16px_rgba(217,138,86,0.25)]" href="#">
+<span class="material-symbols-outlined text-lg">add</span>
+        Add Recipe
+      </a>
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[rgba(246,239,227,0.4)] hover:border-[#F6EFE3] hover:bg-[rgba(246,239,227,0.08)] text-[#F6EFE3] text-title-md transition-all" href="#">
+<span class="material-symbols-outlined text-lg">lightbulb</span>
+        Add Tip
+      </a>
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[rgba(246,239,227,0.4)] hover:border-[#F6EFE3] hover:bg-[rgba(246,239,227,0.08)] text-[#F6EFE3] text-title-md transition-all" href="#">
+<span class="material-symbols-outlined text-lg">emoji_events</span>
+        Create Contest
+      </a>
+</div>
+</div>
+<!-- 6 KPI Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+<!-- Total Recipes -->
+<div class="p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-sm uppercase tracking-wider text-[#7F9990]">Total Recipes</span>
+<div class="p-2 rounded-xl bg-[rgba(217,138,86,0.15)] text-[#D98A56]">
+<span class="material-symbols-outlined">restaurant_menu</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-[36px] font-headline text-[#F6EFE3] leading-tight">1,248</span>
+<span class="text-body-sm font-medium text-[#5DBB8A] flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +12%
+        </span>
+</div>
+</div>
+<!-- Total Tips -->
+<div class="p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-sm uppercase tracking-wider text-[#7F9990]">Total Tips</span>
+<div class="p-2 rounded-xl bg-[rgba(159,216,184,0.15)] text-[#9FD8B8]">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-[36px] font-headline text-[#F6EFE3] leading-tight">342</span>
+<span class="text-body-sm font-medium text-[#5DBB8A] flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +5%
+        </span>
+</div>
+</div>
+<!-- Members -->
+<div class="p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-sm uppercase tracking-wider text-[#7F9990]">Members</span>
+<div class="p-2 rounded-xl bg-[rgba(217,138,86,0.15)] text-[#D98A56]">
+<span class="material-symbols-outlined">group</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-[36px] font-headline text-[#F6EFE3] leading-tight">18,920</span>
+<span class="text-body-sm font-medium text-[#5DBB8A] flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +18%
+        </span>
+</div>
+</div>
+<!-- Active Contests -->
+<div class="p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-sm uppercase tracking-wider text-[#7F9990]">Active Contests</span>
+<div class="p-2 rounded-xl bg-[rgba(159,216,184,0.15)] text-[#9FD8B8]">
+<span class="material-symbols-outlined">emoji_events</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-[36px] font-headline text-[#F6EFE3] leading-tight">4</span>
+<span class="text-body-sm font-medium text-[#7F9990]">2 ending soon</span>
+</div>
+</div>
+<!-- Pending Entries -->
+<div class="p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-sm uppercase tracking-wider text-[#7F9990]">Pending Entries</span>
+<div class="p-2 rounded-xl bg-[rgba(229,115,106,0.15)] text-[#E5736A]">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-[36px] font-headline text-[#F6EFE3] leading-tight">28</span>
+<span class="text-body-sm font-medium text-[#E5736A]">Requires review</span>
+</div>
+</div>
+<!-- New Feedback -->
+<div class="p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-sm uppercase tracking-wider text-[#7F9990]">New Feedback</span>
+<div class="p-2 rounded-xl bg-[rgba(217,138,86,0.15)] text-[#D98A56]">
+<span class="material-symbols-outlined">forum</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="text-[36px] font-headline text-[#F6EFE3] leading-tight">15</span>
+<span class="text-body-sm font-medium text-[#5DBB8A]">All read</span>
+</div>
+</div>
+</div>
+<!-- Visual Analytics Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
+<!-- Line chart card -->
+<div class="lg:col-span-8 p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl flex flex-col justify-between">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-headline-sm text-[#F6EFE3]">New Members per Month</h3>
+<p class="text-body-sm text-[#7F9990]">Growth trajectory across platform tiers over the last 6 months</p>
+</div>
+<span class="text-label-sm px-3 py-1 rounded-full bg-[rgba(217,138,86,0.15)] text-[#D98A56] font-bold">2024 Analytics</span>
+</div>
+<div class="h-64 w-full flex items-end justify-between gap-4 pt-6 pb-2 px-2">
+<!-- Chart Bars / Line representation -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<span class="text-xs text-[#7F9990] opacity-0 group-hover:opacity-100 transition-opacity">1.2k</span>
+<div class="w-full bg-[#184238] rounded-t-lg h-[40%] group-hover:bg-[#D98A56] transition-all relative"></div>
+<span class="text-label-sm text-[#7F9990]">Nov</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<span class="text-xs text-[#7F9990] opacity-0 group-hover:opacity-100 transition-opacity">1.8k</span>
+<div class="w-full bg-[#184238] rounded-t-lg h-[55%] group-hover:bg-[#D98A56] transition-all relative"></div>
+<span class="text-label-sm text-[#7F9990]">Dec</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<span class="text-xs text-[#7F9990] opacity-0 group-hover:opacity-100 transition-opacity">2.4k</span>
+<div class="w-full bg-[#184238] rounded-t-lg h-[68%] group-hover:bg-[#D98A56] transition-all relative"></div>
+<span class="text-label-sm text-[#7F9990]">Jan</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<span class="text-xs text-[#7F9990] opacity-0 group-hover:opacity-100 transition-opacity">3.1k</span>
+<div class="w-full bg-[#184238] rounded-t-lg h-[80%] group-hover:bg-[#D98A56] transition-all relative"></div>
+<span class="text-label-sm text-[#7F9990]">Feb</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<span class="text-xs text-[#7F9990] opacity-0 group-hover:opacity-100 transition-opacity">3.8k</span>
+<div class="w-full bg-[#184238] rounded-t-lg h-[92%] group-hover:bg-[#D98A56] transition-all relative"></div>
+<span class="text-label-sm text-[#7F9990]">Mar</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<span class="text-xs text-[#7F9990] opacity-0 group-hover:opacity-100 transition-opacity">4.5k</span>
+<div class="w-full bg-[#D98A56] rounded-t-lg h-[100%] shadow-[0_0_15px_rgba(217,138,86,0.4)] relative"></div>
+<span class="text-label-sm text-[#F6EFE3] font-bold">Apr</span>
+</div>
+</div>
+</div>
+<!-- Donut chart card -->
+<div class="lg:col-span-4 p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl flex flex-col justify-between">
+<div>
+<h3 class="text-headline-sm text-[#F6EFE3]">Free vs Premium Content</h3>
+<p class="text-body-sm text-[#7F9990]">Content distribution ratio</p>
+</div>
+<div class="flex items-center justify-center my-6">
+<div class="relative w-40 h-40 rounded-full flex items-center justify-center bg-[conic-gradient(#D98A56_0deg_230deg,#9FD8B8_230deg_360deg)] p-6 shadow-inner">
+<div class="w-28 h-28 rounded-full bg-[#12362F] flex flex-col items-center justify-center text-center">
+<span class="text-headline-sm text-[#F6EFE3]">100%</span>
+<span class="text-label-sm text-[#7F9990]">Catalog</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-around pt-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#D98A56]"></div>
+<span class="text-body-sm text-[#B7C7BF]">Premium (64%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#9FD8B8]"></div>
+<span class="text-body-sm text-[#B7C7BF]">Free (36%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Table Card: Recent Contest Entries -->
+<div class="p-6 rounded-[18px] bg-[#12362F]/75 backdrop-blur-md border border-[rgba(246,239,227,0.12)] shadow-xl">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-headline-sm text-[#F6EFE3]">Recent Contest Entries</h3>
+<p class="text-body-sm text-[#7F9990]">Latest submissions awaiting evaluation or winner selection</p>
+</div>
+<a class="text-title-md text-[#D98A56] hover:text-[#E8A173] transition-colors flex items-center gap-1" href="#">
+        View all <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[rgba(246,239,227,0.08)]">
+<th class="py-3 px-4 text-label-sm text-[#7F9990] font-medium uppercase tracking-wider">Title</th>
+<th class="py-3 px-4 text-label-sm text-[#7F9990] font-medium uppercase tracking-wider">Submitted By</th>
+<th class="py-3 px-4 text-label-sm text-[#7F9990] font-medium uppercase tracking-wider">Type</th>
+<th class="py-3 px-4 text-label-sm text-[#7F9990] font-medium uppercase tracking-wider">Contest Name</th>
+<th class="py-3 px-4 text-label-sm text-[#7F9990] font-medium uppercase tracking-wider">Date</th>
+<th class="py-3 px-4 text-label-sm text-[#7F9990] font-medium uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[rgba(246,239,227,0.08)] text-body-md text-[#B7C7BF]">
+<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
+<td class="py-4 px-4 font-medium text-[#F6EFE3]">Truffle Infused Risotto</td>
+<td class="py-4 px-4 flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait photo of a professional chef wearing a pristine white apron in a warm-lit industrial kitchen with soft copper highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBUYVadj5FQepxhR71JUuGRBehE1HfHXAL3mwZUtIJSlHStyQiUl_2XLuEivS2XRV8shgzhbma4v3sXv5fj5MyfSDusjglhpXXby_P3jp4ROOcEXuJGsSAJlU_EdTKpQMAHZwGdWHgdyPJz1Pif-JvlqHCwPYh5EX__Y816i7EmXmY0vjxg9ymDWwSpoDR_pYrPJSbDC8MKp1ILT03YnWVMxgrWTz37cOyOczOKclCdNMPsOSp4zvP"/>
+<span>Chef Marcus Vance</span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-label-md bg-[rgba(217,138,86,0.18)] text-[#D98A56] border border-[rgba(217,138,86,0.45)] inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">workspace_premium</span> Premium
+              </span>
+</td>
+<td class="py-4 px-4">Spring Masterclass Showcase</td>
+<td class="py-4 px-4 text-[#7F9990]">Apr 12, 2024</td>
+<td class="py-4 px-4 text-right">
+<a class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#D98A56] hover:bg-[#E8A173] text-[#0A211E] text-label-md font-semibold transition-all" href="#">
+                View
+              </a>
+</td>
+</tr>
+<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
+<td class="py-4 px-4 font-medium text-[#F6EFE3]">Artisan Sourdough Technique</td>
+<td class="py-4 px-4 flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait photo of a smiling female baker holding freshly baked sourdough bread in a sunlit rustic kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbFRRngjMpmpP5ZyC5a1IMUsxoZInX_G2YVD4-6qHNOlTNsEmNhceK_EOIF-diF5g2lbn-urZtS8dWs2NGNWXiOoUA-1mlBmfoUqXWx_Bf4KWOmS9KEOs7nUPdWPNPLbEMPpdjbd3POwSxQOu1CzzStVrPTIFWVCzEAWnXq9eedXdJwKMd5Bp5maOmX1sBevTSRkWunJmIE4PaXO3L_S2cU0bmqEKJgvedivbx1kFzFOiCTwFwRhHG"/>
+<span>Elena Rostova</span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-label-md bg-[rgba(159,216,184,0.15)] text-[#9FD8B8] border border-[rgba(159,216,184,0.35)] inline-flex items-center gap-1">
+                Free
+              </span>
+</td>
+<td class="py-4 px-4">Daily Kitchen Secrets</td>
+<td class="py-4 px-4 text-[#7F9990]">Apr 11, 2024</td>
+<td class="py-4 px-4 text-right">
+<a class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#D98A56] hover:bg-[#E8A173] text-[#0A211E] text-label-md font-semibold transition-all" href="#">
+                View
+              </a>
+</td>
+</tr>
+<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
+<td class="py-4 px-4 font-medium text-[#F6EFE3]">Pan-Seared Duck Breast</td>
+<td class="py-4 px-4 flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait photo of a young male culinary enthusiast plating a gourmet dish in a moody emerald-toned kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9aoq05jRcbQLh9ny9UmXBss15eIO9Jnidrp2wwzbvXoKnPSDra8Xw6-Kz3uUHXE6MOZx3JRJlDeMEmdq2UxnpG0jeRy80tRyy2XdMo0NwRk33yedv39-ytYl5_vM555WIjnL94Gx1OHDj-7vi5BJ0E1G-xtxccYUFuMEFogtIG_ziBpt5Nw6Wq0PbkqiKNbAAHPriNj3Yg8yTbHQcjNaHMmhaNxlW7NjGlmaunCps20YljfD5gQle"/>
+<span>Julian Thorne</span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-label-md bg-[rgba(217,138,86,0.18)] text-[#D98A56] border border-[rgba(217,138,86,0.45)] inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">workspace_premium</span> Premium
+              </span>
+</td>
+<td class="py-4 px-4">Spring Masterclass Showcase</td>
+<td class="py-4 px-4 text-[#7F9990]">Apr 10, 2024</td>
+<td class="py-4 px-4 text-right">
+<a class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#D98A56] hover:bg-[#E8A173] text-[#0A211E] text-label-md font-semibold transition-all" href="#">
+                View
+              </a>
+</td>
+</tr>
+<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
+<td class="py-4 px-4 font-medium text-[#F6EFE3]">Matcha Ceremonial Pairing</td>
+<td class="py-4 px-4 flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait photo of an Asian female tea master preparing ceremonial green tea with copper utensils." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcvAmTXhDwntTAnsySuLbLrVUbpGUGE5gLi2VV9REA5PTk8uEDHBwTwhISimJFGKJvJmn_nQexn5yTcebYBd8LLpZc04pmqBMRUYKT_A69PMYmKPc8e_EhCKn18OHxWmGmRI8JwBdKT45b9BF_GcrCrH09rI1onQurz4JezPq3V2jHKuM7t-lwY-XnYqgbvmclwPxzdPMe1kOqyfOqUP3SuAnUMtRgqDYOyuke5U8wi3raHuM8ZkW9"/>
+<span>Aoi Tanaka</span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-full text-label-md bg-[rgba(159,216,184,0.15)] text-[#9FD8B8] border border-[rgba(159,216,184,0.35)] inline-flex items-center gap-1">
+                Free
+              </span>
+</td>
+<td class="py-4 px-4">Daily Kitchen Secrets</td>
+<td class="py-4 px-4 text-[#7F9990]">Apr 09, 2024</td>
+<td class="py-4 px-4 text-right">
+<a class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#D98A56] hover:bg-[#E8A173] text-[#0A211E] text-label-md font-semibold transition-all" href="#">
+                View
+              </a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>

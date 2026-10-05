@@ -1,0 +1,353 @@
+@{
+    ViewData["Title"] = "Membership Plans";
+}
+
+<div class="flex flex-col w-full">
+<!-- Sub-navigation Scrim & Ambient Halo -->
+<div class="relative w-full overflow-hidden px-margin-mobile lg:px-margin pt-space-lg pb-space-xl">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-primary-container/15 rounded-full blur-[130px] pointer-events-none"></div>
+<div class="absolute top-48 right-12 w-[420px] h-[420px] bg-secondary-container/20 rounded-full blur-[110px] pointer-events-none"></div>
+<div class="relative z-10 max-w-6xl mx-auto flex flex-col items-center">
+<!-- Breadcrumb Bar -->
+<nav aria-label="Breadcrumbs" class="w-full flex items-center justify-start gap-space-xs font-label-sm text-label-sm text-outline mb-space-lg">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary-container">Membership Plans</span>
+</nav>
+<!-- Editorial Intro / Title Segment -->
+<div class="text-center max-w-3xl flex flex-col items-center gap-space-sm mb-space-xl">
+<div class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-secondary-container/40 text-secondary font-label-sm text-label-sm uppercase tracking-widest backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">workspace_premium</span>
+          Haute Gastronomy Guild
+        </div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-tight tracking-tight">
+          Unlock Chef James’s <span class="italic text-primary-container">Complete Kitchen</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+          Choose the membership pass that fits your culinary journey. Gain unrestricted entry to Michelin-grade secret formulas, private masterclass archives, and community exchanges.
+        </p>
+<!-- Billing Interval Toggle Switch -->
+<div class="mt-space-md flex items-center gap-space-md p-1.5 rounded-full bg-surface-container-high/90 backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(246,239,227,0.06)]">
+<button class="px-space-lg py-2 rounded-full font-title-md text-title-md transition-all duration-300 text-on-surface-variant bg-transparent cursor-pointer" id="monthlyTabBtn" onclick="switchBillingCycle('monthly')" type="button">
+            Monthly Billing
+          </button>
+<div class="flex items-center gap-space-xs">
+<button class="relative px-space-lg py-2 rounded-full font-title-md text-title-md transition-all duration-300 bg-primary-container text-on-primary-container shadow-[0_4px_16px_rgba(217,138,86,0.3)] cursor-pointer" id="yearlyTabBtn" onclick="switchBillingCycle('yearly')" type="button">
+              Yearly Pass
+            </button>
+<span class="inline-flex items-center gap-1 mr-1 px-space-sm py-1 rounded-full bg-secondary-container text-secondary font-label-sm text-label-sm uppercase font-semibold">
+<span class="material-symbols-outlined text-[13px]">local_fire_department</span> Save 17%
+            </span>
+</div>
+</div>
+</div>
+<!-- Pricing Dual Tier Cards -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-gutter items-stretch mb-space-xl">
+<!-- Monthly Plan Card -->
+<div class="flex flex-col justify-between p-space-lg lg:p-space-xl rounded-[18px] bg-surface-container/70 backdrop-blur-xl transition-all duration-300 hover:bg-surface-container-high/80 relative shadow-[0_16px_36px_rgba(0,0,0,0.35)]">
+<div>
+<div class="flex items-center justify-between gap-space-sm mb-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Flexible Access</span>
+<span class="material-symbols-outlined text-outline text-[22px]">restaurant_menu</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Monthly Pass</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">Full access calibrated for seasonal learners and culinary connoisseurs on the go.</p>
+<div class="flex items-baseline gap-space-xs pb-space-md">
+<span class="font-display-lg text-display-lg text-on-surface font-headline-xl leading-none">$10</span>
+<span class="font-body-md text-body-md text-outline">/ month</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mb-space-lg">Billed monthly. Cancel anytime.</p>
+<div class="h-[1px] w-full bg-surface-variant/40 mb-space-lg"></div>
+<ul class="flex flex-col gap-space-md mb-space-xl">
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Access all 50+ premium recipes</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Access all premium cooking tips &amp; secret formulas</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Full search across the entire master catalog</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Post your own original recipes and tips to the community</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Full participation in monthly contests with artisanal prizes</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Priority site and recipe feedback channel</span>
+</li>
+</ul>
+</div>
+<a class="w-full inline-flex items-center justify-center py-space-sm px-space-lg rounded-full bg-transparent hover:bg-surface-variant text-on-surface font-title-md text-title-md transition-all shadow-[inset_0_0_0_1px_rgba(246,239,227,0.3)] hover:shadow-[inset_0_0_0_1px_rgba(246,239,227,0.8)]" data-path="join-now---registration-&amp;-membership---jamesthew.com" href="#">
+            Join Monthly
+          </a>
+</div>
+<!-- Yearly Plan Card (Featured) -->
+<div class="relative flex flex-col justify-between p-space-lg lg:p-space-xl rounded-[18px] bg-surface-container-high/90 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(217,138,86,0.18)]">
+<!-- Ambient Halo Top Badge -->
+<div class="absolute -top-3.5 right-6 px-space-md py-1 rounded-full bg-gradient-to-r from-primary-container to-surface-tint text-surface-container-lowest font-label-sm text-label-sm font-bold uppercase tracking-wider shadow-[0_4px_16px_rgba(217,138,86,0.4)] flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">military_tech</span>
+            Best Value — Save $20
+          </div>
+<div>
+<div class="flex items-center justify-between gap-space-sm mb-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container font-semibold">Executive Member</span>
+<span class="material-symbols-outlined text-primary-container text-[24px]">verified</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Yearly Pass</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">The gold standard master suite. Ideal for committed home cooks and hospitality aspirants.</p>
+<div class="flex items-baseline gap-space-xs pb-space-md">
+<span class="font-display-lg text-display-lg text-primary font-headline-xl leading-none">$100</span>
+<span class="font-body-md text-body-md text-outline">/ year</span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary font-medium mb-space-lg">Equivalent to $8.33/month. Billed annually.</p>
+<div class="h-[1px] w-full bg-surface-variant/70 mb-space-lg"></div>
+<ul class="flex flex-col gap-space-md mb-space-xl">
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Access all 50+ premium recipes</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Access all premium cooking tips &amp; secret formulas</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Full search across the entire master catalog</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Post your own original recipes and tips to the community</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Full participation in monthly contests with artisanal prizes</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Priority site and recipe feedback channel</span>
+</li>
+</ul>
+</div>
+<a class="w-full inline-flex items-center justify-center gap-space-xs py-space-sm px-space-lg rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_24px_rgba(217,138,86,0.38)] hover:bg-primary transition-all duration-200" data-path="join-now---registration-&amp;-membership---jamesthew.com" href="#">
+<span class="material-symbols-outlined text-[18px]">lock_open</span> Join Now (Annual)
+          </a>
+</div>
+</div>
+<!-- Feature Highlight / Culinary Atelier Banner -->
+<div class="w-full p-space-lg lg:p-space-xl rounded-[18px] bg-surface-container mb-space-xl flex flex-col md:flex-row items-center gap-space-lg">
+<div class="w-full md:w-1/3 h-52 rounded-xl overflow-hidden relative shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Dramatic overhead angle of a master chef hands plating a refined Michelin-starred dish in a moody copper and emerald toned kitchen with soft atmospheric steam and golden directional light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfC5MVwVLLHm5waNlU0n41KUqhFYANIq8ZM7Ob0YzBrZSwCcrOG01JNv-XXEdINVIsmAhSYi7xVHQoq03YHoiPkwrzfQ8NOxi4TfYdY6zoLCkQ-tXWw8tUZI3xqkNt0td8JcMFmH5BRKteHpzKcFDSs-GV8_iHdi6LCXsKZfsbes8Rc7g42lSujwga7ZiNdCtiIb5smCLEKIyLR5V_m5-AXCQAZUtamZKI_PXpMtYG43kp5VBJRiAQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<span class="absolute bottom-3 left-3 px-space-sm py-0.5 rounded-full bg-surface-container-highest/90 text-primary-container font-label-sm text-label-sm">Private Reserve</span>
+</div>
+<div class="w-full md:w-2/3 flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-secondary uppercase font-semibold">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+            Exclusive Technique Vault
+          </div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Curated by an Executive 5-Star Hotel Chef</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Every formula is tested across real brigade kitchens. With membership, gain access to culinary science insights, plating diagrams, and the secret spice ratios that elevated Chef James’s international career.
+          </p>
+<div class="flex flex-wrap gap-space-sm mt-space-xs">
+<span class="px-space-md py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">50+ Master Recipes</span>
+<span class="px-space-md py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Monthly Kitchen Challenges</span>
+<span class="px-space-md py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Chef Q&amp;A Feedback</span>
+</div>
+</div>
+</div>
+<!-- Comparison Matrix Table: Free Guest vs. Full Member -->
+<div class="w-full mb-space-xl">
+<div class="text-center max-w-xl mx-auto mb-space-lg">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">Detailed Breakdown</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mt-1">Free Guest vs. Full Member</h3>
+</div>
+<div class="w-full overflow-x-auto rounded-[18px] bg-surface-container/60 shadow-[0_12px_32px_rgba(0,0,0,0.3)]">
+<table class="w-full text-left border-collapse min-w-[640px]">
+<thead>
+<tr class="bg-surface-container-high/80 text-on-surface">
+<th class="py-space-md px-space-lg font-title-md text-title-md w-2/5">Feature &amp; Privileges</th>
+<th class="py-space-md px-space-md font-title-md text-title-md text-center w-3/10 text-on-surface-variant">Free Guest</th>
+<th class="py-space-md px-space-lg font-title-md text-title-md text-center w-3/10 text-primary-container bg-surface-container-highest/50">Full Member</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant/30 text-on-surface-variant font-body-sm text-body-sm">
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg text-on-surface font-medium">Free Recipes Access</td>
+<td class="py-space-md px-space-md text-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</td>
+<td class="py-space-md px-space-lg text-center text-primary-container bg-surface-container-highest/20">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg text-on-surface font-medium">Free Cooking Tips &amp; Fundamentals</td>
+<td class="py-space-md px-space-md text-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</td>
+<td class="py-space-md px-space-lg text-center text-primary-container bg-surface-container-highest/20">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg text-on-surface font-medium">Premium Recipes Vault (50+ Dishes)</td>
+<td class="py-space-md px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</td>
+<td class="py-space-md px-space-lg text-center text-primary-container bg-surface-container-highest/20">
+<span class="inline-flex items-center gap-1 font-label-md text-label-md px-2 py-0.5 rounded-full bg-primary-container/20 text-primary-container">
+<span class="material-symbols-outlined text-[14px]">lock_open</span> Unrestricted
+                  </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg text-on-surface font-medium">Premium Secret Tips &amp; Pro Formulas</td>
+<td class="py-space-md px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</td>
+<td class="py-space-md px-space-lg text-center text-primary-container bg-surface-container-highest/20">
+<span class="material-symbols-outlined text-[20px] text-primary-container">check</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg text-on-surface font-medium">Add &amp; Share Original Recipes / Tips</td>
+<td class="py-space-md px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</td>
+<td class="py-space-md px-space-lg text-center text-primary-container bg-surface-container-highest/20">
+<span class="material-symbols-outlined text-[20px] text-primary-container">check</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg text-on-surface font-medium">Monthly Contest Participation &amp; Prizes</td>
+<td class="py-space-md px-space-md text-center text-outline">
+<span class="font-label-sm text-label-sm text-outline">Spectator Only</span>
+</td>
+<td class="py-space-md px-space-lg text-center text-primary-container bg-surface-container-highest/20">
+<span class="inline-flex items-center gap-1 font-label-md text-label-md px-2 py-0.5 rounded-full bg-secondary-container/40 text-secondary">
+<span class="material-symbols-outlined text-[14px]">trophy</span> Full Entry Eligible
+                  </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-space-md px-space-lg text-on-surface font-medium">Member Badge &amp; Community Profile</td>
+<td class="py-space-md px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</td>
+<td class="py-space-md px-space-lg text-center text-primary-container bg-surface-container-highest/20">
+<span class="material-symbols-outlined text-[20px] text-primary-container">verified</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Subscription FAQ Accordion -->
+<div class="w-full max-w-4xl mb-space-xl">
+<div class="text-center mb-space-lg">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Assistance &amp; Clarity</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mt-1">Frequently Asked Questions</h3>
+</div>
+<div class="flex flex-col gap-space-sm" id="plansFaqContainer">
+<!-- FAQ 1 -->
+<div class="rounded-xl bg-surface-container/70 backdrop-blur-md overflow-hidden transition-all duration-200">
+<button class="w-full flex items-center justify-between p-space-md lg:p-space-lg text-left cursor-pointer hover:bg-surface-container-high/50 transition-colors" onclick="togglePlanFaq(this)" type="button">
+<span class="font-title-md text-title-md text-on-surface">Can I switch between monthly and yearly billing?</span>
+<span class="material-symbols-outlined text-outline transition-transform duration-200 faq-icon text-[20px]">expand_more</span>
+</button>
+<div class="faq-content hidden px-space-md lg:px-space-lg pb-space-lg text-on-surface-variant font-body-md text-body-md leading-relaxed">
+              Yes, you can upgrade from monthly to yearly billing at any point from your membership account dashboard. Your remaining monthly credit will automatically be applied as a pro-rated deduction toward your annual pass.
+            </div>
+</div>
+<!-- FAQ 2 -->
+<div class="rounded-xl bg-surface-container/70 backdrop-blur-md overflow-hidden transition-all duration-200">
+<button class="w-full flex items-center justify-between p-space-md lg:p-space-lg text-left cursor-pointer hover:bg-surface-container-high/50 transition-colors" onclick="togglePlanFaq(this)" type="button">
+<span class="font-title-md text-title-md text-on-surface">What payment methods are supported?</span>
+<span class="material-symbols-outlined text-outline transition-transform duration-200 faq-icon text-[20px]">expand_more</span>
+</button>
+<div class="faq-content hidden px-space-md lg:px-space-lg pb-space-lg text-on-surface-variant font-body-md text-body-md leading-relaxed">
+              We process all major international credit and debit cards, including Visa, MasterCard, and American Express through encrypted banking gateways. All transactions are securely audited for immediate account activation.
+            </div>
+</div>
+<!-- FAQ 3 -->
+<div class="rounded-xl bg-surface-container/70 backdrop-blur-md overflow-hidden transition-all duration-200">
+<button class="w-full flex items-center justify-between p-space-md lg:p-space-lg text-left cursor-pointer hover:bg-surface-container-high/50 transition-colors" onclick="togglePlanFaq(this)" type="button">
+<span class="font-title-md text-title-md text-on-surface">How does contest eligibility work for members?</span>
+<span class="material-symbols-outlined text-outline transition-transform duration-200 faq-icon text-[20px]">expand_more</span>
+</button>
+<div class="faq-content hidden px-space-md lg:px-space-lg pb-space-lg text-on-surface-variant font-body-md text-body-md leading-relaxed">
+              Active Monthly and Yearly members hold full voting and submission rights. You can enter our monthly culinary cook-offs by submitting your plated creations, technique journals, and original recipe cards for Chef James’s direct critique and community scoring.
+            </div>
+</div>
+<!-- FAQ 4 -->
+<div class="rounded-xl bg-surface-container/70 backdrop-blur-md overflow-hidden transition-all duration-200">
+<button class="w-full flex items-center justify-between p-space-md lg:p-space-lg text-left cursor-pointer hover:bg-surface-container-high/50 transition-colors" onclick="togglePlanFaq(this)" type="button">
+<span class="font-title-md text-title-md text-on-surface">Can I cancel my membership at any time?</span>
+<span class="material-symbols-outlined text-outline transition-transform duration-200 faq-icon text-[20px]">expand_more</span>
+</button>
+<div class="faq-content hidden px-space-md lg:px-space-lg pb-space-lg text-on-surface-variant font-body-md text-body-md leading-relaxed">
+              Absolutely. There are no lock-in contracts. You may cancel renewal with a single click inside your membership settings. You will maintain full unrestricted access to recipes, tips, and contest submissions until the end of your prepaid billing period.
+            </div>
+</div>
+</div>
+</div>
+<!-- Trust Assurance Footer Callout -->
+<div class="w-full max-w-2xl text-center py-space-lg flex flex-col items-center gap-space-xs">
+<div class="flex items-center gap-space-md text-outline font-label-sm text-label-sm">
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-secondary">encrypted</span> 256-Bit SSL Secured</span>
+<span>•</span>
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-secondary">instant_mix</span> Instant Access</span>
+<span>•</span>
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-secondary">cancel</span> No Questions Cancel</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-space-xs">
+          Questions before subscribing? Visit our <a class="text-primary-container hover:underline" data-path="contact-us---help---jamesthew.com" href="#">Help &amp; Contact Desk</a>.
+        </p>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript for Plan Toggle & FAQs -->
+<script>
+    function togglePlanFaq(button) {
+      const parent = button.parentElement;
+      const content = parent.querySelector('.faq-content');
+      const icon = button.querySelector('.faq-icon');
+      const isHidden = content.classList.contains('hidden');
+
+      // Close other accordions for clean single open behavior
+      document.querySelectorAll('#plansFaqContainer .faq-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+      document.querySelectorAll('#plansFaqContainer .faq-icon').forEach(ic => {
+        ic.style.transform = 'rotate(0deg)';
+      });
+
+      if (isHidden) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    function switchBillingCycle(cycle) {
+      const monthlyBtn = document.getElementById('monthlyTabBtn');
+      const yearlyBtn = document.getElementById('yearlyTabBtn');
+
+      if (cycle === 'monthly') {
+        monthlyBtn.className = 'px-space-lg py-2 rounded-full font-title-md text-title-md transition-all duration-300 bg-primary-container text-on-primary-container shadow-[0_4px_16px_rgba(217,138,86,0.3)] cursor-pointer';
+        yearlyBtn.className = 'relative px-space-lg py-2 rounded-full font-title-md text-title-md transition-all duration-300 text-on-surface-variant bg-transparent cursor-pointer';
+      } else {
+        yearlyBtn.className = 'relative px-space-lg py-2 rounded-full font-title-md text-title-md transition-all duration-300 bg-primary-container text-on-primary-container shadow-[0_4px_16px_rgba(217,138,86,0.3)] cursor-pointer';
+        monthlyBtn.className = 'px-space-lg py-2 rounded-full font-title-md text-title-md transition-all duration-300 text-on-surface-variant bg-transparent cursor-pointer';
+      }
+    }
+  </script>
+</div>

@@ -1,0 +1,202 @@
+@{
+    ViewData["Title"] = "Entries & Winners";
+}
+
+<div class="flex flex-col w-full text-on-surface">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-space-xl gap-space-md">
+<div>
+<span class="text-label-sm text-primary tracking-wider uppercase">Culinary Competition Management</span>
+<h1 class="text-headline-xl font-headline-xl text-on-surface mt-1">Entries & Winners</h1>
+</div>
+<div class="flex items-center gap-space-md w-full md:w-auto">
+<div class="relative w-full md:w-80">
+<select class="w-full bg-[#12362F] text-on-surface text-body-md rounded-xl px-space-md py-3 appearance-none border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer">
+<option>Autumn Truffle & Wild Mushroom Showdown (Active)</option>
+<option>Heritage Heirloom Tomato Masterclass (Closed)</option>
+<option>Artisanal Sourdough & Fermentation Cup (Upcoming)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="text-title-md font-headline text-on-surface">Submitted Entries (24)</span>
+<div class="flex items-center gap-space-sm text-body-sm text-on-surface-variant">
+<span>Sort by:</span>
+<button class="text-primary font-medium hover:underline">Newest</button>
+</div>
+</div>
+<div class="flex flex-col gap-space-md">
+<div class="bg-[#12362F]/75 backdrop-blur-md rounded-xl p-space-lg border border-[#F6EFE3]/10 relative group hover:border-primary/40 transition-all">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-0.5 text-label-sm bg-primary-container/20 text-primary border border-primary/40 rounded-full">Recipe</span>
+<span class="text-body-sm text-on-surface-variant">Submitted Oct 24, 2023</span>
+</div>
+<label class="flex items-center gap-space-xs cursor-pointer bg-surface-container-high px-3 py-1.5 rounded-full border border-outline-variant/30 hover:border-primary transition-all">
+<input class="accent-primary w-4 h-4" name="winner_selection" type="radio"/>
+<span class="text-label-md text-on-surface">Select as Winner</span>
+</label>
+</div>
+<h3 class="text-headline-sm font-headline text-on-surface mb-space-xs">Pan-Seared Duck Breast with Blackberry Reduction</h3>
+<div class="flex items-center gap-space-sm mb-space-md">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of an enthusiastic home cook smiling in a warm kitchen holding a plate of gourmet food." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsXIe9DJ2jjVG1VJwHHYlvUV34wDVHiGWGqjZ7ORHKPT2W3jTjU2_X9KaBo5G3kHjsmw_cQjKyFiLHTNudjM4ePJoAplD116H2YXmqBQgB90ljAXQGPfwsgQW2K2OGrApV73IDJKL0qISXuVeOK7q6QAE6wgSCsqR1LkgLiP-CqQj6KwJbE5PTXS1os8MLzRx4jPQ5F3qXbhDuDUOXPqdJmQaaleGPWjA5HQMp1uqqrqDf-YIqbfrU"/>
+<span class="text-body-sm font-medium text-on-surface">Clara Oswald</span>
+<span class="px-2 py-0.5 text-label-sm bg-[#5DBB8A]/15 text-[#5DBB8A] border border-[#5DBB8A]/30 rounded-full">Member</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl mb-space-md text-body-sm text-on-surface-variant">
+<p class="font-medium text-on-surface mb-1">Key Ingredients Preview:</p>
+<p class="line-clamp-2">Free-range duck breast, fresh blackberries, aged balsamic vinegar, shallots, rosemary sprigs, unsalted butter, microgreens.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#F6EFE3]/10">
+<button class="text-body-sm text-primary font-medium hover:underline flex items-center gap-1" onclick="togglePreview(this)">
+<span>View Full Entry</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-body-sm font-medium">4.9 (42 votes)</span>
+</div>
+</div>
+</div>
+<div class="bg-[#12362F]/75 backdrop-blur-md rounded-xl p-space-lg border border-[#F6EFE3]/10 relative group hover:border-primary/40 transition-all">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-0.5 text-label-sm bg-tertiary-container/20 text-tertiary border border-tertiary/40 rounded-full">Tip</span>
+<span class="text-body-sm text-on-surface-variant">Submitted Oct 25, 2023</span>
+</div>
+<label class="flex items-center gap-space-xs cursor-pointer bg-surface-container-high px-3 py-1.5 rounded-full border border-outline-variant/30 hover:border-primary transition-all">
+<input checked="" class="accent-primary w-4 h-4" name="winner_selection" type="radio"/>
+<span class="text-label-md text-on-surface">Select as Winner</span>
+</label>
+</div>
+<h3 class="text-headline-sm font-headline text-on-surface mb-space-xs">The Secret to Mirror-Glazed Chocolate Ganache</h3>
+<div class="flex items-center gap-space-sm mb-space-md">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a passionate culinary enthusiast wearing an apron in a sunlit kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvhK-61y0Y5UViG59JdsG6NFnQ9ndQAcSSy5aWZxdBtarxwFg9AOyK-WQo8HHn5rQoF_AJqLKcB6OkkQL5OC14b_iiI3jkEnp8fR9_jaeiKbZsRVYvfBMamnaPlPKG_liixolrq_H99euuR6ZmD4CLVkhdj0Qgvy5gQzebic17wc9X8atZaKTy_M1cGkWGH1--yFqfxDQXb1MYuLNftqdd5RcKOyt9SEQd6nhSi-9gqWKiygV73dh4"/>
+<span class="text-body-sm font-medium text-on-surface">Marcus Vance</span>
+<span class="px-2 py-0.5 text-label-sm bg-[#7F9990]/15 text-[#7F9990] border border-[#7F9990]/30 rounded-full">Guest</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl mb-space-md text-body-sm text-on-surface-variant">
+<p class="font-medium text-on-surface mb-1">Key Procedure Preview:</p>
+<p class="line-clamp-2">Always strain your warm ganache through a fine-mesh sieve twice before application to eliminate micro-bubbles and achieve absolute gloss.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#F6EFE3]/10">
+<button class="text-body-sm text-primary font-medium hover:underline flex items-center gap-1" onclick="togglePreview(this)">
+<span>View Full Entry</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-body-sm font-medium">4.8 (38 votes)</span>
+</div>
+</div>
+</div>
+<div class="bg-[#12362F]/75 backdrop-blur-md rounded-xl p-space-lg border border-[#F6EFE3]/10 relative group hover:border-primary/40 transition-all">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-0.5 text-label-sm bg-primary-container/20 text-primary border border-primary/40 rounded-full">Recipe</span>
+<span class="text-body-sm text-on-surface-variant">Submitted Oct 26, 2023</span>
+</div>
+<label class="flex items-center gap-space-xs cursor-pointer bg-surface-container-high px-3 py-1.5 rounded-full border border-outline-variant/30 hover:border-primary transition-all">
+<input class="accent-primary w-4 h-4" name="winner_selection" type="radio"/>
+<span class="text-label-md text-on-surface">Select as Winner</span>
+</label>
+</div>
+<h3 class="text-headline-sm font-headline text-on-surface mb-space-xs">Truffle Infused Risotto with Wild Porcini</h3>
+<div class="flex items-center gap-space-sm mb-space-md">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a young culinary student focused on plating a fine dining dish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZLzSFse7Bu3Uayaoi5WlSfOvkitT3kzkCtTFw5ztJvWlFa1gNo6ycV6dYg5H60xQCZIlWVp-DeQf58TECJP7j6QgtDmo_0YvZn12LRms_qdqo3PoHKvKFDVcpzKVQz37nH7paeo2bTShta1AhQrZ0RdVRfr40646VPLDz1rBLvZPaloBy4hdwQq2O9CKskV2IVy0AJppdF3kY-cI5BSueGFWrjS-y2wqW3E0rSZO5tQf9QeRFIDCr"/>
+<span class="text-body-sm font-medium text-on-surface">Elena Rostova</span>
+<span class="px-2 py-0.5 text-label-sm bg-[#5DBB8A]/15 text-[#5DBB8A] border border-[#5DBB8A]/30 rounded-full">Member</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl mb-space-md text-body-sm text-on-surface-variant">
+<p class="font-medium text-on-surface mb-1">Key Ingredients Preview:</p>
+<p class="line-clamp-2">Arborio rice, fresh porcini mushrooms, black truffle oil, Parmigiano-Reggiano 24-month, shallots, dry white wine, vegetable stock.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-[#F6EFE3]/10">
+<button class="text-body-sm text-primary font-medium hover:underline flex items-center gap-1" onclick="togglePreview(this)">
+<span>View Full Entry</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-body-sm font-medium">4.7 (29 votes)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="xl:col-span-5 sticky top-24">
+<div class="bg-[#12362F] backdrop-blur-xl rounded-2xl p-space-lg border border-[#F6EFE3]/15 shadow-2xl relative overflow-hidden">
+<div class="absolute -right-16 -top-16 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-md">
+<h2 class="text-headline-sm font-headline text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">trophy</span>
+            Announce Winner Panel
+          </h2>
+<span class="px-2 py-0.5 text-label-sm bg-primary/20 text-primary rounded-full border border-primary/30">Ready to Publish</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl mb-space-md border border-[#F6EFE3]/10">
+<span class="text-label-sm text-primary block uppercase tracking-wider mb-1">Selected Winner</span>
+<h4 class="text-title-md font-headline text-on-surface">The Secret to Mirror-Glazed Chocolate Ganache</h4>
+<p class="text-body-sm text-on-surface-variant mt-1">Submitted by Marcus Vance (Guest)</p>
+</div>
+<div class="mb-space-md">
+<label class="block text-label-md text-on-surface mb-space-xs">Chef James's Commendation Note</label>
+<textarea class="w-full bg-[#0A211E] text-on-surface text-body-sm rounded-xl p-space-md border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none" placeholder="Write a personal note praising this winning entry..." rows="4">Marcus demonstrated exceptional technique here. The attention to temperature control and the patience to strain twice elevates a home kitchen standard to pastry-shop excellence. Bravo!</textarea>
+</div>
+<div class="mb-space-lg">
+<span class="block text-label-md text-on-surface mb-space-xs">Live Announcement Card Preview</span>
+<div class="bg-[#0A211E] rounded-xl p-space-md border border-primary/30 shadow-inner relative">
+<div class="absolute top-3 right-3 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="text-label-sm text-primary uppercase font-bold tracking-widest">Official Champion</span>
+<h5 class="text-title-lg font-headline text-on-surface mt-1">The Secret to Mirror-Glazed Chocolate Ganache</h5>
+<p class="text-body-sm text-on-surface-variant mt-2 italic">“Marcus demonstrated exceptional technique here. The attention to temperature control and the patience to strain twice elevates a home kitchen standard...”</p>
+<div class="mt-space-sm pt-2 border-t border-[#F6EFE3]/10 flex items-center justify-between text-body-sm text-on-surface-variant">
+<span>By Marcus Vance</span>
+<span class="text-primary font-medium">Autumn Showdown 2023</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3.5 px-space-lg bg-primary text-[#0A211E] font-title-lg text-title-md rounded-full hover:bg-[#E8A173] transition-all shadow-[0_4px_20px_rgba(217,138,86,0.3)] flex items-center justify-center gap-space-sm cursor-pointer" onclick="publishAnnouncement()">
+<span class="material-symbols-outlined">campaign</span>
+          Publish Winner Announcement
+        </button>
+</div>
+</div>
+</div>
+<div class="fixed bottom-6 right-6 bg-[#0A211E] text-on-surface px-space-lg py-space-md rounded-xl border border-primary/40 shadow-2xl flex items-center gap-space-md translate-y-24 opacity-0 transition-all duration-300 z-50" id="toast">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<p class="text-title-md font-headline">Winner Announcement Published!</p>
+<p class="text-body-sm text-on-surface-variant">Notifications have been dispatched to all members.</p>
+</div>
+</div>
+<script>
+    function togglePreview(btn) {
+      const card = btn.closest('.bg-\\[\\#12362F\\]');
+      let fullContent = card.querySelector('.full-content');
+      if (!fullContent) {
+        fullContent = document.createElement('div');
+        fullContent.className = 'full-content mt-space-md pt-space-md border-t border-[#F6EFE3]/10 text-body-sm text-on-surface space-y-2 animate-fadeIn';
+        fullContent.innerHTML = '<p class="font-medium text-primary">Complete Entry Details:</p><p>1. Prepare all mise en place carefully ensuring exact thermal thresholds.<br>2. Whisk gently without incorporating air.<br>3. Strain twice through a fine mesh.</p>';
+        card.querySelector('.bg-surface-container-low').after(fullContent);
+        btn.querySelector('span:first-child').textContent = 'Hide Full Entry';
+      } else {
+        fullContent.remove();
+        btn.querySelector('span:first-child').textContent = 'View Full Entry';
+      }
+    }
+
+    function publishAnnouncement() {
+      const toast = document.getElementById('toast');
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 4000);
+    }
+  </script>
+</div>

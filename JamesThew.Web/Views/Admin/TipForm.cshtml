@@ -1,0 +1,125 @@
+@{
+    ViewData["Title"] = "Add Tip";
+}
+
+<div class="flex flex-col w-full max-w-5xl mx-auto space-y-space-xl pb-space-xl">
+<!-- Top Bar / Header context -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 text-label-sm font-label-sm uppercase bg-primary-container/20 text-primary rounded-full">Culinary Knowledge</span>
+<span class="text-on-surface-variant font-body-sm">•</span>
+<span class="text-on-surface-variant font-body-sm">Admin Publishing Suite</span>
+</div>
+<h1 class="font-headline-xl text-on-surface">Craft Master Tip</h1>
+<p class="font-body-md text-on-surface-variant max-w-xl">Share kitchen wisdom, techniques, and secret curation notes with the James Thew community. Formatted with Michelin-grade precision.</p>
+</div>
+<div class="flex items-center gap-space-md">
+<button class="px-space-md py-space-sm rounded-full font-label-md text-on-surface hover:bg-surface-container-high transition-all border border-outline-variant/30" type="button">
+        Save as Draft
+      </button>
+<button class="px-space-lg py-space-sm rounded-full font-label-md bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-[0_4px_20px_rgba(217,138,86,0.25)] flex items-center gap-2" form="tip-form" type="submit">
+<span class="material-symbols-outlined text-sm">publish</span>
+        Publish Tip
+      </button>
+</div>
+</div>
+<!-- Main Form Card Container -->
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start" id="tip-form" onsubmit="event.preventDefault(); alert('Tip successfully published!');">
+<!-- Left Column: Main Metadata & Description (8 cols) -->
+<div class="lg:col-span-8 space-y-space-lg bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl">
+<!-- Title Input -->
+<div class="space-y-space-xs">
+<label class="block font-label-md text-on-surface" for="tip-title">Tip Title <span class="text-primary">*</span></label>
+<p class="font-body-sm text-on-surface-variant">A compelling title summarizing the technique or secret.</p>
+<input class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="tip-title" placeholder="e.g., The Secret to Achieving Perfect Glaze Emulsification" required="" type="text"/>
+</div>
+<!-- Category & Difficulty Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="space-y-space-xs">
+<label class="block font-label-md text-on-surface" for="tip-category">Category <span class="text-primary">*</span></label>
+<select class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="tip-category">
+<option value="knife-skills">Knife Skills & Prep</option>
+<option value="sauces">Sauces & Emulsions</option>
+<option value="baking">Baking & Pastry</option>
+<option value="heat">Heat Control & Searing</option>
+<option value="plating">Plating & Aesthetics</option>
+</select>
+</div>
+<div class="space-y-space-xs">
+<label class="block font-label-md text-on-surface" for="tip-time">Estimated Read / Practice Time</label>
+<input class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="tip-time" placeholder="e.g., 4 mins read" type="text"/>
+</div>
+</div>
+<!-- Description / Body -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<label class="block font-label-md text-on-surface" for="tip-description">Description & Instructions <span class="text-primary">*</span></label>
+<span class="text-label-sm text-on-surface-variant">Markdown & HTML supported</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Provide step-by-step guidance, scientific explanations, or chef's notes.</p>
+<textarea class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl p-space-md border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-y" id="tip-description" placeholder="Detail the steps clearly. Mention temperatures, tools, and common pitfalls..." required="" rows="7"></textarea>
+</div>
+</div>
+<!-- Right Column: Access Type & Image Upload (4 cols) -->
+<div class="lg:col-span-4 space-y-space-lg">
+<!-- Access Type Cards Container -->
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl space-y-space-md">
+<div class="space-y-space-xs">
+<h2 class="font-title-md text-on-surface">Access Tier</h2>
+<p class="font-body-sm text-on-surface-variant">Select who can view this tip content.</p>
+</div>
+<div class="grid grid-cols-1 gap-space-sm">
+<!-- Free Radio Card -->
+<label class="relative flex items-start p-space-md rounded-xl bg-[#0A211E] border border-outline-variant/30 hover:border-primary/50 cursor-pointer transition-all group">
+<input checked="" class="mt-1 text-primary focus:ring-primary accent-[#D98A56]" name="access_type" type="radio" value="free"/>
+<div class="ml-space-md flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-on-surface group-hover:text-primary transition-colors">Free Access</span>
+<span class="px-2 py-0.5 text-label-sm bg-secondary/15 text-secondary border border-secondary/30 rounded-full">Public</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">Available to all registered and guest members exploring James Thew kitchen insights.</p>
+</div>
+</label>
+<!-- Premium Radio Card -->
+<label class="relative flex items-start p-space-md rounded-xl bg-[#0A211E] border border-outline-variant/30 hover:border-primary/50 cursor-pointer transition-all group">
+<input class="mt-1 text-primary focus:ring-primary accent-[#D98A56]" name="access_type" type="radio" value="premium"/>
+<div class="ml-space-md flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-on-surface group-hover:text-primary transition-colors">Premium Masterclass</span>
+<span class="px-2 py-0.5 text-label-sm bg-primary/15 text-primary border border-primary/40 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">workspace_premium</span>
+                  VIP
+                </span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">Exclusive to subscribers and contest winners unlocking high-tier culinary secrets.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Optional Image Upload Container -->
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl space-y-space-md">
+<div class="space-y-space-xs">
+<h2 class="font-title-md text-on-surface">Featured Image</h2>
+<p class="font-body-sm text-on-surface-variant">Optional visual asset to accompany the tip.</p>
+</div>
+<div class="border-2 border-dashed border-outline-variant/40 hover:border-primary/60 rounded-xl p-space-lg text-center bg-[#0A211E]/50 transition-all cursor-pointer group flex flex-col items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-space-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">add_photo_alternate</span>
+</div>
+<span class="font-label-md text-on-surface">Click to upload image</span>
+<span class="font-body-sm text-on-surface-variant mt-1">PNG, JPG, WEBP up to 10MB</span>
+</div>
+</div>
+<!-- Bottom Form Actions -->
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<a class="px-space-md py-2.5 rounded-full font-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+          Cancel
+        </a>
+<button class="px-space-lg py-2.5 rounded-full font-label-md bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-[0_4px_20px_rgba(217,138,86,0.25)] flex items-center gap-2" type="submit">
+<span>Publish Tip</span>
+</button>
+</div>
+</div>
+</form>
+</div>

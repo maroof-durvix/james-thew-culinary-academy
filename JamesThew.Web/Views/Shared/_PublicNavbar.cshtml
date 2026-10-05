@@ -57,8 +57,32 @@
                 </li>
             </ul>
             <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                <a href="/Account/Login" class="btn btn-outline-light border-0 px-3">Log In</a>
-                <a href="/Account/Join" class="btn btn-primary rounded-pill px-4 shadow-sm text-bg fw-semibold">Join Now</a>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle text-cream d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="material-symbols-outlined fs-3">account_circle</span>
+                            <span>@User.Identity?.Name</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark bg-surface border-secondary">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><a class="dropdown-item" href="/Admin/Dashboard">Admin Dashboard</a></li>
+                            }
+                            else
+                            {
+                                <li><a class="dropdown-item" href="/Dashboard/Index">Member Dashboard</a></li>
+                            }
+                            <li><hr class="dropdown-divider border-secondary"></li>
+                            <li><a class="dropdown-item text-danger" href="/Account/Logout">Logout</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="btn btn-outline-light border-0 px-3">Log In</a>
+                    <a href="/Account/Register" class="btn btn-primary rounded-pill px-4 shadow-sm text-bg fw-semibold">Join Now</a>
+                }
             </div>
         </div>
     </div>

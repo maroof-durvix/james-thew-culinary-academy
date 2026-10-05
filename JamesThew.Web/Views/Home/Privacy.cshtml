@@ -1,6 +1,358 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+@{
+    ViewData["Title"] = "Privacy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow Orbs -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-secondary/5 blur-[120px] pointer-events-none"></div>
+<div class="absolute top-1/3 -right-48 w-[500px] h-[500px] rounded-full bg-primary-container/5 blur-[140px] pointer-events-none"></div>
+<div class="w-full px-margin-mobile lg:px-margin py-space-xl">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs text-on-surface-variant mb-space-md">
+<a class="font-label-sm text-label-sm uppercase tracking-wider text-outline hover:text-primary transition-colors" data-path="home" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Terms &amp; Privacy</span>
+</nav>
+<!-- Page Header -->
+<header class="flex flex-col gap-space-sm mb-space-xl max-w-4xl">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container-highest w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Legal Governance</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Terms of Service &amp; Privacy Policy</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Last updated: March 1, 2026 • Governing your engagement with Chef James Thew's digital culinary platform.</p>
+</header>
+<!-- Main Two-Column Structure -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Sticky Table of Contents -->
+<aside class="lg:col-span-4 sticky top-28 z-20">
+<div class="bg-surface-container/85 backdrop-blur-xl rounded-[18px] p-space-lg shadow-xl shadow-surface-container-lowest/50">
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-surface-container-highest">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary">Table of Contents</span>
+<span class="material-symbols-outlined text-outline text-[18px]">menu_book</span>
+</div>
+<!-- Jump Links -->
+<div class="space-y-space-md max-h-[calc(100vh-14rem)] overflow-y-auto pr-1">
+<div>
+<p class="font-label-sm text-label-sm uppercase text-outline mb-space-xs px-space-xs">Part I • Terms of Service</p>
+<ul class="space-y-1">
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-1">
+<span class="truncate">1. Acceptance of Terms</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-2">
+<span class="truncate">2. Membership &amp; Billing</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-3">
+<span class="truncate">3. Community &amp; IP Rights</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-4">
+<span class="truncate">4. Contest Rules &amp; Eligibility</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-5">
+<span class="truncate">5. Termination &amp; Cancellation</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+</ul>
+</div>
+<div>
+<p class="font-label-sm text-label-sm uppercase text-outline mb-space-xs px-space-xs pt-space-xs border-t border-surface-container-highest">Part II • Privacy Policy</p>
+<ul class="space-y-1">
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-6">
+<span class="truncate">6. Information We Collect</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-7">
+<span class="truncate">7. Use of Personal Information</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-8">
+<span class="truncate">8. Cookies &amp; Storage</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="toc-link block px-space-sm py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center justify-between group" href="#section-9">
+<span class="truncate">9. Contact Information</span>
+<span class="material-symbols-outlined text-[14px] text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- Quick Inquiry Box -->
+<div class="mt-space-lg p-space-md rounded-xl bg-surface-container-high/80">
+<div class="flex items-center gap-space-xs text-primary mb-1">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-title-md text-title-md">Culinary Compliance</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Questions regarding our provisions or culinary license? Reach our executive desk.</p>
+<div class="mt-space-sm">
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#section-9">
+<span>Inquire with Concierge</span>
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Column: Structured Legal Documentation -->
+<main class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Section 1 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-1">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Section 01</span>
+<span class="material-symbols-outlined text-outline text-[20px]">handshake</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">1. Acceptance of Terms</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                By accessing, browsing, or utilizing the services provided by <strong class="text-on-surface font-medium">JamesThew.com</strong>, including digital masterclasses, haute cuisine recipe repertoires, culinary tricks, and gastronomic competitions, you unconditionally consent to comply with and be legally governed by these Terms of Service.
+              </p>
+<p>
+                If you do not accept these regulations in their entirety, you must discontinue your journey across our platform. These terms form an irrevocable mutual agreement between you and the culinary brand managed by Executive Chef James Thew.
+              </p>
+<div class="p-space-md rounded-xl bg-surface-container-highest/60 flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary shrink-0 mt-0.5">info</span>
+<span class="font-body-sm text-body-sm text-secondary">
+                  Your continual use affirms that you are of minimum legal adulthood within your jurisdiction and hold total accountability for adherence to all regional and international regulations.
+                </span>
+</div>
+</div>
+</article>
+<!-- Section 2 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-2">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Section 02</span>
+<span class="material-symbols-outlined text-outline text-[20px]">credit_card</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">2. Membership &amp; Subscription Billing</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                JamesThew.com offers specialized subscription tiers granting exclusive access to proprietary recipes, advanced sous-vide workflows, and direct technical consultations with Chef James.
+              </p>
+<!-- Plan Summary Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md my-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-high/80">
+<span class="font-label-sm text-label-sm uppercase text-primary font-semibold">Executive Monthly</span>
+<div class="font-headline-md text-headline-md text-on-surface my-1">$10 <span class="font-body-sm text-body-sm text-outline">/ month</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Full access to premier recipe indexes, technique archives, and monthly Q&amp;A sessions.</p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-high/80">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-semibold">Patron Annual</span>
+<div class="font-headline-md text-headline-md text-on-surface my-1">$100 <span class="font-body-sm text-body-sm text-outline">/ year</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Preferred enrollment in weekend cookery ateliers, digital books, and prioritized adjudication.</p>
+</div>
+</div>
+<p>
+<strong class="text-on-surface font-medium">Demonstration &amp; Testing Notice:</strong> Certain transactions and checkout steps simulated during preview deployments represent operational demonstration tiers. Registered recurring amounts automatically post on their scheduled anniversaries unless formally terminated through your subscriber suite prior to the renewal cycle.
+              </p>
+<p>
+                All fees are billed in USD. Prorated refunds are not extended for mid-cycle cancellations; your culinary credentials remain wholly active until the period closes.
+              </p>
+</div>
+</article>
+<!-- Section 3 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-3">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Section 03</span>
+<span class="material-symbols-outlined text-outline text-[20px]">local_dining</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">3. Community Contributions &amp; Intellectual Property</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                The entirety of intellectual creations hosted on this platform—including proprietary marinades, technical plating diagrams, written recipes, culinary manuals, and video seminars—is the exclusive intellectual property of <strong class="text-on-surface font-medium">Chef James Thew</strong> protected under copyright conventions.
+              </p>
+<p>
+                Members participating in community exchanges, ingredient adaptations, or submission forums grant JamesThew.com a perpetual, worldwide, royalty-free license to archive, showcase, and promote said contributions throughout the digital culinary academy.
+              </p>
+<ul class="list-disc list-inside space-y-1 pl-space-xs text-body-sm">
+<li>Originality: All uploaded dish descriptions and secrets must represent your authentic gastronomic work.</li>
+<li>Commercial Prohibition: Platform materials may not be duplicated or repurposed for commercial kitchen ventures without prior written assent.</li>
+<li>Attribution: Chef James retains right of paternity across all educational assets created under the academy mantle.</li>
+</ul>
+</div>
+</article>
+<!-- Section 4 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-4">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Section 04</span>
+<span class="material-symbols-outlined text-outline text-[20px]">emoji_events</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">4. Contest Rules &amp; Eligibility</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                JamesThew.com conducts seasonal culinary competitions designed to elevate craftsmanship. Unless explicitly restricted in an announcement, contests remain open to both registered platform members and guest visitors who present authentic culinary works.
+              </p>
+<div class="p-space-md rounded-xl bg-surface-container-high/60 space-y-2">
+<div class="flex items-center gap-space-xs text-primary font-title-md">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+<span>Adjudication &amp; Standards</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  All recipe entries and sensory profiles undergo rigorous evaluation curated by Chef James Thew and guest Michelin-trained sous chefs. Adjudication decisions regarding flavor theory, textural harmony, aesthetic presentation, and historical fidelity are final and non-negotiable.
+                </p>
+</div>
+<p>
+                Winners are notified directly through registered digital channels. Trophies, culinary masterclasses, and honorary distinctions carry no substitutions or cash equivalencies.
+              </p>
+</div>
+</article>
+<!-- Section 5 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-5">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Section 05</span>
+<span class="material-symbols-outlined text-outline text-[20px]">do_not_disturb_on</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">5. Termination &amp; Cancellation</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                Subscribers may terminate their paid participation or general membership at any moment by navigating to their profile preferences. Upon confirmation, billing halts at the conclusion of your current subscription horizon.
+              </p>
+<p>
+                JamesThew.com holds unreserved authority to suspend, revoke, or permanently ban any account found violating culinary community guidelines, engaging in unsanctioned asset scraping, or exhibiting defamatory conduct toward members or the culinary brigade.
+              </p>
+</div>
+</article>
+<!-- Privacy Policy Header Separator -->
+<div class="pt-space-md pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="h-px bg-surface-container-highest flex-1"></div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Privacy Framework</span>
+<div class="h-px bg-surface-container-highest flex-1"></div>
+</div>
+</div>
+<!-- Section 6 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-6">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Section 06</span>
+<span class="material-symbols-outlined text-outline text-[20px]">database</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">6. Information We Collect</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                To provide bespoke culinary instruction and manage your platform privileges, we gather designated information upon your engagement:
+              </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm pt-space-xs">
+<div class="p-space-sm rounded-lg bg-surface-container-high/50 flex gap-space-xs items-start">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">badge</span>
+<div>
+<span class="font-title-md text-title-md text-on-surface block text-sm">Account Identity</span>
+<span class="font-body-sm text-body-sm text-outline">Name, verified email, and geographic locale.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-high/50 flex gap-space-xs items-start">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">restaurant_menu</span>
+<div>
+<span class="font-title-md text-title-md text-on-surface block text-sm">Gastronomic Profile</span>
+<span class="font-body-sm text-body-sm text-outline">Dietary inclinations, skill metrics, and saved tips.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-high/50 flex gap-space-xs items-start">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">rate_review</span>
+<div>
+<span class="font-title-md text-title-md text-on-surface block text-sm">Transmissions</span>
+<span class="font-body-sm text-body-sm text-outline">Feedback forms, critique requests, and support logs.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-high/50 flex gap-space-xs items-start">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">devices</span>
+<div>
+<span class="font-title-md text-title-md text-on-surface block text-sm">Technical Records</span>
+<span class="font-body-sm text-body-sm text-outline">Browser type, IP geolocation, and session telemetry.</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Section 7 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-7">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Section 07</span>
+<span class="material-symbols-outlined text-outline text-[20px]">manage_accounts</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">7. Use of Personal Information</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                The information entrusted to JamesThew.com serves explicit culinary and administrative objectives. We under no circumstances broker or monetize member data to third-party marketing entities.
+              </p>
+<ul class="list-disc list-inside space-y-1.5 pl-space-xs text-body-sm">
+<li><strong class="text-on-surface">Academy Correspondence:</strong> Dissemination of contest results, class curriculum schedules, and technique updates.</li>
+<li><strong class="text-on-surface">Inquiry Processing:</strong> Addressing direct requests regarding weekend workshops and culinary masterclasses.</li>
+<li><strong class="text-on-surface">Platform Integrity:</strong> Fraud interception, security audits, and verification of recipe copyright submissions.</li>
+</ul>
+</div>
+</article>
+<!-- Section 8 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-8">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Section 08</span>
+<span class="material-symbols-outlined text-outline text-[20px]">cookie</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">8. Cookies &amp; Storage</h2>
+<div class="space-y-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                We employ local storage identifiers and essential encrypted session tokens to sustain persistent access across sessions, remember ingredient metric preferences, and safeguard your active culinary workshop states.
+              </p>
+<div class="p-space-md rounded-xl bg-surface-container-highest/60 text-body-sm">
+<span class="text-on-surface font-medium">Session Disablement:</span> You hold the liberty to configure your browser parameters to decline cookies; doing so, however, may impede subscriber verification and access to exclusive recipe archives.
+              </div>
+</div>
+</article>
+<!-- Section 9 -->
+<article class="scroll-mt-28 bg-surface-container/70 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg shadow-surface-container-lowest/30" id="section-9">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Section 09</span>
+<span class="material-symbols-outlined text-outline text-[20px]">contact_mail</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-md">9. Contact Information</h2>
+<div class="space-y-space-md text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+                Should you require official clarifications regarding these Terms of Service or exercise statutory rights regarding your personal records, please address our legal compliance bureau:
+              </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md p-space-lg rounded-xl bg-surface-container-high/90">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">Digital Inquiries</span>
+<span class="font-title-md text-title-md text-on-surface select-all">contact@jamesthew.com</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]">location_on</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline block">Culinary Suite</span>
+<span class="font-title-md text-title-md text-on-surface">Culinary Suite, Karachi, Pakistan</span>
+</div>
+</div>
+</div>
+<div class="pt-space-xs text-center md:text-left">
+<p class="font-body-sm text-body-sm text-outline">
+                  Formal requests are acknowledged and reviewed by Chef James Thew's administrative team within three business days.
+                </p>
+</div>
+</div>
+</article>

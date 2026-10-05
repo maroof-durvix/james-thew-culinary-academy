@@ -1,8 +1,630 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="flex flex-col w-full">
+<!-- 1. HERO SECTION -->
+<section class="relative w-full -mt-20 pt-32 pb-24 px-margin-mobile lg:px-margin overflow-hidden flex flex-col justify-center min-h-[85vh]">
+<div class="absolute inset-0 bg-cover bg-center -z-20 transform scale-105" data-alt="A moody Michelin-star culinary kitchen sanctuary at twilight, illuminated by burnished copper cookware, shimmering emerald steam, deep pine-green stone surfaces, refined plating tweezers, and warm amber atmospheric glow with cinematic depth." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgobQ7mYg-maocmdboCj1IixhnlVDSJHJ9yvOnzStKsKbNhKl4TZjFEaKmoI5m-zaqhP-dUQz-5kZe1aTziVH6Um7St4_3-0tvws912fBt9N8uvAEgovlAZ2J7RV_sMLx5fpdkuyCvgEnrBzz7_u0d-X4sbiAL0z6V9uWizHyOL7meYHItQtjyAK_GzIedy0zb4YXVikV2A1kyJmdJeIsOEop9tzzw9OuRU5ooQrmQmGYjXai59Dl5')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-surface-container-lowest/80 -z-10"></div>
+<div class="absolute -top-32 right-10 w-96 h-96 rounded-full bg-primary/10 blur-[120px] pointer-events-none -z-10"></div>
+<div class="absolute bottom-10 left-10 w-80 h-80 rounded-full bg-secondary-container/20 blur-[100px] pointer-events-none -z-10"></div>
+<div class="max-w-4xl mx-auto text-center flex flex-col items-center gap-space-lg">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high/80 backdrop-blur-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Haute Cuisine Masterclasses</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight leading-tight max-w-4xl">
+        Master Culinary Arts with <span class="text-primary-container italic font-normal">5-Star Chef</span> James Thew
+      </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+        Specializing in Juices, Vegetarian, Non-Vegetarian &amp; Italian Cuisines. Elevate your palate with Michelin-grade technique, disciplined kitchencraft, and signature recipes from Karachi’s celebrated mentor.
+      </p>
+<div class="flex flex-wrap items-center justify-center gap-space-md pt-space-sm">
+<a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_20px_rgba(217,138,86,0.3)] hover:bg-primary hover:shadow-[0_6px_28px_rgba(217,138,86,0.5)] transition-all transform hover:-translate-y-0.5" data-path="subscription-plans" href="#">
+          Join Now ($10/mo)
+        </a>
+<a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-surface-container-highest/60 hover:bg-surface-container-highest text-on-surface font-title-md text-title-md backdrop-blur-md shadow-sm transition-all transform hover:-translate-y-0.5" data-path="free-recipes" href="#">
+          Browse Free Recipes
+        </a>
+</div>
+</div>
+</section>
+<!-- 2. STATS BAR -->
+<section class="w-full px-margin-mobile lg:px-margin -mt-10 z-10">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface-container/75 backdrop-blur-xl rounded-[18px] p-6 shadow-xl flex flex-col justify-between transition-all hover:bg-surface-container-high/80 group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary text-[28px]">menu_book</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Curated</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-primary font-serif font-normal">50+</div>
+<div class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors mt-1 font-medium">Signature Recipes</div>
+</div>
+</div>
+<div class="bg-surface-container/75 backdrop-blur-xl rounded-[18px] p-6 shadow-xl flex flex-col justify-between transition-all hover:bg-surface-container-high/80 group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary text-[28px]">groups</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Worldwide</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-primary font-serif font-normal">10,000+</div>
+<div class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors mt-1 font-medium">Happy Members</div>
+</div>
+</div>
+<div class="bg-surface-container/75 backdrop-blur-xl rounded-[18px] p-6 shadow-xl flex flex-col justify-between transition-all hover:bg-surface-container-high/80 group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary text-[28px]">emoji_events</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Compete</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-primary font-serif font-normal">Weekly</div>
+<div class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors mt-1 font-medium">Contests &amp; Prizes</div>
+</div>
+</div>
+<div class="bg-surface-container/75 backdrop-blur-xl rounded-[18px] p-6 shadow-xl flex flex-col justify-between transition-all hover:bg-surface-container-high/80 group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary text-[28px]">workspace_premium</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">In-Person</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-primary font-serif font-normal">Affordable</div>
+<div class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors mt-1 font-medium">Weekend Classes</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. MEET CHEF JAMES -->
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl my-8">
+<div class="bg-surface-container-low/90 rounded-[24px] p-space-md lg:p-space-xl shadow-2xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<!-- Portrait Left -->
+<div class="lg:col-span-5 relative">
+<div class="relative w-full aspect-square max-w-md mx-auto rounded-[18px] overflow-hidden shadow-2xl bg-surface-container-highest">
+<img alt="Professional portrait of Chef James Thew" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1NXOgFwLBQdCkrU4DHJ4Xphys-sOG4yzoJ9b74ltxFRCC-0zBE-7SUTGMYEiT4ROKiSFstiLS_pkSTYrrJsXdCNqYz7-3Ng8GrK-ZE1wIUVMegM8mc_cAEa4ifSUCJ1uLIvmXm37NMWgqqBgMbROQnUMuTMOdyzbHHV-_TwVKp0g6Y2BlxtIBvPksLF77fAnWZ__TjVPPrURY15XS75ihaLpYmNsjaUwSu3hzhky0b9EIUkbLRmSv"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+<span class="font-label-sm text-label-sm px-3 py-1 rounded-full bg-surface-container-highest/90 text-on-surface backdrop-blur-md">Karachi, PK</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[16px]">verified</span> 20+ Yrs Mastery
+              </span>
+</div>
+</div>
+</div>
+<!-- Editorial Bio Right -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<div class="inline-flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">restaurant_menu</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary">Executive Chef &amp; Mentor</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-serif">
+            Chef James Thew
+          </h2>
+<div class="space-y-4 text-on-surface-variant font-body-md text-body-md leading-relaxed">
+<p>
+              Distinguished 5-star hotel executive chef in Karachi, celebrated culinary author, and acclaimed national television cooking show host. Chef James has dedicated over two decades to elevating traditional culinary heritage through disciplined French brigade precision and authentic global flavors.
+            </p>
+<p>
+              Through this sanctuary, James dismantles the guarded secrets of fine dining, empowering home gourmands to produce restaurant-grade sauces, artisanal pastas, balanced cold infusions, and masterfully seared seafood without intimidation.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-space-sm pt-2">
+<div class="p-3 bg-surface-container-high/60 rounded-xl">
+<div class="font-headline-sm text-headline-sm text-primary font-serif">3</div>
+<div class="font-label-sm text-label-sm text-outline">Cookbooks</div>
+</div>
+<div class="p-3 bg-surface-container-high/60 rounded-xl">
+<div class="font-headline-sm text-headline-sm text-primary font-serif">5-Star</div>
+<div class="font-label-sm text-label-sm text-outline">Executive Helm</div>
+</div>
+<div class="p-3 bg-surface-container-high/60 rounded-xl">
+<div class="font-headline-sm text-headline-sm text-primary font-serif">140+</div>
+<div class="font-label-sm text-label-sm text-outline">TV Episodes</div>
+</div>
+</div>
+<div class="pt-space-sm">
+<a class="inline-flex items-center gap-2 font-title-md text-title-md text-primary hover:text-primary-fixed transition-colors group" data-path="about-chef-james" href="#">
+              Read Full Profile 
+              <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1.5 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. WEEKEND COOKERY CLASSES SPOTLIGHT -->
+<section class="w-full px-margin-mobile lg:px-margin py-4">
+<div class="relative overflow-hidden rounded-[20px] bg-gradient-to-r from-secondary-container via-surface-container-high to-surface-container-low p-space-lg lg:p-space-xl shadow-xl">
+<div class="absolute -right-10 -bottom-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
+<div class="max-w-2xl flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Weekend Cohort Enrollment Open</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-serif leading-snug">
+            Join Chef James's Weekend Cookery Classes near home at affordable fees!
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Hands-on culinary workshops covering gourmet prep, knife skills, and authentic plating right in Karachi. Limited bench spaces per session.
+          </p>
+</div>
+<div class="shrink-0">
+<a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.3)] hover:bg-primary transition-all" data-path="cookery-classes" href="#">
+            View Class Details
+          </a>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. FEATURED FREE RECIPES -->
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg">
+<div>
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary">Complimentary Repertoire</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-serif mt-1">Featured Free Recipes</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Chef-crafted culinary guides accessible to everyone.</p>
+</div>
+<a class="hidden md:inline-flex items-center gap-2 font-title-md text-title-md text-primary hover:text-primary-fixed transition-colors" data-path="free-recipes" href="#">
+        View All Free Recipes <span class="material-symbols-outlined text-[18px]">east</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="group bg-surface-container/75 backdrop-blur-md rounded-[18px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+<div>
+<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Freshly extracted artisanal citrus elixir with cold-pressed ruby blood oranges, calamansi, crushed mint sprigs, and fine crystalline ice in high-stem crystal glassware set on dark green slate." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD9jUoDesnBJebK8zrtzk_C9aLsMbOilpr9dtVvoiXi1Kt2Ibp6EuPSxa3b7C-zJn9Hp0ZDJHb1ru80y9tYZNqTuMRpt7HuhwCDWf6usMH2tYgn5adrYNJvxt92Itsi0ctSERglbNAytLx7aIUh5pIOPD2b0uiScp6vylTdOoe-yfISRehWYAh_wnWJpVF39-as1eneGkjtqNKWvWWgRkR2dzkUCS7SNrqRXjJdLkt6ye2_2WusVxlG')"></div>
+<div class="absolute top-3 left-3">
+<span class="px-3 py-1 rounded-full bg-secondary-container/90 text-secondary text-label-sm font-label-sm font-semibold uppercase tracking-wider backdrop-blur-md shadow-sm">Free</span>
+</div>
+<div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-surface-container-lowest/80 text-on-surface-variant text-label-sm font-label-sm backdrop-blur-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> 15 mins
+            </div>
+</div>
+<div class="p-5 flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm">
+<span class="uppercase tracking-wider text-secondary font-medium">Juices</span>
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-on-surface font-semibold text-body-sm">4.9</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-serif group-hover:text-primary transition-colors leading-snug">
+              Juicy Citrus &amp; Mint Revitalizer
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Cold-pressed tonic balancing zesty blood oranges, wild peppermint infusion, and Himalayan black salt mineral notes.
+            </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">By Chef James</span>
+<a class="font-title-md text-title-md text-primary group-hover:translate-x-1 transition-transform inline-flex items-center gap-1" data-path="recipe-citrus-mint" href="#">
+            View Recipe <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container/75 backdrop-blur-md rounded-[18px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+<div>
+<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Silky slow-stirred arborio risotto enriched with smoked charred aubergine, deep ruby pomegranate seeds, toasted pine nuts, and micro-herbs on handcrafted emerald ceramic plateware." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCPLmjv_9IK-N0UhYz4Y0dIcEAHNwxrF_DyahNMljg2pz0JHbkztqKs8HK9vZCIO5AAkvhgVK2hHKZkWwIp5oI8z71HSiSDKu48VHGbAXGhCwcAnB_tjpeASTAHuzkhzMmRb-UrN7SpjRGque_Zbmmz5jUkay27rBac8dLX26AMou6cDsk0YHXfbAoKRj1KkMsjSyIb8GJPkaTmhXEeMyH6egqi7AtMTk-EDCSnE59ZAbgIFbMBr3PD')"></div>
+<div class="absolute top-3 left-3">
+<span class="px-3 py-1 rounded-full bg-secondary-container/90 text-secondary text-label-sm font-label-sm font-semibold uppercase tracking-wider backdrop-blur-md shadow-sm">Free</span>
+</div>
+<div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-surface-container-lowest/80 text-on-surface-variant text-label-sm font-label-sm backdrop-blur-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> 35 mins
+            </div>
+</div>
+<div class="p-5 flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm">
+<span class="uppercase tracking-wider text-secondary font-medium">Vegetarian</span>
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-on-surface font-semibold text-body-sm">5.0</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-serif group-hover:text-primary transition-colors leading-snug">
+              Smoked Aubergine &amp; Pomegranate Risotto
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Charred brinjal pulp folded through creamy carnaroli rice, finished with cold-pressed olive oil and tart jewels.
+            </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">By Chef James</span>
+<a class="font-title-md text-title-md text-primary group-hover:translate-x-1 transition-transform inline-flex items-center gap-1" data-path="recipe-aubergine-risotto" href="#">
+            View Recipe <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-container/75 backdrop-blur-md rounded-[18px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+<div>
+<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Crispy golden skin pan-seared red snapper filet resting on a spiced curry leaf emulsion, charred lime wheel, and cilantro coriander oil in moody high-contrast lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCs9uuusTR_23v-veQYca26w7-g71guxlDjHl0n-zjfMKp0z6D7Y-FMxEBQkZ2iNM1DBG0X8hw7NKKLtbdtGYgrUmQl9JG1Q_T_DEARUZGwZh-tjIkC61evcjO0qGTocDfa31Fqjep6YqGHx2udvUTrYf11XMEo23vDKqE5tZqR1zjvUBYzpzVqCip9yaqlhRIgV5aW_yjJcLpbtnTsPHvnU5xdyFOIfTj4_W41xFx0xafbgtJCKFBr')"></div>
+<div class="absolute top-3 left-3">
+<span class="px-3 py-1 rounded-full bg-secondary-container/90 text-secondary text-label-sm font-label-sm font-semibold uppercase tracking-wider backdrop-blur-md shadow-sm">Free</span>
+</div>
+<div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-surface-container-lowest/80 text-on-surface-variant text-label-sm font-label-sm backdrop-blur-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> 30 mins
+            </div>
+</div>
+<div class="p-5 flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm">
+<span class="uppercase tracking-wider text-secondary font-medium">Non-Vegetarian</span>
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-on-surface font-semibold text-body-sm">4.8</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-serif group-hover:text-primary transition-colors leading-snug">
+              Karachi Spiced Pan-Seared Snapper
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Fresh Arabian Sea snapper rendered in a cast iron skillet with toasted cumin crust and fresh curry leaf butter.
+            </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">By Chef James</span>
+<a class="font-title-md text-title-md text-primary group-hover:translate-x-1 transition-transform inline-flex items-center gap-1" data-path="recipe-spiced-snapper" href="#">
+            View Recipe <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group bg-surface-container/75 backdrop-blur-md rounded-[18px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+<div>
+<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Silken golden hand-rolled tagliatelle ribbons tossed in rich emulsion of cultured butter, aged Parmigiano Reggiano, and shavings of black winter truffle served in an antique copper pan." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAi-210wPeTJ4BtOnnFE4ynNjUwmrNKgKGM8qnwLV93WxwMyOTwrAQNgMNH3DrCqQwim2PwfoURsartoETGFK524nImOwNBssvci1b-Ev9z-Q_sagmqw1C-K5DXHRm0JNK1M0yTSoFWb7889c_JJE36ioJVvqyHZ6Y8ab4DOIjQxHpmqon18-b5PrgZPIhvloIBqRSqIrMbM1Vby7V0DUCObC2ZbEAbxmiy1wVbaRfvmgu8H1iSc2zS')"></div>
+<div class="absolute top-3 left-3">
+<span class="px-3 py-1 rounded-full bg-secondary-container/90 text-secondary text-label-sm font-label-sm font-semibold uppercase tracking-wider backdrop-blur-md shadow-sm">Free</span>
+</div>
+<div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-surface-container-lowest/80 text-on-surface-variant text-label-sm font-label-sm backdrop-blur-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> 45 mins
+            </div>
+</div>
+<div class="p-5 flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm">
+<span class="uppercase tracking-wider text-secondary font-medium">Italian</span>
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="ml-1 text-on-surface font-semibold text-body-sm">4.9</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-serif group-hover:text-primary transition-colors leading-snug">
+              Hand-Rolled Truffle Tagliatelle
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Heritage egg yolk pasta rolled paper-thin, swirled in cultured butter mantecatura and Piedmont black truffle shavings.
+            </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">By Chef James</span>
+<a class="font-title-md text-title-md text-primary group-hover:translate-x-1 transition-transform inline-flex items-center gap-1" data-path="recipe-truffle-tagliatelle" href="#">
+            View Recipe <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center md:hidden">
+<a class="inline-flex items-center gap-2 font-title-md text-title-md text-primary" data-path="free-recipes" href="#">
+        View All Free Recipes <span class="material-symbols-outlined text-[18px]">east</span>
+</a>
+</div>
+</section>
+<!-- 6. CATEGORY TILES -->
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl">
+<div class="text-center max-w-2xl mx-auto mb-space-xl">
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary">Gastronomic Pillars</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-serif mt-1">Explore Culinary Disciplines</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Precision recipes structured around James Thew’s core areas of restaurant specialization.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Category 1 -->
+<a class="group relative rounded-[20px] overflow-hidden aspect-[4/5] p-6 flex flex-col justify-end shadow-xl transform transition-transform duration-300 hover:-translate-y-1" data-path="category-juices" href="#">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Artisanal cold-press botanical extract bar with glass carafes filled with ginger root infusions, crisp cucumber celery nectar, and pomegranate reduction against a dark emerald wood counter." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDyzhV3MNSGc5VZ5KO1NeXBAgyjMJMaMj9L3T026UHCJWQaNSn-NmOHhPFJ8Isx-H9GRenGArvz9AMJbSs9FOQMvZf-TMPeLIh1kasz86DW3vzw0qCpt7q-6jYzVZja0N-I18Sgma8t1fGdMemZRUOSNRMMGQrwZXPMCHI3anD3jaCNN9HUy_Dh4X198F9XGiL4FtlEwEl46JPNlQY3J0g88UMD7LlMFkMAGy6EMMQZSL_59w32LzQh')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-high/80 backdrop-blur-md flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[22px]">local_drink</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-serif group-hover:text-primary transition-colors">Juices</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cold-pressed elixirs, seasonal blends, and cellular wellness detoxes.</p>
+</div>
+</a>
+<!-- Category 2 -->
+<a class="group relative rounded-[20px] overflow-hidden aspect-[4/5] p-6 flex flex-col justify-end shadow-xl transform transition-transform duration-300 hover:-translate-y-1" data-path="category-vegetarian" href="#">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Vibrant seasonal organic produce array of rainbow heirloom carrots, Romanesco broccoli florets, fresh rosemary sprigs, and roasted bulbs on dark slate culinary workstation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB39v0W1AX_iog6ec7YdkapP0gtWEio6HVWazGy0gmH6eKGqqSTMBpxQ-6a7TFkKjnfrTXFOEU13zGMAZZy5J6s4POorDb6-Ztu2nMfSmfBnkM8FNFQQaWWYWXur-BErT1RAiSmdFn2_BAxl2dPFld3mFLqxjsYZeGhDKUbVhQowr-kdojmyR859h5Y1w0-LVoGKth_2ulTbVYrpdZTH08cNx3XFXddKn9q_ODfaAq91ZDgKq-kvHD1')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-high/80 backdrop-blur-md flex items-center justify-center text-secondary mb-3">
+<span class="material-symbols-outlined text-[22px]">spa</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-serif group-hover:text-primary transition-colors">Vegetarian</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Artisanal plant-based entrees, hearty grains, and fragrant farm herbs.</p>
+</div>
+</a>
+<!-- Category 3 -->
+<a class="group relative rounded-[20px] overflow-hidden aspect-[4/5] p-6 flex flex-col justify-end shadow-xl transform transition-transform duration-300 hover:-translate-y-1" data-path="category-non-vegetarian" href="#">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Artisanal butchery cut of prime aged beef ribeye seared with foaming rosemary butter in hot forged cast iron skillet, moody smoke tendrils and warm copper reflections." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBn9_ubHLNKlo2jH1q34Xevmx4Ft1FDH3OKwZyYv1tfbIkFj9vvy38_1sfeVYivLIH6Anf4_HAOJUBIpF1BGbT2oNkG5DHq5sqJ9J4C10A9TEZgKwAMt2y9QfHYGEB_LA2_yax4sFin4ym2V3E00ZJsoHKWYKR8WYab4RfD_OG26HFDMLEsYe42wCtH4KDOE9mkgSPHq2Js2d7azsEOZDp3v7PpvN0C2W-n_ZT343XywEfuMwJf1LiE')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-high/80 backdrop-blur-md flex items-center justify-center text-primary-fixed mb-3">
+<span class="material-symbols-outlined text-[22px]">kebab_dining</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-serif group-hover:text-primary transition-colors">Non-Vegetarian</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Prime cuts, coastal seafood, and traditional slow-cooked braises.</p>
+</div>
+</a>
+<!-- Category 4 -->
+<a class="group relative rounded-[20px] overflow-hidden aspect-[4/5] p-6 flex flex-col justify-end shadow-xl transform transition-transform duration-300 hover:-translate-y-1" data-path="category-italian" href="#">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Traditional flour dusted Italian wooden board with extruded garganelli, semolina dusting, San Marzano tomato reduction in copper pot, and aged wheels of Parmigiano." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBzd4e0d0phk6ANP9umcg9WWEZUZbUmxweRSHnnznPzmRscuve4a70bWwVVjov3PGIkxDH_hTYQ_anTCMypwm9aJ-AvhSePqytMEh74RkeoRIA43sctBxWIytRx37h18EEguoMspurbmg4QggY4860_fWp-df_t40VnnD3D_SorvREbfO9Il7VlQmkwzrgzq1BubkdYuvcG2EQz6NZMsOQDMcwEK2J12VDTo3XswSihaV3hPD8JfWiC')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-high/80 backdrop-blur-md flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[22px]">dinner_dining</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-serif group-hover:text-primary transition-colors">Italian</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Authentic fresh pasta, wood-fired sauces, and classic antipasti.</p>
+</div>
+</a>
+</div>
+</section>
+<!-- 7. ACTIVE CONTEST BANNER & 8. LATEST WINNER SNIPPET -->
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
+<!-- 7. ACTIVE CONTEST BANNER (8 Cols) -->
+<div class="lg:col-span-8 bg-surface-container-high/90 backdrop-blur-xl rounded-[18px] p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/20 text-primary font-label-sm text-label-sm font-semibold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span> Active Challenge
+            </div>
+<!-- Timer Tags -->
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="text-outline text-label-sm font-label-sm mr-1">Ends in:</span>
+<span class="px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-mono font-semibold">04d</span> :
+              <span class="px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-mono font-semibold">18h</span> :
+              <span class="px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-mono font-semibold">32m</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-serif leading-snug mb-3">
+            Monthly Master Chef Challenge: Artisan Seafood &amp; Pasta Fusion
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-xl">
+            Submit your signature dish unifying handmade pasta dough with coastal Karachi seafood elements. Judged personally by Chef James on balance, textural execution, and aesthetic plating.
+          </p>
+<div class="p-4 rounded-xl bg-surface-container-lowest/70 backdrop-blur-sm mb-6 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[24px] shrink-0 mt-0.5">card_membership</span>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary block">Grand Prize Package</span>
+<p class="font-title-md text-title-md text-on-surface font-medium">Grand Prize: $500 Kitchen Aid Set + 1-on-1 Masterclass with Chef James</p>
+</div>
+</div>
+</div>
+<div class="relative z-10 pt-2 flex items-center gap-4">
+<a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.3)] hover:bg-primary transition-all" data-path="contest-participate" href="#">
+            Participate Now
+          </a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-colors px-4 py-2" data-path="active-contests" href="#">
+            Read Rules
+          </a>
+</div>
+</div>
+<!-- 8. LATEST WINNER SNIPPET (4 Cols) -->
+<div class="lg:col-span-4 bg-surface-container/80 backdrop-blur-xl rounded-[18px] p-6 lg:p-8 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Hall of Honor</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/15 text-primary text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[13px]">military_tech</span> Victor
+            </span>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="relative mb-4">
+<div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-primary via-primary-fixed to-secondary-container shadow-xl">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="Portrait of triumphant female culinary student Farah Al-Sayed, in dark chef jacket smiling warmly against a professional moody kitchen studio." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0Wo7sOeWtBMlpky1xJwu5rX8yvqY4a0eNwhPvLPjtMhKSXe8y4I7kf2vrf9LQZE50bScXSDOp9LWkKybDZeSzpYOZvbM8Q0ljDk1-9F2zKWcCVT1Z5L1flSOky1tTm_P99Z_ArsYcoow2wW9ZXuIzHXZR3l3b76RnNNKLaNcbbGnnjn0FeyMkzTaUHMWx55b-z_4rBw7PEMSEs3HS3oJ71OEO693KW-AxpsFQczHbDs3ekAdlGxY7')"></div>
+</div>
+<div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-primary-container text-surface-container-lowest flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[16px]">workspace_premium</span>
+</div>
+</div>
+<div class="px-3 py-1 rounded-full bg-surface-container-high text-secondary text-label-sm font-label-sm uppercase tracking-wider mb-2">
+              Winner — March 2026 Challenge
+            </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-serif">Farah Al-Sayed</h3>
+<p class="font-body-sm text-body-sm text-outline mt-0.5">Amateur Gourmet Division</p>
+<div class="mt-4 p-4 rounded-xl bg-surface-container-lowest/60 w-full text-left">
+<span class="font-label-sm text-label-sm text-outline uppercase block mb-1">Winning Submission:</span>
+<p class="font-title-md text-title-md text-primary font-serif italic leading-snug">
+                “Saffron Spiced Seabass with Fennel Glaze”
+              </p>
+</div>
+</div>
+</div>
+<div class="pt-6 text-center">
+<a class="inline-flex items-center gap-2 font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors" data-path="announcements" href="#">
+            See Announcements <span class="material-symbols-outlined text-[18px]">east</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- 9. TESTIMONIALS -->
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl">
+<div class="text-center max-w-2xl mx-auto mb-space-xl">
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary">Community Acclaim</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-serif mt-1">Member Experiences &amp; Praise</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Reflections from enthusiastic home cooks and aspiring culinary apprentices.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Testimonial 1 -->
+<div class="bg-surface-container/75 backdrop-blur-xl rounded-[18px] p-6 shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-primary mb-4">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed italic">
+            “Chef James's masterclasses completely demystified Italian sauces. My dinner parties have never been the same! The depth of flavor we achieved in week two alone astonished my family.”
+          </p>
+</div>
+<div class="mt-6 pt-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-secondary flex items-center justify-center font-title-md text-title-md">
+              AK
+            </div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Ayesha K.</div>
+<div class="font-label-sm text-label-sm text-outline">Karachi, PK</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">verified</span>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-surface-container/75 backdrop-blur-xl rounded-[18px] p-6 shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-primary mb-4">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed italic">
+            “The step-by-step video instructions and knife technique tips are worth ten times the monthly membership. Being able to pause and reproduce his French brigade cuts was truly transformational.”
+          </p>
+</div>
+<div class="mt-6 pt-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-title-md text-title-md">
+              TM
+            </div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Tariq M.</div>
+<div class="font-label-sm text-label-sm text-outline">Lahore, PK</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">verified</span>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-surface-container/75 backdrop-blur-xl rounded-[18px] p-6 shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-primary mb-4">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed italic">
+            “Entering the weekly contests gave me the confidence to cook gourmet dishes I used to think were impossible. The feedback loop from fellow members is encouraging and respectful.”
+          </p>
+</div>
+<div class="mt-6 pt-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-tertiary flex items-center justify-center font-title-md text-title-md">
+              SL
+            </div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Sarah L.</div>
+<div class="font-label-sm text-label-sm text-outline">Islamabad, PK</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">verified</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 10. MEMBERSHIP CTA -->
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl mb-12">
+<div class="text-center max-w-2xl mx-auto mb-space-xl">
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary">Academy Membership</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-serif mt-1">Unlock the Full Culinary Academy</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Access private reserves, advanced technique breakdowns, and direct master evaluation.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto items-stretch">
+<!-- Monthly Plan -->
+<div class="bg-surface-container/85 backdrop-blur-xl rounded-[18px] p-8 shadow-xl flex flex-col justify-between transition-all hover:bg-surface-container-high/90">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-serif">Monthly Pass</h3>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-outline text-label-sm font-label-sm">Standard</span>
+</div>
+<div class="flex items-baseline gap-2 mb-6">
+<span class="font-display-lg text-display-lg text-primary font-serif font-medium">$10</span>
+<span class="font-body-md text-body-md text-outline">/ month</span>
+</div>
+<ul class="space-y-3.5 mb-8">
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">check_circle</span>
+<span>Access all 50+ premium recipes and ingredient charts</span>
+</li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">check_circle</span>
+<span>Exclusive chef tips and knife care tutorials</span>
+</li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">check_circle</span>
+<span>Weekly contest entry submissions &amp; peer voting</span>
+</li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">check_circle</span>
+<span>Priority reservations &amp; discounts on Weekend Classes</span>
+</li>
+</ul>
+</div>
+<a class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary transition-all" data-path="checkout-monthly" href="#">
+          Get Monthly Pass
+        </a>
+</div>
+<!-- Yearly Plan (Best Value) -->
+<div class="bg-surface-container-high/90 backdrop-blur-xl rounded-[18px] p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-primary/15 rounded-full blur-3xl pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-serif">Yearly Academy Pass</h3>
+<span class="px-3 py-1 rounded-full bg-primary-container text-surface-container-lowest text-label-sm font-label-sm font-semibold tracking-wide uppercase">Best Value (Save $20)</span>
+</div>
+<div class="flex items-baseline gap-2 mb-6">
+<span class="font-display-lg text-display-lg text-primary font-serif font-medium">$100</span>
+<span class="font-body-md text-body-md text-outline">/ year</span>
+</div>
+<ul class="space-y-3.5 mb-8">
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
+<span><strong>All monthly perks</strong> (recipes, tips, weekly contests)</span>
+</li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
+<span>Direct personal critique from Chef James on your recipe submissions</span>
+</li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
+<span>Official Academy Annual Masterclass Certificate</span>
+</li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
+<span>Guaranteed bench seating discount at Karachi Masterclass studio</span>
+</li>
+</ul>
+</div>
+<a class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-full bg-primary text-on-primary font-title-md text-title-md shadow-[0_6px_24px_rgba(217,138,86,0.35)] hover:bg-primary-fixed transition-all" data-path="checkout-yearly" href="#">
+          Get Yearly Pass
+        </a>
+</div>
+</div>
+</section>
 </div>

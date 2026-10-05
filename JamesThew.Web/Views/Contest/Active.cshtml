@@ -1,0 +1,348 @@
+@{
+    ViewData["Title"] = "Active Contests";
+}
+
+<div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow -->
+<div class="relative w-full overflow-hidden px-margin-mobile lg:px-margin py-space-lg lg:py-space-xl">
+<div class="pointer-events-none absolute -top-40 right-10 w-96 h-96 rounded-full bg-primary-container/10 blur-[120px]"></div>
+<div class="pointer-events-none absolute top-1/2 left-0 w-80 h-80 rounded-full bg-secondary-container/15 blur-[100px]"></div>
+<!-- 1. Breadcrumbs -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs font-body-sm text-body-sm text-outline mb-space-md">
+<a class="hover:text-primary transition-colors" data-path="home" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<a class="hover:text-primary transition-colors" data-path="active-contests" href="#">Contests</a>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<span class="text-on-surface font-medium">Active Contests</span>
+</nav>
+<!-- 2. Page Header -->
+<header class="flex flex-col gap-space-xs max-w-4xl mb-space-xl">
+<div class="inline-flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md tracking-widest uppercase text-primary">Culinary Competitions</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Active Culinary Contests</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
+        Showcase your kitchen craft, earn guild recognition, and win exclusive artisanal culinary kits.
+      </p>
+</header>
+<!-- 3. Large Hero Banner: Current Active Contest -->
+<section class="relative w-full rounded-[18px] bg-surface-container-high/70 backdrop-blur-xl p-space-md md:p-space-lg lg:p-space-xl shadow-[0_16px_48px_rgba(0,17,15,0.7)] shadow-primary-container/10 mb-space-xl overflow-hidden">
+<!-- Glow rim overlay -->
+<div class="pointer-events-none absolute inset-0 rounded-[18px] bg-gradient-to-b from-primary-container/15 via-transparent to-transparent"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:items-center">
+<!-- Banner Left Content -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/40 text-secondary font-label-md text-label-md tracking-wider uppercase">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+              Featured Monthly Contest
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest/60 text-primary-fixed-dim font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">calendar_month</span>
+              March 1, 2026 – March 31, 2026
+            </span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface leading-tight">
+            Best Italian Recipe or Summer Juice Tip
+          </h2>
+<p class="font-body-lg text-body-lg text-secondary font-medium">
+            Post your best Italian Recipe or Summer Juice Tip to win an Exclusive Culinary Kit!
+          </p>
+<!-- Countdown Timer Component -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Submission Window Closes In</span>
+<div class="flex flex-wrap items-center gap-space-sm" id="contest-timer">
+<div class="flex flex-col items-center justify-center min-w-[72px] px-3 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm">
+<span class="font-headline-md text-headline-md text-primary font-bold" id="days">12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Days</span>
+</div>
+<span class="font-headline-md text-headline-md text-outline">:</span>
+<div class="flex flex-col items-center justify-center min-w-[72px] px-3 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm">
+<span class="font-headline-md text-headline-md text-primary font-bold" id="hours">18</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Hours</span>
+</div>
+<span class="font-headline-md text-headline-md text-outline">:</span>
+<div class="flex flex-col items-center justify-center min-w-[72px] px-3 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm">
+<span class="font-headline-md text-headline-md text-primary font-bold" id="minutes">44</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Mins</span>
+</div>
+<span class="font-headline-md text-headline-md text-outline">:</span>
+<div class="flex flex-col items-center justify-center min-w-[72px] px-3 py-2 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm">
+<span class="font-headline-md text-headline-md text-primary font-bold" id="seconds">30</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Secs</span>
+</div>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-sm">
+<a class="inline-flex items-center justify-center px-space-xl py-3 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_20px_rgba(217,138,86,0.35)] hover:bg-primary transition-all" data-path="contest-submit" href="#">
+              Participate Now
+              <span class="material-symbols-outlined ml-1.5 text-[18px]">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center px-space-lg py-3 rounded-full bg-surface-container-highest/50 text-on-surface font-title-md text-title-md hover:bg-surface-container-highest transition-colors" href="#contest-rules">
+              Read Full Guidelines
+            </a>
+</div>
+</div>
+<!-- Prize Showcase Image & Tag -->
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-surface-container">
+<img class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" data-alt="Luxurious culinary toolkit arrangement featuring a burnished heavy copper sauté pan with brass handle, high-carbon Japanese steel chef knife, carved dark granite mortar and pestle, and an embroidered forest emerald linen apron staged on a dark moody kitchen island under warm directional studio spotlighting, hautedark culinary aesthetic, photorealistic fine-dining atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUA9wYUWW2dXjZMgvQ9U56sViiMVOyrajQLLAjtwXg0JVmIN4e-AYqQa2Qm0MZ53Fr-fawnFQ3vimDS5o0GWfJrSTF_d_pZe1c9gao26rhEkNgECEhN8cBgAUAAIdCm8aq46n1itw3pZPl2bTwvzmceTKAIZTvuBRpPBI_DfqfN_BPKnR_sHgEpFEQ-tAz893sEky_zM3mfxPJiH1tDkGROKdvrK-IdHq-HdnSFizgU-HXfPxqCut8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/20 to-transparent"></div>
+<div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-surface-container-lowest/85 backdrop-blur-md text-primary font-label-md text-label-md flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+              Official Award Kit
+            </div>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-container-low/90 backdrop-blur-md shadow-sm">
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+<strong class="text-primary font-title-md block mb-0.5">Grand Prize Package:</strong>
+              Chef James's Artisanal 7-Piece Copper &amp; Steel Master Kit (Valued at $650) + 1-on-1 Masterclass Consultation
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Contest Information Split -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-space-xl items-start" id="contest-rules">
+<!-- Left Card (2/3 width) - Rules -->
+<article class="lg:col-span-8 rounded-[18px] bg-surface-container/75 backdrop-blur-xl p-space-md md:p-space-lg lg:p-space-xl shadow-lg flex flex-col gap-space-lg">
+<div>
+<div class="flex items-center gap-space-xs mb-1">
+<span class="material-symbols-outlined text-primary text-[22px]">gavel</span>
+<span class="font-label-md text-label-md tracking-wider uppercase text-primary">Submission Directives</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Numbered Contest Rules</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Please adhere to the official standards to qualify for final guild deliberation and prize adjudication.
+          </p>
+</div>
+<ol class="space-y-space-md list-none m-0 p-0">
+<li class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/70 transition-colors">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-container/20 text-primary font-title-md text-title-md shrink-0">1</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-0.5">Original Recipe or Tip</h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">All submissions must be authentic domestic or professional kitchen creations developed by the entrant.</p>
+</div>
+</li>
+<li class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/70 transition-colors">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-container/20 text-primary font-title-md text-title-md shrink-0">2</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-0.5">Comprehensive Documentation</h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Recipes require exact gram measurements and clear steps; Tips must include practical execution context.</p>
+</div>
+</li>
+<li class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/70 transition-colors">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-container/20 text-primary font-title-md text-title-md shrink-0">3</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-0.5">Photography Guidelines</h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Include at least one authentic high-resolution photograph of the finished dish or technique step.</p>
+</div>
+</li>
+<li class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/70 transition-colors">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-container/20 text-primary font-title-md text-title-md shrink-0">4</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-0.5">Open Eligibility</h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Everyone can participate — registered member or guest visitor.</p>
+</div>
+</li>
+<li class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-high/40 hover:bg-surface-container-high/70 transition-colors">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-container/20 text-primary font-title-md text-title-md shrink-0">5</span>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface mb-0.5">Fair Judging</h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Chef James and the culinary evaluation committee review balance, innovation, and technique clarity.</p>
+</div>
+</li>
+</ol>
+</article>
+<!-- Right Card (1/3 width) - Prize Details & Eligibility Note -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg">
+<div class="rounded-[18px] bg-surface-container/75 backdrop-blur-xl p-space-md md:p-space-lg shadow-lg flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Prize Portfolio</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Grand Prize Breakdown</h3>
+</div>
+</div>
+<ul class="space-y-space-sm list-none p-0 m-0 pt-space-xs">
+<li class="flex items-start gap-2.5 font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">check_circle</span>
+<span><strong>Master Copper Kit:</strong> Hand-hammered heavy sauté pan, utility saucepan, Damascus-steel chef knife, pestle set.</span>
+</li>
+<li class="flex items-start gap-2.5 font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">check_circle</span>
+<span><strong>Featured publication:</strong> Permanent prominence in announcements and seasonal digital journals.</span>
+</li>
+<li class="flex items-start gap-2.5 font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">check_circle</span>
+<span><strong>Permanent Guild Master badge:</strong> Special profile badge granting verified status across forums.</span>
+</li>
+</ul>
+<div class="w-full pt-space-xs">
+<a class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md hover:bg-primary transition-colors shadow-sm" data-path="contest-submit" href="#">
+              Submit Your Entry
+            </a>
+</div>
+</div>
+<!-- Highlighted Alert Card: Eligibility Note -->
+<div class="rounded-[18px] bg-secondary-container/25 backdrop-blur-xl p-space-md shadow-md flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[24px] shrink-0 mt-0.5">verified_user</span>
+<div class="flex flex-col gap-1">
+<h4 class="font-title-md text-title-md text-secondary">Universal Participation</h4>
+<p class="font-body-sm text-body-sm text-on-secondary-container leading-relaxed">
+              Everyone can participate — registered or not. Both free visitors and subscribed members are eligible for all podium distinctions.
+            </p>
+</div>
+</div>
+</aside>
+</section>
+<!-- 5. Section: Other Active Contests -->
+<section class="flex flex-col gap-space-lg mb-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm">
+<div>
+<span class="font-label-md text-label-md tracking-wider uppercase text-primary">Simultaneous Tournaments</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Other Active Challenges</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+          Expand your competitive footprint across botanical beverages, rustic sourdough ferments, and regional masterworks.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Card 1 -->
+<div class="rounded-[18px] bg-surface-container/75 backdrop-blur-xl overflow-hidden shadow-lg flex flex-col justify-between hover:bg-surface-container/95 transition-all group">
+<div class="p-space-md md:p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between gap-space-sm">
+<span class="px-3 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-md text-label-md">
+                Juices &amp; Botanicals
+              </span>
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+                Ends in: 24 Days
+              </span>
+</div>
+<div class="relative w-full h-48 rounded-xl overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cold-press artisanal infusion arrangement featuring aromatic herbs, fresh rosemary sprigs, wild mint leaves, citrus peels, and clear glass botanical extraction flasks resting on an emerald polished stone workstation with soft golden side illumination" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDYAZsK1dnUA6neoHsQW06cPkXuyt2Ik6ibD8RZncqlm6I0vT4Ca5UleRifH2t59FSrMfMHD_7VLfnuLIpLJr8Kt74mOjG7GVMDnkbE2dYAZtQABCScAzdPHA_WGLq8yr_pVQr9HyLm4pUDqj7ousa6NjH9t_jecy5DJbNsrIetanmsYeFZx4DfDUhTlxtgaa8k1QwJ7fmFSxgLg3EB_pppHxiLd2VqZofmaeCrAgqr7opWxg9U5WW"/>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                Spring Herb &amp; Botanical Infusions
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Craft pristine botanical syrups, cold extract tonics, or herbal refreshers highlighting seasonal spring provenance.
+              </p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">redeem</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Prize:</strong> Artisanal Cold-Extraction Press Kit</span>
+</div>
+</div>
+<div class="px-space-md md:px-space-lg py-space-md bg-surface-container-lowest/50 flex items-center justify-between gap-space-md">
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" data-path="contest-details-infusions" href="#">
+              View Contest Details
+            </a>
+<a class="px-space-md py-2 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md hover:bg-primary transition-colors shadow-sm" data-path="contest-submit" href="#">
+              Enter Now
+            </a>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="rounded-[18px] bg-surface-container/75 backdrop-blur-xl overflow-hidden shadow-lg flex flex-col justify-between hover:bg-surface-container/95 transition-all group">
+<div class="p-space-md md:p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between gap-space-sm">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-primary font-label-md text-label-md">
+                Italian &amp; Bakery
+              </span>
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+                Ends in: 40 Days
+              </span>
+</div>
+<div class="relative w-full h-48 rounded-xl overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Rustic freshly baked artisanal sourdough loaf with blistered dark-golden crust and flour dusted ear scoring, placed beside proofing cane bannetons, sourdough starter in a glass jar, and a heavy dark cast iron Dutch oven on a midnight emerald surface, hautedark studio culinary lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIXz0rSkOMpmek5Z7hhpPD1CP36jVxu-es5mfhgQsyEFFbMJlalzHxPH7eISWulhgevb_vScHru-bXjTSPQQRSy1xKw7nEz5juNq1qaEkmPYmnt9WOX1oJZJm7HZf2E5OiIwWTmTs1YKBwlmrtITZHKtm01y240M109AcH_UvIPAbvZ4x8SZTrFuOjsO6cz2v1s3R1j7dL9utDPr9zSEC6F6xVDbzx0Ryc4LnIJv56fwZWPz7MpZK2"/>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                Artisan Sourdough &amp; Ancient Grains Showcase
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Demonstrate sourdough hydration mastery, wild levain fermentation cycles, and stone-ground heritage grain loaves.
+              </p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">redeem</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Prize:</strong> Cast-Iron Dutch Oven &amp; Proofing Banneton Suite</span>
+</div>
+</div>
+<div class="px-space-md md:px-space-lg py-space-md bg-surface-container-lowest/50 flex items-center justify-between gap-space-md">
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" data-path="contest-details-sourdough" href="#">
+              View Contest Details
+            </a>
+<a class="px-space-md py-2 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md hover:bg-primary transition-colors shadow-sm" data-path="contest-submit" href="#">
+              Enter Now
+            </a>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Link Banner: Looking for Previous Champions? -->
+<section class="w-full rounded-[18px] bg-gradient-to-r from-surface-container-high via-surface-container to-surface-container-high p-space-md md:p-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md shadow-md">
+<div class="flex items-center gap-space-md text-center sm:text-left">
+<div class="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[24px]">history_edu</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface">
+          Looking for previous champions?
+        </p>
+</div>
+<a class="inline-flex items-center gap-space-xs font-title-md text-title-md text-primary hover:text-surface-tint transition-colors px-space-md py-2 rounded-full bg-surface-container-lowest/60 hover:bg-surface-container-lowest" data-path="past-winners" href="#">
+<span>View Past Winners</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</section>
+</div>
+</div>
+<script>
+  (function initContestTimer() {
+    let days = 12;
+    let hours = 18;
+    let minutes = 44;
+    let seconds = 30;
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    setInterval(function() {
+      if (seconds > 0) {
+        seconds--;
+      } else {
+        seconds = 59;
+        if (minutes > 0) {
+          minutes--;
+        } else {
+          minutes = 59;
+          if (hours > 0) {
+            hours--;
+          } else {
+            hours = 23;
+            if (days > 0) {
+              days--;
+            }
+          }
+        }
+      }
+
+      daysEl.textContent = days.toString().padStart(2, '0');
+      hoursEl.textContent = hours.toString().padStart(2, '0');
+      minutesEl.textContent = minutes.toString().padStart(2, '0');
+      secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }, 1000);
+  })();
+</script>

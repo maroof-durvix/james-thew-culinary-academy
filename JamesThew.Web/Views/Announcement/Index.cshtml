@@ -1,0 +1,275 @@
+@{
+    ViewData["Title"] = "Announcements";
+}
+
+<div class="flex flex-col w-full">
+<div class="w-full px-margin-mobile lg:px-margin py-space-xl">
+<!-- Breadcrumb & Header Unit -->
+<div class="flex flex-col gap-space-sm mb-space-xl">
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs text-label-sm font-label-sm uppercase tracking-wider text-outline">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-outline-variant">/</span>
+<span class="text-primary-container">Announcements</span>
+</nav>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase font-semibold">
+          Official Dispatches &amp; Honors
+        </span>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight font-normal">
+          Announcements &amp; Guild News
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed mt-space-xs">
+          Official proclamations, seasonal contest winner announcements, and culinary academy updates directly from Chef James Thew.
+        </p>
+</div>
+</div>
+<!-- Main Content Layout (2/3 Feed, 1/3 Sidebar) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Main Feed (8 Columns) -->
+<section class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Pinned Card: Winner Proclamation -->
+<article class="relative rounded-2xl bg-surface-container/90 backdrop-blur-xl p-space-lg lg:p-space-xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_20px_50px_rgba(217,138,86,0.12)]">
+<!-- Ambient Copper Aura (Decorative) -->
+<div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-space-md">
+<!-- Header Tag & Date -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-primary-container/20 text-primary-container font-label-md text-label-md font-semibold tracking-wider uppercase">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                Official Winner Proclamation
+              </div>
+<time class="font-label-sm text-label-sm text-outline tracking-wider uppercase" datetime="2026-03-01">
+                March 1, 2026
+              </time>
+</div>
+<!-- Winner Identity & Dish -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<div class="md:col-span-8 flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider">
+                  Amateur Gourmet Division • Karachi
+                </span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface leading-snug">
+                  Farah Al-Sayed
+                </h2>
+<p class="font-title-md text-title-md text-primary italic">
+                  Winning Formulation: “Saffron Spiced Seabass with Fennel &amp; Meyer Lemon Glaze”
+                </p>
+</div>
+<!-- Winner Visual Frame -->
+<div class="md:col-span-4 rounded-xl overflow-hidden shadow-lg aspect-[4/3] bg-surface-container-highest">
+<img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="Gourmet saffron glazed seabass resting on shaved braised fennel with translucent meyer lemon emulsion, Michelin culinary presentation on dark ceramic dish, cinematic dim restaurant kitchen lighting, copper and emerald reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLKHqjA04dl8BlRa8l1sjUPrO9mJmvCdhjn_THLSupgmuO1E7gmMo30gq83qE_HTbQ2naOoNoF2NS4Ll0AZNqP2DRXhUkH6xWRgA1sPYoEtvlJv_7xmeqPHNBm-1hUFF1r7eLKP4YzYMEOigR7vc5uJ0Yc9kQrYJdomTuej5JHuExgjpLy8puUQQ6pyROo1oDObZxDIWal6AJmAsWAhd5ubKj_scaHnJUs7mrfR1tVkpVLFsYkJvjR"/>
+</div>
+</div>
+<!-- Chef James's Personal Tasting Comment -->
+<div class="relative mt-space-xs p-space-md rounded-xl bg-surface-container-low/80">
+<span class="material-symbols-outlined absolute top-3 left-3 text-primary/20 text-3xl select-none">format_quote</span>
+<blockquote class="font-headline-sm text-headline-sm italic text-on-surface font-normal pl-space-lg leading-relaxed">
+                “A breathtaking display of heat control and acid balance. The reduction maintained crystalline clarity while coating the fish with velvety brilliance. Truly deserving of this month's Grand Culinary Kit.”
+              </blockquote>
+<figcaption class="text-right font-label-md text-label-md text-primary-container mt-space-xs tracking-wider uppercase">
+                — Chef James Thew
+              </figcaption>
+</div>
+<!-- Action Controls -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center justify-center px-space-lg py-3 rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary transition-all duration-200" href="#">
+                View Winning Recipe Details
+              </a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-space-xs" href="#">
+                View Full Honor Roll
+                <span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Chronological Feed Header Divider -->
+<div class="flex items-center gap-space-md pt-space-xs">
+<span class="font-label-md text-label-md text-outline uppercase tracking-widest whitespace-nowrap">Chronological Guild Log</span>
+<div class="w-full h-px bg-surface-container-highest"></div>
+</div>
+<!-- Dispatch 1: New Contest -->
+<article class="group rounded-2xl bg-surface-container/70 backdrop-blur-md p-space-lg hover:bg-surface-container transition-all duration-200 shadow-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<span class="inline-flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-secondary/15 text-secondary font-label-md text-label-md font-semibold tracking-wider uppercase">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+                New Contest
+              </span>
+<time class="font-label-sm text-label-sm text-outline" datetime="2026-02-28">Feb 28, 2026</time>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                Monthly Master Challenge: Best Italian Recipe or Summer Juice Tip Now Open
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Submissions have officially commenced for this season's dual-track challenge. Members and aspiring home gourmets are invited to file their signature Italian mainstays or cooling botanical juice extractions. Entries close at midnight, competing for the curated 7-piece copper cookery kit ($650 valuation). Open to both active academy subscribers and registered community guests.
+              </p>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs font-title-md text-title-md text-primary hover:text-primary-container transition-colors" href="#">
+                Read Full Guidelines
+                <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Dispatch 2: Update (Cookery Classes) -->
+<article class="group rounded-2xl bg-surface-container/70 backdrop-blur-md p-space-lg hover:bg-surface-container transition-all duration-200 shadow-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<span class="inline-flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-bright text-tertiary font-label-md text-label-md font-semibold tracking-wider uppercase">
+<span class="material-symbols-outlined text-[14px]">notifications</span>
+                Update
+              </span>
+<time class="font-label-sm text-label-sm text-outline" datetime="2026-02-20">Feb 20, 2026</time>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                Spring 2026 Weekend Cookery Classes: Schedule &amp; Syllabi Released
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Registration is now unlocked for hands-on, weekend culinary immersions hosted at the Culinary Suite in Karachi. The upcoming term concentrates on French knife ergonomics, pristine artisanal jus reductions, and non-alcoholic botanical elixirs structured for home kitchens at highly accessible enrollment rates.
+              </p>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs font-title-md text-title-md text-primary hover:text-primary-container transition-colors" href="#">
+                Read More
+                <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Dispatch 3: Winner (January Champion) -->
+<article class="group rounded-2xl bg-surface-container/70 backdrop-blur-md p-space-lg hover:bg-surface-container transition-all duration-200 shadow-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<span class="inline-flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-primary-container/20 text-primary-container font-label-md text-label-md font-semibold tracking-wider uppercase">
+<span class="material-symbols-outlined text-[14px]">emoji_events</span>
+                Winner
+              </span>
+<time class="font-label-sm text-label-sm text-outline" datetime="2026-01-31">Jan 31, 2026</time>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                January 2026 Champion: Hand-Folded Agnolotti with Charred Thyme
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                The evaluation guild salutes Marco Valenti for his masterclass in artisanal pasta dough lamination. His delicate pine nut and goat curd fonduta center encased within gossamer hand-pleated parcels demonstrated consummate technical fidelity and balanced savory restraint.
+              </p>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs font-title-md text-title-md text-primary hover:text-primary-container transition-colors" href="#">
+                Read More
+                <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Dispatch 4: Update (Vault Expansion) -->
+<article class="group rounded-2xl bg-surface-container/70 backdrop-blur-md p-space-lg hover:bg-surface-container transition-all duration-200 shadow-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<span class="inline-flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-bright text-tertiary font-label-md text-label-md font-semibold tracking-wider uppercase">
+<span class="material-symbols-outlined text-[14px]">notifications</span>
+                Update
+              </span>
+<time class="font-label-sm text-label-sm text-outline" datetime="2026-01-15">Jan 15, 2026</time>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                Haute Cuisine Recipe Vault Expansion: 12 New Plant-Based Formulations Added
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Chef James has formally released a curated anthology of plant-forward gastronomy, highlighting cold-press botanical emulsions, clarified root reductions, and layered wild mushroom umami bases formulated to elevate vegetables to center-plate prestige.
+              </p>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs font-title-md text-title-md text-primary hover:text-primary-container transition-colors" href="#">
+                Read More
+                <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+</section>
+<!-- Right Column: Contextual Sidebar (4 Columns) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg lg:sticky lg:top-24">
+<!-- Active Contest Widget -->
+<div class="rounded-2xl bg-surface-container-high/90 backdrop-blur-xl p-space-lg shadow-xl relative overflow-hidden">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold tracking-wider">
+                Ongoing Competition
+              </span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-bright text-tertiary font-label-sm text-label-sm font-semibold">
+                Ends in 12 Days
+              </span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">
+                Best Italian Recipe or Summer Juice Tip
+              </h3>
+<p class="font-body-sm text-body-sm text-primary font-medium">
+                Win Chef James's 7-Piece Master Copper Kit ($650 Value)
+              </p>
+</div>
+<!-- Themed Visual Card Inset -->
+<div class="rounded-xl overflow-hidden aspect-[16/9] bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="Heirloom hand-forged 7-piece copper cookware collection sitting on a dark emerald marble kitchen countertop with gentle warm amber reflection and steam rising in a professional culinary studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0H8v8FkpTkUk5q8Vny2a5w-2JBgLgBBA-mvfuzFo6R6hbxXyLUo-2P48t7j1qD7tXN5aVe2iOf-jsy8IDLUpWKr5-D5krab64dUzIN_U3aXwNGOOFxtnnGpNIHHSNMGGOrU0byInR0JLXWJptXAL2bJnEzpDzH8-lVlqSpQkM4u-TREkfCkCNiv1oDU9NuE6vG9mWm4kGPpq8x7QYpGykEW6RjusNQsaCX8mnVc6gKMdqfNsZmQUm"/>
+</div>
+<a class="w-full inline-flex items-center justify-center py-2.5 px-space-md rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-primary shadow-[0_4px_16px_rgba(217,138,86,0.25)] transition-all text-center" href="#">
+              Participate Now
+            </a>
+</div>
+</div>
+<!-- Membership Guild Card -->
+<div class="rounded-2xl bg-surface-container/90 backdrop-blur-xl p-space-lg shadow-xl relative overflow-hidden">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-sm text-label-sm uppercase font-semibold tracking-widest">Academy Privilege</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">
+                Unlock Exclusive Masterclasses
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Gain full access to 50+ premium chef formulations, live tasting notes, and members-only contests.
+              </p>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-container-lowest flex items-baseline justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tuition</span>
+<span class="font-headline-sm text-headline-sm text-primary font-medium">$10/month or $100/year</span>
+</div>
+<a class="w-full inline-flex items-center justify-center py-2.5 px-space-md rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-primary shadow-[0_4px_16px_rgba(217,138,86,0.25)] transition-all text-center" href="#">
+              Join Now
+            </a>
+</div>
+</div>
+<!-- Filter Announcements Card -->
+<div class="rounded-2xl bg-surface-container/90 backdrop-blur-xl p-space-lg shadow-xl">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Filter Announcements</h4>
+<span class="material-symbols-outlined text-outline text-[18px]">tune</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-3.5 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md transition-all shadow-sm" type="button">
+                All Dispatches
+              </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:text-primary hover:bg-surface-bright font-label-md text-label-md transition-colors" type="button">
+                Contest Winners
+              </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:text-primary hover:bg-surface-bright font-label-md text-label-md transition-colors" type="button">
+                Curriculum Updates
+              </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:text-primary hover:bg-surface-bright font-label-md text-label-md transition-colors" type="button">
+                Competitions
+              </button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>

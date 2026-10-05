@@ -1,34 +1,37 @@
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="/Dashboard/Index">
-            <img src="~/images/logo.svg" alt="James Thew Logo" onerror="this.onerror=null; this.src='/images/logo.png'">
+<nav class="navbar navbar-expand-lg navbar-dark bg-bg sticky-top shadow-sm py-3">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <img src="/images/logo.svg" alt="JamesThew.com Logo" height="32" class="d-inline-block align-text-top" onerror="this.onerror=null; this.src='/images/logo.png'">
+            <span class="fs-4 text-cream font-heading">JamesThew<span class="text-copper">.com</span></span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#memberNavbar" aria-controls="memberNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#memberNavbar" aria-controls="memberNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="material-symbols-outlined fs-2 text-cream">menu</span>
         </button>
         <div class="collapse navbar-collapse" id="memberNavbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2 ms-lg-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Dashboard/Index">Dashboard</a>
+                    <a class="nav-link text-cream" href="/Dashboard/Index">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Dashboard/MyRecipes">My Recipes</a>
+                    <a class="nav-link text-cream" href="/Recipe/Premium">Premium Recipes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Dashboard/MyTips">My Tips</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Dashboard/MyContests">Contests</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Recipe/Premium">Premium Recipes</a>
+                    <a class="nav-link text-cream" href="/Contest/Active">Contests</a>
                 </li>
             </ul>
-            <div class="d-flex align-items-center">
-                <a href="/Dashboard/Settings" class="text-mint me-3 text-decoration-none">Settings</a>
-                <form method="post" action="/Account/Logout" class="m-0">
-                    <button type="submit" class="btn btn-outline">Log Out</button>
-                </form>
+            <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                <a href="/" class="btn btn-outline-light border-0 px-3">Public Site</a>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-cream d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="material-symbols-outlined fs-3">account_circle</span>
+                        <span>@User.Identity?.Name</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark bg-surface border-secondary">
+                        <li><a class="dropdown-item" href="/Account/Profile">Profile Settings</a></li>
+                        <li><hr class="dropdown-divider border-secondary"></li>
+                        <li><a class="dropdown-item text-danger" href="/Account/Logout">Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

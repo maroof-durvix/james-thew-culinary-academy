@@ -1,34 +1,37 @@
-<nav class="navbar navbar-expand-lg" style="background-color: #081d1a; border-bottom: 2px solid var(--color-copper);">
-    <div class="container-fluid px-4">
-        <a class="navbar-brand" href="/Admin/Dashboard">
-            <img src="~/images/logo.svg" alt="James Thew Logo" onerror="this.onerror=null; this.src='/images/logo.png'">
-            <span class="ms-2 text-copper fs-6">Admin Panel</span>
+<nav class="navbar navbar-expand-lg navbar-dark bg-bg sticky-top shadow-sm py-3 border-bottom border-secondary">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/Admin/Dashboard">
+            <img src="/images/logo.svg" alt="JamesThew.com Admin" height="32" class="d-inline-block align-text-top" onerror="this.onerror=null; this.src='/images/logo.png'">
+            <span class="fs-4 text-cream font-heading">JamesThew<span class="text-copper"> Admin</span></span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="material-symbols-outlined fs-2 text-cream">menu</span>
         </button>
         <div class="collapse navbar-collapse" id="adminNavbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2 ms-lg-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Admin/Dashboard">Dashboard</a>
+                    <a class="nav-link text-cream" href="/Admin/Dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Admin/Users">Users</a>
+                    <a class="nav-link text-cream" href="/Admin/Users">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Admin/Recipes">Recipes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Admin/Contests">Contests</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Admin/Subscriptions">Subscriptions</a>
+                    <a class="nav-link text-cream" href="/Admin/Recipes">Recipes</a>
                 </li>
             </ul>
-            <div class="d-flex align-items-center">
-                <form method="post" action="/Account/Logout" class="m-0">
-                    <button type="submit" class="btn btn-outline btn-sm">Log Out</button>
-                </form>
+            <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                <a href="/" class="btn btn-outline-light border-0 px-3">Public Site</a>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-cream d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="material-symbols-outlined fs-3">admin_panel_settings</span>
+                        <span>@User.Identity?.Name</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark bg-surface border-secondary">
+                        <li><a class="dropdown-item" href="/Admin/Settings">Settings</a></li>
+                        <li><hr class="dropdown-divider border-secondary"></li>
+                        <li><a class="dropdown-item text-danger" href="/Account/Logout">Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

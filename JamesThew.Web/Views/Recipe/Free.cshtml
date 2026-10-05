@@ -1,0 +1,172 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.Recipe>
+@{
+    ViewData["Title"] = "Free Recipes";
+}
+
+<div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow Orbs -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 left-1/4 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-48 right-10 w-[30rem] h-[30rem] bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<section class="w-full px-margin-mobile lg:px-margin pt-space-xl pb-space-lg">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md tracking-wider uppercase mb-space-md">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-on-surface-variant">Recipes</span>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-secondary font-semibold">Free Recipes</span>
+</nav>
+<!-- Editorial Page Heading -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg mb-space-xl">
+<div class="max-w-3xl">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-secondary-container/40 text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-space-sm backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]">lock_open</span> Open Access Sanctuary
+          </div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight leading-none mb-space-xs">
+            Free Recipes by Chef James
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+            No registration needed. Meticulously tested Michelin-grade foundational techniques, broths, and platings curated for passionate home gourmands.
+          </p>
+</div>
+<div class="flex items-center gap-space-md bg-surface-container-high/60 backdrop-blur-xl px-space-lg py-space-md rounded-xl shadow-lg">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Curated Archive</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">08 Accessible Formulas</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">restaurant_menu</span>
+</div>
+</div>
+</div>
+<!-- Filter & Search Toolbar -->
+<div class="w-full bg-surface-container/70 backdrop-blur-2xl p-space-md rounded-xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-space-md mb-space-xl">
+<!-- Interactive Category Pills -->
+<div class="flex flex-wrap items-center gap-space-xs w-full md:w-auto" id="category-filter-group">
+<button class="category-chip px-space-md py-space-xs rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md transition-all shadow-[0_4px_16px_rgba(217,138,86,0.3)]" type="button">
+            All
+          </button>
+<button class="category-chip px-space-md py-space-xs rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-title-md text-title-md transition-all" type="button">
+            Juices
+          </button>
+<button class="category-chip px-space-md py-space-xs rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-title-md text-title-md transition-all" type="button">
+            Vegetarian
+          </button>
+<button class="category-chip px-space-md py-space-xs rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-title-md text-title-md transition-all" type="button">
+            Non-Vegetarian
+          </button>
+<button class="category-chip px-space-md py-space-xs rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-title-md text-title-md transition-all" type="button">
+            Italian
+          </button>
+</div>
+<!-- Sleek Search Input -->
+<div class="relative w-full md:w-80">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline text-[20px] pointer-events-none">
+            search
+          </span>
+<input class="w-full bg-surface-container-lowest/80 text-on-surface placeholder:text-outline text-body-sm font-body-sm pl-11 pr-space-md py-space-sm rounded-full focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner transition-all" placeholder="Search ingredients, methods..." type="text"/>
+</div>
+</div>
+<!-- 8-Card Desktop Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-space-xl">
+@foreach(var recipe in Model) {
+<article class="group relative flex flex-col bg-surface-container-high/80 backdrop-blur-xl rounded-[18px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5">
+<div class="relative w-full h-56 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="@recipe.Title" style="background-image: url('@recipe.ImagePath')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-high via-transparent to-black/30"></div>
+<div class="absolute top-space-sm left-space-sm flex items-center gap-space-xs">
+<span class="px-space-sm py-0.5 rounded-full bg-secondary-container/90 text-secondary font-label-sm text-label-sm tracking-wider uppercase font-semibold backdrop-blur-md">
+                @recipe.Access
+              </span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container-lowest/80 text-on-surface-variant font-label-sm text-label-sm uppercase backdrop-blur-md">
+                @recipe.Category.Name
+              </span>
+</div>
+<button aria-label="Bookmark Recipe" class="absolute top-space-sm right-space-sm w-8 h-8 rounded-full bg-surface-container-lowest/70 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary-container hover:text-surface-container-lowest transition-colors">
+<span class="material-symbols-outlined text-[16px]">bookmark</span>
+</button>
+</div>
+<div class="flex flex-col flex-1 p-space-md justify-between">
+<div>
+<div class="flex items-center justify-between text-label-sm text-outline font-label-sm mb-space-xs">
+<span>By @recipe.Author.FullName</span>
+<span class="flex items-center gap-1 text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span> 5.0
+                </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug mb-space-sm">
+                @recipe.Title
+              </h2>
+</div>
+<div class="pt-space-sm mt-space-sm border-t border-surface-container-highest/60 flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-outline text-[16px]">schedule</span>
+<span>@(recipe.PrepMinutes + recipe.CookMinutes) mins</span>
+</div>
+<a class="inline-flex items-center gap-1 px-space-md py-space-xs rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md hover:bg-primary transition-all shadow-[0_2px_10px_rgba(217,138,86,0.25)]" href="/Recipe/Details/@recipe.Id">
+<span>View</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+}
+<!-- Pagination Section -->
+<div class="flex items-center justify-center gap-space-xs mb-space-xl">
+<a class="flex items-center gap-1 px-space-md py-space-xs rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+<span>Previous</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.35)]" href="#">
+          1
+        </a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-title-md text-title-md" href="#">
+          2
+        </a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-title-md text-title-md" href="#">
+          3
+        </a>
+<a class="flex items-center gap-1 px-space-md py-space-xs rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-title-md text-title-md" href="#">
+<span>Next</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+<!-- Conversion CTA Banner -->
+<div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-surface-container-high via-surface-container to-surface-container-low p-space-lg lg:p-space-xl shadow-2xl mb-space-xl">
+<!-- Glow highlight accent line -->
+<div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary-container to-transparent"></div>
+<div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-space-lg">
+<div class="max-w-2xl text-center lg:text-left">
+<div class="inline-flex items-center gap-space-xs text-primary font-label-md text-label-md uppercase tracking-wider mb-space-xs">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span> The Chef's Inner Cellar
+            </div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">
+              Want the full premium collection? Join Now
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Unlock over 400+ secret reserve preparations, sous-vide temperature guides, live tasting notes, and direct quarterly culinary critiques from Chef James Thew.
+            </p>
+</div>
+<div class="shrink-0 flex flex-col sm:flex-row items-center gap-space-md">
+<a class="inline-flex items-center justify-center px-space-xl py-space-sm rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_6px_24px_rgba(217,138,86,0.35)] hover:bg-primary transition-all" href="#">
+              Join Now ($10/mo)
+            </a>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for active category chips
+  const chips = document.querySelectorAll('.category-chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => {
+        c.className = 'category-chip px-space-md py-space-xs rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-title-md text-title-md transition-all';
+      });
+      chip.className = 'category-chip px-space-md py-space-xs rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md transition-all shadow-[0_4px_16px_rgba(217,138,86,0.3)]';
+    });
+  });
+</script>

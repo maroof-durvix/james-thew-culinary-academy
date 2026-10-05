@@ -1,0 +1,336 @@
+@{
+    ViewData["Title"] = "Recipe Details";
+}
+
+<div class="flex flex-col w-full">
+<!-- Dynamic Atmospheric Glow Background -->
+<div class="relative w-full px-margin-mobile lg:px-margin pt-space-lg pb-space-xl overflow-hidden">
+<!-- Ambient Radial Light Blobs -->
+<div class="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div class="absolute top-1/2 right-[-100px] w-[500px] h-[500px] bg-secondary-container/20 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+<!-- Editorial Breadcrumb Navigation -->
+<nav aria-label="Breadcrumbs" class="flex items-center gap-space-xs text-on-surface-variant mb-space-lg overflow-x-auto whitespace-nowrap">
+<a class="font-body-sm text-body-sm hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">home</span>
+<span>Home</span>
+</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Recipes</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Non-Vegetarian</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="font-body-sm text-body-sm text-primary font-medium truncate">Karachi Spiced Pan-Seared Snapper</span>
+</nav>
+<!-- Dish Hero & Cinematic Header Card -->
+<div class="relative w-full bg-surface-container rounded-[20px] p-space-md lg:p-space-xl shadow-xl backdrop-blur-xl mb-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+<!-- Visual Presentation -->
+<div class="lg:col-span-6 relative w-full h-[380px] lg:h-[460px] rounded-[18px] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Gourmet crisp-skinned red snapper fillet delicately rested over a luminous golden saffron emulsion with micro cilantro and charred lemon. Deep midnight teal kitchen ambiance with warm copper reflections from seasoned French copper skillets, fine dining plateware, soft steam rising, Michelin-star presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGTeJ_RAuK_vI9IN-zN6vGzJtSb7lsPgOjgOI1eQXIRsOWehS0L9aqYyU5pdLvIAsB_8DLaAjo7946PrxPCuhYTM_kr4Jpi3CYCgS3R5gYVen2Tprxg17S0t_ZIfhAcQ74MTGgSZn70C8YrDnWzn4EdfCvlHMOrk_-OfJ4mLm642J6As7yJ-QdBHD6SI_UDPSBIKr9VOGj26EicbsbDRPMzbojsIpdjUfL2cmyrVw0JAqrv34wqJBL"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-black/20 pointer-events-none"></div>
+<!-- Badges Floating Over Image -->
+<div class="absolute top-space-md left-space-md flex items-center gap-space-sm">
+<span class="px-space-md py-1 rounded-full bg-secondary/15 backdrop-blur-md text-secondary font-label-md text-label-md tracking-wider uppercase">
+              Free Recipe
+            </span>
+<span class="px-space-md py-1 rounded-full bg-surface-container-high/80 backdrop-blur-md text-on-surface font-label-md text-label-md">
+              Non-Vegetarian
+            </span>
+</div>
+<!-- Bottom Image Accent Pill -->
+<div class="absolute bottom-space-md right-space-md flex items-center gap-2 px-space-md py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">Pan-Searing • 480 kcal/serving</span>
+</div>
+</div>
+<!-- Recipe Identity & Accolades -->
+<div class="lg:col-span-6 flex flex-col justify-center gap-space-md lg:pl-space-md">
+<div class="flex items-center gap-space-sm text-primary font-label-md text-label-md uppercase tracking-widest">
+<span class="w-8 h-[2px] bg-primary"></span>
+<span>Master Heritage Formula</span>
+</div>
+<h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface tracking-tight leading-tight">
+            Karachi Spiced Pan-Seared Snapper
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+            Fresh wild Arabian Sea red snapper seared to glassy golden perfection, counterbalanced with a velvety reduction of Persian saffron, hand-churned cultured butter, and toasted Sindhi coriander.
+          </p>
+<!-- Chef Author Credit Card -->
+<div class="flex items-center gap-space-md py-space-sm">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shadow-[0_2px_12px_rgba(217,138,86,0.3)]">
+<img class="w-full h-full object-cover" data-alt="Headshot of Chef James Thew in formal crisp charcoal-emerald chef jacket with gold buttons, thoughtful warm culinary maestro expression in a dimly lit fine-dining prep kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoEdkAxpGGRdlZn0dr5C87O5pOPABkgiTZshyc0Ij9ka_l4NxBBRcIg8fOzfxxOIqLRUE2gW17pnz37lkvmGgxcvVnqD6tkpi2v6NF2DOJBkKDdUmQqHnF18nHzhgd5H_y3mFsMy8Eg1Xy0seOnmZKRwgUnh5U82N3f2HksCKd-Ng2ZzHojMXxw_-poJhmS6-0KOnAbMQPDS8fbs1xV9CtExUIhRwwp3YV9BP4YaUaAATtt_9dNkQu"/>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface">Chef James Thew</span>
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary font-medium">Executive Chef • 5-Star Hotel Laureate</span>
+</div>
+</div>
+<!-- Glass Stat Badges Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm pt-space-xs">
+<div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[22px] mb-1">hourglass_top</span>
+<span class="font-label-sm text-label-sm text-outline">Prep Time</span>
+<span class="font-title-md text-title-md text-on-surface">20 Mins</span>
+</div>
+<div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[22px] mb-1">skillet</span>
+<span class="font-label-sm text-label-sm text-outline">Cooking Time</span>
+<span class="font-title-md text-title-md text-on-surface">25 Mins</span>
+</div>
+<div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[22px] mb-1">room_service</span>
+<span class="font-label-sm text-label-sm text-outline">Yield</span>
+<span class="font-title-md text-title-md text-on-surface">4 Portions</span>
+</div>
+<div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+<div class="flex items-center gap-1 text-primary mb-1">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-title-md text-title-md text-on-surface">4.9</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">86 Verified Reviews</span>
+</div>
+</div>
+<!-- Quick Action Bar -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<button class="inline-flex items-center gap-2 px-space-lg py-space-xs rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_20px_rgba(217,138,86,0.3)] hover:bg-primary hover:shadow-[0_6px_28px_rgba(217,138,86,0.45)] transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+<span>Save to Cookbook</span>
+</button>
+<button class="inline-flex items-center gap-2 px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span class="font-body-sm text-body-sm">Share</span>
+</button>
+<button class="inline-flex items-center gap-2 px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface hover:text-primary transition-colors cursor-pointer" onclick="window.print()">
+<span class="material-symbols-outlined text-[20px]">print</span>
+<span class="font-body-sm text-body-sm">Print Sheet</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Master Two-Column Culinary Architecture -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start mb-space-xl">
+<!-- LEFT COLUMN: Ingredients Manifest (35% on Desktop) -->
+<aside class="lg:col-span-5 flex flex-col gap-space-lg">
+<div class="bg-surface-container/90 backdrop-blur-xl p-space-lg rounded-[18px] shadow-lg sticky top-24">
+<div class="flex items-center justify-between pb-space-sm mb-space-md bg-surface-container-high/40 p-space-sm rounded-xl">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">kitchen</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Pantry Checklist</h2>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/40 px-space-sm py-0.5 rounded-full">
+              4 Servings
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+            Tick off hand-inspected ingredients as you prep your kitchen station mise en place.
+          </p>
+<!-- Group A: Snapper & Rub -->
+<div class="space-y-space-sm mb-space-lg">
+<div class="flex items-center gap-2 text-primary font-title-md text-title-md tracking-tight">
+<span class="material-symbols-outlined text-[18px]">set_meal</span>
+<h3>For the Snapper &amp; Spice Rub</h3>
+</div>
+<ul class="space-y-2.5 pt-space-xs">
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-1" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-1">
+<span class="font-semibold text-primary">4 fillets (180g ea)</span> Fresh Red Snapper, scaled, pin-bones cleared, skin scored
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-2" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-2">
+<span class="font-semibold text-primary">1.5 tsp</span> Toasted Karachi Sindhi cumin seeds, coarsely pounded
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-3" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-3">
+<span class="font-semibold text-primary">1 tsp</span> Kashmiri degi mirch (mild sun-dried red chili flakes)
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-4" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-4">
+<span class="font-semibold text-primary">1/2 tsp</span> Organic turmeric powder from Khyber hills
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-5" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-5">
+<span class="font-semibold text-primary">2 tbsp</span> Cold-pressed cold-filtered mustard oil (or virgin olive oil)
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-6" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-6">
+<span class="font-semibold text-primary">1 pinch</span> Himalayan pink flake salt
+                </label>
+</li>
+</ul>
+</div>
+<!-- Group B: Saffron Emulsion -->
+<div class="space-y-space-sm pt-space-sm">
+<div class="flex items-center gap-2 text-primary font-title-md text-title-md tracking-tight">
+<span class="material-symbols-outlined text-[18px]">opacity</span>
+<h3>For the Saffron Emulsion &amp; Plating</h3>
+</div>
+<ul class="space-y-2.5 pt-space-xs">
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-7" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-7">
+<span class="font-semibold text-primary">1 generous pinch</span> Super Negin Grade-A saffron filaments
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-8" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-8">
+<span class="font-semibold text-primary">60 ml</span> Dry white wine or crisp clarified fish fumet
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-9" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-9">
+<span class="font-semibold text-primary">100 g</span> Unsalted French cultured butter, cubed and ice-cold
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-10" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-10">
+<span class="font-semibold text-primary">1/2</span> Meyer lemon, juiced and strained
+                </label>
+</li>
+<li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+<input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-11" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-11">
+<span class="font-semibold text-primary">Garnish:</span> Hand-picked micro coriander leaves &amp; edible marigold petals
+                </label>
+</li>
+</ul>
+</div>
+<!-- Sommelier / Chef Tip Highlight Box -->
+<div class="mt-space-lg p-space-md rounded-xl bg-surface-container-highest/80">
+<div class="flex items-center gap-2 text-secondary mb-1">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+<span class="font-label-md text-label-md tracking-wider uppercase">Chef's Secret Technique</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Always bloom your saffron threads in 2 tablespoons of warm fumet for 15 minutes before reduction. This releases the deep carotenoid hues and eliminates floral bitterness.
+            </p>
+</div>
+</div>
+</aside>
+<!-- RIGHT COLUMN: Culinary Procedure (65% on Desktop) -->
+<main class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="bg-surface-container/90 backdrop-blur-xl p-space-lg lg:p-space-xl rounded-[18px] shadow-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-md mb-space-lg gap-space-sm bg-surface-container-high/40 p-space-md rounded-xl">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Master Class Walkthrough</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Cooking Procedure</h2>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-lowest px-space-md py-1.5 rounded-full">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">5 Executable Stages</span>
+</div>
+</div>
+<!-- Step Sequence -->
+<div class="space-y-space-xl">
+<!-- Step 1 -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<div class="w-12 h-12 rounded-2xl bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-[0_4px_16px_rgba(217,138,86,0.35)]">
+                1
+              </div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+                    Fillet Conditioning &amp; Scored Spice Rub
+                  </h3>
+<span class="font-label-sm text-label-sm text-outline">Stage 01 • 8 mins</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Pat the red snapper fillets thoroughly dry using culinary towels; moisture is the enemy of a crisp skin. Make three shallow diagonal incisions across the skin with a sharp utility knife, ensuring you do not slice into the flesh. In a small ceramic bowl, blend the pounded Karachi cumin, degi mirch, turmeric, and sea salt with a few drops of mustard oil. Gently massage the spice paste into the score marks and flash coat the flesh.
+                </p>
+<div class="p-space-sm bg-surface-container-high/60 rounded-xl text-body-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">timer</span>
+<span>Rest at cool room temperature for 10 minutes prior to meeting heat.</span>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<div class="w-12 h-12 rounded-2xl bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-[0_4px_16px_rgba(217,138,86,0.35)]">
+                2
+              </div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+                    The High-Heat Skin-Down Sear
+                  </h3>
+<span class="font-label-sm text-label-sm text-outline">Stage 02 • 6 mins</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Set a heavy-gauge carbon steel or copper frying pan over medium-high heat until wisps of shimmer emerge. Pour the remaining oil to coat. Lay the fillets skin-side down facing away from you to avert oil splatter. Immediately apply gentle downward pressure with a flexible fish spatula for 45 seconds to prevent curling. Lower heat slightly to medium and sear uninterrupted for 4 minutes until the skin turns deep amber-copper and shatters when tapped.
+                </p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<div class="w-12 h-12 rounded-2xl bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-[0_4px_16px_rgba(217,138,86,0.35)]">
+                3
+              </div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+                    Flesh Touch &amp; Residual Butter Baste
+                  </h3>
+<span class="font-label-sm text-label-sm text-outline">Stage 03 • 3 mins</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Carefully invert the fillets with your spatula. Toss 1 tablespoon of butter into the foamy margins. Angle the skillet towards yourself and ladle the frothing hot spiced butter over the crisp skin repeatedly for 90 seconds. The gentle convection will cook the delicate interior through while safeguarding the skin's glass-like texture.
+                </p>
+<div class="p-space-sm bg-surface-container-high/60 rounded-xl text-body-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<span>Internal temperature should read precisely 54°C (130°F) before removing.</span>
+</div>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<div class="w-12 h-12 rounded-2xl bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-[0_4px_16px_rgba(217,138,86,0.35)]">
+                4
+              </div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+                    Emulsifying the Saffron Butter Reduction
+                  </h3>
+<span class="font-label-sm text-label-sm text-outline">Stage 04 • 5 mins</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Transfer the snapper fillets skin-side up onto a warmed resting grate. Discard excess surface fat from the skillet, leaving only the fond. Deglaze over low heat with the white wine (or fish fumet) and the bloomed saffron infusion. Simmer briskly until reduced to 2 tablespoons of glossy concentrate. Turn heat to lowest, then whisk in the remaining ice-cold butter cube by cube. Whisk vigorously in rhythmic figure-eights until an opaque, silky, liquid-gold emulsion forms. Finish with fresh Meyer lemon juice.
+                </p>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<div class="w-12 h-12 rounded-2xl bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-[0_4px_16px_rgba(217,138,86,0.35)]">
+                5
+              </div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+                    Haute Cuisine Plating &amp; Botanical Garnish
+                  </h3>
+<span class="font-label-sm text-label-sm text-outline">Stage 05 • 3 mins</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Ladle 2 tablespoons of the warm saffron emulsion into the shallow well of pre-warmed porcelain plates. Center a snapper fillet directly upon the golden pool, keeping the crackling skin pristine and untouched by sauce. Adorn with micro-coriander leaves and a sprinkle of fleur de sel. Serve immediately alongside charred lemon cheeks.
+                </p>
+</div>
+</div>
+</div>
+</div>

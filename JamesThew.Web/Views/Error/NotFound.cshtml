@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="container py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-1 text-primary fw-bold">Oops!</h1>
+            <h2 class="mb-4">@ViewBag.ErrorMessage</h2>
+            <a href="/" class="btn btn-primary rounded-pill px-4 py-2">
+                <span class="material-symbols-outlined align-middle me-2">home</span>
+                Return to Home
+            </a>
+        </div>
+    </div>
+</div>
