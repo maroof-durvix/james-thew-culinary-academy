@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/Dashboard/Index">
+            <img src="~/images/logo.svg" alt="James Thew Logo" onerror="this.onerror=null; this.src='/images/logo.png'">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#memberNavbar" aria-controls="memberNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="memberNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Dashboard/Index">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Dashboard/MyRecipes">My Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Dashboard/MyTips">My Tips</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Dashboard/MyContests">Contests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Recipe/Premium">Premium Recipes</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <a href="/Dashboard/Settings" class="text-mint me-3 text-decoration-none">Settings</a>
+                <form method="post" action="/Account/Logout" class="m-0">
+                    <button type="submit" class="btn btn-outline">Log Out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

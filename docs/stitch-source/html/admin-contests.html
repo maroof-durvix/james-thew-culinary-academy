@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "inverse-primary": "#8e4d1f",
+          "tertiary-fixed": "#c0ecdd",
+          "surface-container": "#052420",
+          "surface-variant": "#1d3a35",
+          "outline-variant": "#53443b",
+          "tertiary": "#a4d0c2",
+          "error": "#ffb4ab",
+          "on-tertiary-container": "#0f3b31",
+          "surface-container-low": "#02201c",
+          "background": "#001714",
+          "surface-container-lowest": "#00110f",
+          "surface-dim": "#001714",
+          "secondary-container": "#1b533a",
+          "inverse-on-surface": "#183531",
+          "on-tertiary": "#0a372d",
+          "primary-fixed": "#ffdbc8",
+          "on-secondary": "#003824",
+          "on-tertiary-fixed-variant": "#254e43",
+          "on-surface-variant": "#d9c2b6",
+          "surface-container-highest": "#1d3a35",
+          "secondary-fixed": "#b5efce",
+          "on-error-container": "#ffdad6",
+          "surface-tint": "#ffb689",
+          "on-secondary-container": "#8cc5a5",
+          "primary": "#ffb689",
+          "surface-bright": "#223e3a",
+          "on-tertiary-fixed": "#002019",
+          "on-primary-fixed": "#311300",
+          "on-error": "#690005",
+          "tertiary-fixed-dim": "#a4d0c2",
+          "primary-fixed-dim": "#ffb689",
+          "on-secondary-fixed": "#002113",
+          "on-surface": "#c9e9e2",
+          "surface-container-high": "#112f2b",
+          "secondary-fixed-dim": "#9ad3b3",
+          "on-background": "#c9e9e2",
+          "tertiary-container": "#7ba598",
+          "on-primary-container": "#572700",
+          "on-primary": "#512300",
+          "on-secondary-fixed-variant": "#185038",
+          "surface": "#001714",
+          "inverse-surface": "#c9e9e2",
+          "primary-container": "#d98a56",
+          "secondary": "#9ad3b3",
+          "error-container": "#93000a",
+          "outline": "#a18d82",
+          "on-primary-fixed-variant": "#713708"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem",
+          "gutter": "1.5rem",
+          "margin": "3rem",
+          "gutter-mobile": "1.0rem",
+          "space-md": "1.0rem",
+          "space-xl": "2.5rem",
+          "margin-mobile": "1.25rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "title-lg": ["Inter"],
+          "headline-md": ["EB Garamond"],
+          "label-sm": ["Inter"],
+          "display-lg": ["EB Garamond"],
+          "headline-sm": ["EB Garamond"],
+          "headline-xl": ["EB Garamond"],
+          "body-sm": ["Inter"],
+          "headline-xl-mobile": ["EB Garamond"],
+          "headline-lg": ["EB Garamond"],
+          "body-lg": ["Inter"],
+          "label-md": ["Inter"],
+          "body-md": ["Inter"],
+          "title-md": ["Inter"
+          ],
+          "display-lg-mobile": ["EB Garamond"]
+        },
+        "fontSize": {
+          "title-lg": ["18px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "headline-md": ["26px", {"lineHeight": "34px", "fontWeight": "500"}],
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+          "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+          "headline-sm": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.015em", "fontWeight": "400"}],
+          "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-xl-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+          "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "display-lg-mobile": ["38px", {"lineHeight": "46px", "letterSpacing": "-0.01em", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-[#0A211E] z-50 flex flex-col pt-space-lg pb-space-lg"><div class="px-space-lg mb-space-lg flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #d98a56 - Font: ebGaramond - Mode: dark - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V_6-AG_LZuIcuibpchQWbHO2liZ4nKjUqYT4QzDhhmUXngupBdQ9apyO9f8nrQd_31qIWtIM4Krk-ldOkIPoj43iwvZh1cKbezsjejvApMV2tkHg1uvWyVmEBxf_QpU22n-vhDdppQSDOG1xFdMTryWAT8J-CbZgDtzW4zYhokdHUFUMoofSML_asNCPRRgkhz1Aqb0wMXfUDGhk17X01ugHTkJWLArVDUuwd_vA-113_7WShxJ0bJPeM"/><span class="text-title-md font-headline text-primary">James Thew</span></div><span class="px-2 py-0.5 text-label-sm bg-primary-container/20 text-primary border border-primary/40 rounded-full">Admin</span></div><nav class="flex-1 px-space-md space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary-container font-bold"><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="overview" href="#"><span class="material-symbols-outlined mr-space-md">dashboard</span>Overview</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="recipes" href="#"><span class="material-symbols-outlined mr-space-md">menu_book</span>Recipes</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="tips" href="#"><span class="material-symbols-outlined mr-space-md">lightbulb</span>Tips</a><a aria-current="page" class="flex items-center px-space-md py-space-sm rounded-xl transition-all bg-primary-container text-on-primary-container font-bold" data-path="contests" href="#"><span class="material-symbols-outlined mr-space-md">trophy</span>Contests</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="entries-winners" href="#"><span class="material-symbols-outlined mr-space-md">grade</span>Entries & Winners</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="announcements" href="#"><span class="material-symbols-outlined mr-space-md">campaign</span>Announcements</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="feedback" href="#"><span class="material-symbols-outlined mr-space-md">chat</span>Feedback</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="members" href="#"><span class="material-symbols-outlined mr-space-md">group</span>Members</a></nav><div class="px-space-md pt-space-md border-t border-outline-variant/20"><a class="flex items-center px-space-md py-space-sm rounded-xl text-error hover:bg-error-container/20 hover:text-on-error-container transition-all" data-path="logout" href="#"><span class="material-symbols-outlined mr-space-md">logout</span>Logout</a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-margin"><div class="flex items-center gap-space-sm"><span class="text-headline-sm font-headline text-on-surface">Dashboard</span></div><div class="flex items-center gap-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-sm">search</span><input class="bg-[#0A211E] text-on-surface text-body-sm rounded-full pl-9 pr-4 py-1.5 border border-outline-variant/30 focus:border-primary focus:outline-none w-64" placeholder="Search..." type="text"/></div><button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined">notifications</span></button><div class="flex items-center gap-space-sm pl-2 border-l border-outline-variant/30"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1X3EiINyLWdOTRasuyaKqBmVWvLHSWZOndZqaruCuQOWbXZoALe70qIT0QfzvhaKc5_3gdjs72G1rlTGY9VITYFgOak8sQl9Lu09KqoF7RIEoVg_NwZgrbIzFED9z_OIiNhfWojO90SY2xrkQuPehvVr0hJ1H67KbkZs2CPArB7yph0eseVYLT_hquxZwaFiC2BHRbbyhF4jAl3RPlUkLAcP7zGhEnSnUEEhk1CcvOODruI1UvJcZ1dK4U"/><span class="text-body-sm font-medium text-on-surface">Chef James — Admin</span></div></div></header><main class="relative pt-16 bg-[#0C2A26] min-h-screen p-space-margin"><div class="flex flex-col w-full text-on-surface">
+<!-- Top Action & Overview Header -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-space-md mb-space-xl">
+<div>
+<span class="text-label-sm uppercase tracking-wider text-primary">Culinary Competitions</span>
+<h1 class="font-headline text-headline-xl text-on-surface mt-1">Manage Contests</h1>
+<p class="text-body-md text-on-surface-variant max-w-2xl mt-1">
+        Curate seasonal challenges, monitor community participation, and distribute prestigious culinary accolades.
+      </p>
+</div>
+<div>
+<button class="inline-flex items-center gap-space-sm bg-primary-container text-on-primary-container px-space-lg py-space-sm rounded-full font-title-lg shadow-lg hover:bg-primary transition-all duration-300" onclick="toggleSlideOver(true)">
+<span class="material-symbols-outlined">add</span>
+        Create Contest
+      </button>
+</div>
+</div>
+<!-- KPI Statistics Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md mb-space-xl">
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
+<span class="text-label-sm text-outline uppercase tracking-wider">Active Contests</span>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-headline text-4xl text-on-surface">04</span>
+<span class="text-secondary text-body-sm font-medium flex items-center gap-1">+1 this week</span>
+</div>
+</div>
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
+<span class="text-label-sm text-outline uppercase tracking-wider">Total Submissions</span>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-headline text-4xl text-on-surface">1,284</span>
+<span class="text-secondary text-body-sm font-medium flex items-center gap-1">+18% vs last</span>
+</div>
+</div>
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
+<span class="text-label-sm text-outline uppercase tracking-wider">Prize Pool Distributed</span>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-headline text-4xl text-on-surface">$12,450</span>
+<span class="text-primary text-body-sm font-medium">8 Contests</span>
+</div>
+</div>
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
+<span class="text-label-sm text-outline uppercase tracking-wider">Participant Reach</span>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-headline text-4xl text-on-surface">4.8k</span>
+<span class="text-secondary text-body-sm font-medium">Global Chefs</span>
+</div>
+</div>
+</div>
+<!-- Contests Table Section -->
+<div class="bg-surface-container-low/70 backdrop-blur-xl rounded-xl border border-outline-variant/10 shadow-xl overflow-hidden mb-space-xl">
+<!-- Filter bar -->
+<div class="p-space-lg flex flex-col md:flex-row md:items-center md:justify-between gap-space-md border-b border-outline-variant/10">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-xs rounded-full text-label-md bg-primary-container/20 text-primary border border-primary/40 font-medium">All Contests (8)</button>
+<button class="px-space-md py-space-xs rounded-full text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Active (4)</button>
+<button class="px-space-md py-space-xs rounded-full text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Closed (4)</button>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-sm">filter_list</span>
+<select class="bg-surface-container text-on-surface text-body-sm rounded-xl pl-9 pr-8 py-2 border border-outline-variant/30 focus:border-primary focus:outline-none appearance-none">
+<option>Sort by Deadline</option>
+<option>Sort by Entries</option>
+<option>Sort by Title</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/10 text-label-sm text-outline uppercase">
+<th class="py-space-md px-space-lg font-medium">Contest Title</th>
+<th class="py-space-md px-space-lg font-medium">Category</th>
+<th class="py-space-md px-space-lg font-medium">Timeline</th>
+<th class="py-space-md px-space-lg font-medium">Status</th>
+<th class="py-space-md px-space-lg font-medium">Entries</th>
+<th class="py-space-md px-space-lg font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-body-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="font-title-md text-on-surface flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="Close up of a magnificent gourmet autumn pumpkin soup served in a black ceramic bowl with toasted pumpkin seeds, vibrant orange color, Moody dark kitchen background with dramatic warm side lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg6d5nhQ2Oza28VPEDRu-bKyTDj0KW_V_-fAoagsb983yiYycVc27hLEJ8gxPpMhGFTsfMSyR_PKY0vDk8UCyH1bsO1pe9LRBl82YFuqa-Bw78OTZIae44MafbiFzLSILdIDdS-gQaiu3SaHTMRgx123zsOZv7Iy9ijtKoe9yMRoNw9ZtbY13mvVhMouO-MTYbpzUF-QgcXKMbixOCYnDJ1a84JnhLD6nuKtRAXJLsx_mhJ2fh8Xtn"/>
+<div>
+<span>Autumn Truffle & Squash Masterclass</span>
+<p class="text-body-sm text-on-surface-variant font-normal">Prize: $1,500 + Copper Cookware Set</p>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Recipe</span>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="text-body-sm text-on-surface">Oct 01 — Nov 15</div>
+<div class="text-label-sm text-outline">3 days left</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#5DBB8A]/15 text-[#5DBB8A] border border-[#5DBB8A]/30">Active</span>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="font-title-md text-on-surface">342</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-sm">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-body-sm transition-all">Close</button>
+<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="font-title-md text-on-surface flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="Artisanal sourdough bread loaf cut in half showing perfect airy crumb structure, dusting of flour on a dark wooden countertop, warm moody restaurant lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXy4nkiZ1l5pz6cOGzUFHdXZ3weIivau6fbAQamZ-8-OBpTt7qfTyzUOh5KM3aYe1ZAXnclXq-m_28pgoLNIuckw8j4njhiOgvb380dNPpbodUdF96UdtznVsRQGqACn-vKeQ1c1CzVg6PatJF4CU8H87QT101Qiok6wTbubygJKmRCqSX9ZCDAIltCT6420QhnrFFrI9NJpYbXRZdqS-uesEyaec9xax6fAd02cLXdaGqZuEb-xWC"/>
+<div>
+<span>The Art of Fermentation & Sourdough</span>
+<p class="text-body-sm text-on-surface-variant font-normal">Prize: Professional Proofing Basket & Knife Set</p>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Both</span>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="text-body-sm text-on-surface">Oct 15 — Nov 30</div>
+<div class="text-label-sm text-outline">18 days left</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#5DBB8A]/15 text-[#5DBB8A] border border-[#5DBB8A]/30">Active</span>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="font-title-md text-on-surface">518</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-sm">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-body-sm transition-all">Close</button>
+<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="font-title-md text-on-surface flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="A professional culinary knife sharpening stone with water droplets reflecting warm kitchen lighting, meticulous technique, high-end culinary workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSMPXR03D6wfONdEm3EG605-70CQQWXE1pxs3z8ZVtBTWMk0lwmO666an1_pVIHqMaWfbgNetzwhp643T7kpQeOiqtzcmAlWIKFK8S5cnUZb2oyFv8GZlF_aLqhtgcCiLgH8bGMpZs8QMG49WC3k_iiXiWCM4zfqxxlusOgBDY_2ftYVOpYpLPYGFBcvmq0wjk2eWocCjtLmkxCY0VsCVbFGpjfBoRyS6HTf16rD-EUYKIwakTmKIF"/>
+<div>
+<span>Kitchen Knife Skills & Safety Tips</span>
+<p class="text-body-sm text-on-surface-variant font-normal">Prize: Damascus Steel Chef Knife</p>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Tip</span>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="text-body-sm text-on-surface">Sep 01 — Oct 01</div>
+<div class="text-label-sm text-outline">Ended</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#7F9990]/15 text-[#7F9990] border border-[#7F9990]/20">Closed</span>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="font-title-md text-on-surface">244</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-sm">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container/40 text-outline text-body-sm cursor-not-allowed" disabled="">Closed</button>
+<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="font-title-md text-on-surface flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="Handcrafted artisanal cocktails in crystal glassware garnished with aromatic herbs, dark moody cocktail lounge ambiance with subtle amber lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtxaFkOntmQq-TBpM5myDligLm5cFqIYJWdnUsslcdPpBwW4RySrYtgj4FUQkm-7DHj45LskqpR2o_22NEpHc-_pTZjSE3j9DLKYr33P-M2vroZKHa88mZH5FenjIO0NiHk21JoHa0moWsGpyv_nRbn8ENLCuvVquewWsZyDtkmlerfbLYrdzm6Rf6C0zm0S-mrjl_aYd68AoJqeyGzjgZvzBU3sJHnoO2UxRphv_H4D2BmlxaNQej"/>
+<div>
+<span>Botanical Infusions & Elixirs</span>
+<p class="text-body-sm text-on-surface-variant font-normal">Prize: Master Mixology Kit</p>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Recipe</span>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="text-body-sm text-on-surface">Nov 01 — Dec 15</div>
+<div class="text-label-sm text-outline">Starts soon</div>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#F5A623]/12 text-[#F5A623] border border-[#F5A623]/25">Upcoming</span>
+</td>
+<td class="py-space-md px-space-lg">
+<span class="font-title-md text-on-surface">0</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-sm">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-body-sm transition-all">Close</button>
+<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination footer -->
+<div class="p-space-md px-space-lg flex items-center justify-between border-t border-outline-variant/10 text-body-sm text-on-surface-variant">
+<span>Showing 1 to 4 of 8 total contests</span>
+<div class="flex items-center gap-space-sm">
+<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">Previous</button>
+<button class="px-3 py-1 rounded-lg bg-primary text-on-primary-fixed font-medium">1</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">2</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">Next</button>
+</div>
+</div>
+</div>
+<!-- Create New Contest Slide-Over Panel Overlay -->
+<div class="fixed inset-0 z-50 overflow-hidden hidden" id="slideOver">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-[#00110F]/80 backdrop-blur-md opacity-0 transition-opacity duration-300" id="slideBackdrop" onclick="toggleSlideOver(false)"></div>
+<!-- Sliding Panel -->
+<div class="absolute inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300 ease-in-out" id="slidePanel">
+<div class="w-screen max-w-xl bg-[#0A211E] border-l border-outline-variant/20 shadow-2xl flex flex-col h-full">
+<!-- Panel Header -->
+<div class="px-space-lg py-space-md border-b border-outline-variant/20 flex items-center justify-between bg-[#052420]">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary">trophy</span>
+<h2 class="font-headline text-headline-sm text-on-surface">Create New Contest</h2>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-on-surface rounded-full hover:bg-surface-container transition-colors" onclick="toggleSlideOver(false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Panel Body Form -->
+<div class="flex-1 overflow-y-auto p-space-lg space-y-space-lg">
+<div>
+<label class="block text-label-md text-on-surface-variant mb-space-xs">Contest Title</label>
+<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="e.g., Holiday Pastry & Confection Showcase" type="text"/>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-space-xs">Category</label>
+<div class="grid grid-cols-3 gap-space-sm">
+<label class="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#001714] border border-outline-variant/30 cursor-pointer hover:border-primary transition-all">
+<input class="text-primary focus:ring-0" name="contest_category" type="radio"/>
+<span class="text-body-sm text-on-surface font-medium">Recipe</span>
+</label>
+<label class="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#001714] border border-outline-variant/30 cursor-pointer hover:border-primary transition-all">
+<input class="text-primary focus:ring-0" name="contest_category" type="radio"/>
+<span class="text-body-sm text-on-surface font-medium">Tip</span>
+</label>
+<label class="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#001714] border border-outline-variant/30 cursor-pointer hover:border-primary transition-all">
+<input checked="" class="text-primary focus:ring-0" name="contest_category" type="radio"/>
+<span class="text-body-sm text-on-surface font-medium">Both</span>
+</label>
+</div>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-space-xs">Description & Requirements</label>
+<textarea class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl p-space-md border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="Detail the guidelines, key ingredients, preparation standards, and evaluation criteria for participating chefs..." rows="4"></textarea>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-space-xs">Prize Details</label>
+<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="e.g., $1,000 Cash Prize + Chef James Thew Signature Knife" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div>
+<label class="block text-label-md text-on-surface-variant mb-space-xs">Start Date</label>
+<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" type="date"/>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-space-xs">Deadline</label>
+<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" type="date"/>
+</div>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-space-xs">Cover Imagery Prompt</label>
+<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="Describe contest promotional image..." type="text"/>
+</div>
+</div>
+<!-- Panel Footer -->
+<div class="px-space-lg py-space-md border-t border-outline-variant/20 bg-[#052420] flex items-center justify-end gap-space-sm">
+<button class="px-space-lg py-2.5 rounded-full text-on-surface-variant hover:text-on-surface text-body-md font-medium transition-colors" onclick="toggleSlideOver(false)">Cancel</button>
+<button class="bg-primary-container text-on-primary-container px-space-lg py-2.5 rounded-full font-title-lg shadow-lg hover:bg-primary transition-all duration-300" onclick="toggleSlideOver(false)">Publish Contest</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Client Interaction Script -->
+<script>
+    function toggleSlideOver(open) {
+      const slideOver = document.getElementById('slideOver');
+      const backdrop = document.getElementById('slideBackdrop');
+      const panel = document.getElementById('slidePanel');
+
+      if (open) {
+        slideOver.classList.remove('hidden');
+        setTimeout(() => {
+          backdrop.classList.add('opacity-100');
+          panel.classList.remove('translate-x-full');
+        }, 10);
+      } else {
+        backdrop.classList.remove('opacity-100');
+        panel.classList.add('translate-x-full');
+        setTimeout(() => {
+          slideOver.classList.add('hidden');
+        }, 300);
+      }
+    }
+  </script>
+</div></main></div></body></html>

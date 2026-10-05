@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-secondary-fixed": "#002113",
+          "tertiary-fixed": "#c0ecdd",
+          "on-secondary": "#003824",
+          "on-tertiary-fixed-variant": "#254e43",
+          "on-error": "#690005",
+          "primary-fixed": "#ffdbc8",
+          "surface-container-low": "#02201c",
+          "on-primary-container": "#572700",
+          "secondary-fixed-dim": "#9ad3b3",
+          "secondary-container": "#1b533a",
+          "primary-container": "#d98a56",
+          "primary-fixed-dim": "#ffb689",
+          "surface-variant": "#1d3a35",
+          "surface": "#001714",
+          "on-surface-variant": "#d9c2b6",
+          "surface-dim": "#001714",
+          "surface-tint": "#ffb689",
+          "on-error-container": "#ffdad6",
+          "inverse-primary": "#8e4d1f",
+          "on-secondary-fixed-variant": "#185038",
+          "on-primary-fixed-variant": "#713708",
+          "on-background": "#c9e9e2",
+          "inverse-on-surface": "#183531",
+          "on-tertiary-fixed": "#002019",
+          "on-secondary-container": "#8cc5a5",
+          "inverse-surface": "#c9e9e2",
+          "tertiary": "#a4d0c2",
+          "tertiary-fixed-dim": "#a4d0c2",
+          "secondary-fixed": "#b5efce",
+          "on-primary-fixed": "#311300",
+          "on-tertiary-container": "#0f3b31",
+          "surface-container-high": "#112f2b",
+          "primary": "#ffb689",
+          "secondary": "#9ad3b3",
+          "outline": "#a18d82",
+          "background": "#001714",
+          "surface-container": "#052420",
+          "on-surface": "#c9e9e2",
+          "on-tertiary": "#0a372d",
+          "surface-bright": "#223e3a",
+          "tertiary-container": "#7ba598",
+          "surface-container-lowest": "#00110f",
+          "error-container": "#93000a",
+          "surface-container-highest": "#1d3a35",
+          "error": "#ffb4ab",
+          "outline-variant": "#53443b",
+          "on-primary": "#512300"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin-mobile": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "gutter": "1.5rem",
+          "margin": "3rem",
+          "space-xl": "2.5rem",
+          "gutter-mobile": "1rem",
+          "space-lg": "1.5rem"
+        },
+        "fontFamily": {
+          "headline-xl-mobile": ["EB Garamond"],
+          "headline-md": ["EB Garamond"],
+          "headline-sm": ["EB Garamond"],
+          "title-md": ["Inter"],
+          "body-md": ["Inter"],
+          "headline-lg": ["EB Garamond"],
+          "label-md": ["Inter"],
+          "title-lg": ["Inter"],
+          "body-lg": ["Inter"],
+          "label-sm": ["Inter"],
+          "display-lg": ["EB Garamond"],
+          "headline-xl": ["EB Garamond"],
+          "body-sm": ["Inter"],
+          "display-lg-mobile": ["EB Garamond"]
+        },
+        "fontSize": {
+          "headline-xl-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-md": ["26px", {"lineHeight": "34px", "fontWeight": "500"}],
+          "headline-sm": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+          "title-lg": ["18px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+          "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.015em", "fontWeight": "400"}],
+          "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "display-lg-mobile": ["38px", {"lineHeight": "46px", "letterSpacing": "-0.01em", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head><body class="bg-surface font-body text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-[#0A211E] z-50 flex flex-col pt-6 pb-8 overflow-y-auto"><div class="px-6 mb-8 text-headline-sm font-headline font-bold tracking-tight text-primary flex items-center gap-2"><span class="material-symbols-outlined text-primary-container">restaurant</span>The Sanctuary</div><nav class="flex-1 px-4 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-bold"><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="overview" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">dashboard</span>Overview</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="my-recipes" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">menu_book</span>My Recipes</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="add-recipe" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">add_circle</span>Add Recipe</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="my-tips" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">lightbulb</span>My Tips</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="add-tip" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">note_add</span>Add Tip</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="my-contest-entries" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">military_tech</span>My Contest Entries</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="subscription" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">card_membership</span>Subscription</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="profile-settings" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">settings</span>Profile Settings</a><a class="flex items-center px-4 py-3 rounded-xl text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-all mt-6" data-path="logout" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">logout</span>Logout</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl z-40 flex items-center justify-between px-8 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-4"><h1 class="text-headline-sm font-headline text-on-surface">Member Dashboard</h1></div><div class="flex items-center gap-4"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[18px]">search</span><input class="w-64 bg-[#0A211E] text-on-surface placeholder:text-on-surface-variant text-body-sm rounded-xl pl-9 pr-4 py-2 border border-outline-variant focus:outline-none focus:border-primary transition-all" placeholder="Search culinary archive..." type="text"/></div><button class="w-10 h-10 rounded-xl bg-[#0A211E] border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-primary transition-all"><span class="material-symbols-outlined text-[20px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-[#0C2A26] min-h-screen px-margin py-margin"><div class="flex flex-col w-full">
+<!-- Top Section / Hero Header Card -->
+<div class="relative w-full rounded-xl bg-surface-container-high p-8 overflow-hidden mb-space-xl">
+<!-- Ambient decorative glow -->
+<div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-primary-container/10 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="flex items-center gap-6">
+<!-- Avatar with change photo trigger -->
+<div class="relative group">
+<div class="w-24 h-24 rounded-full bg-surface-container-lowest overflow-hidden border-2 border-primary/40 shadow-[0_4px_20px_rgba(217,138,86,0.25)] flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<button class="absolute inset-0 rounded-full bg-surface/70 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-on-surface cursor-pointer">
+<span class="material-symbols-outlined text-[20px] text-primary">photo_camera</span>
+<span class="text-label-sm mt-1 text-primary">Edit</span>
+</button>
+</div>
+<!-- User info -->
+<div>
+<div class="flex items-center gap-3">
+<h2 class="font-headline text-headline-lg text-on-surface">Chef James Vance</h2>
+<!-- Premium Badge -->
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-container/20 border border-primary-container/50 text-primary text-label-sm">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">crown</span>
+              Executive Elite Plan
+            </span>
+</div>
+<p class="text-body-md text-on-surface-variant mt-1">james.vance@sanctuary-dining.com</p>
+<div class="flex items-center gap-2 mt-2 text-body-sm text-outline">
+<span class="material-symbols-outlined text-[16px] text-tertiary">event_available</span>
+<span>Subscription renews on <strong>November 14, 2025</strong></span>
+</div>
+</div>
+</div>
+<!-- Quick action or status -->
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-container-low text-secondary text-body-sm">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+          Profile Status: Verified Master
+        </span>
+</div>
+</div>
+</div>
+<!-- Settings Interface with Tabs -->
+<div class="w-full" x-data="{ activeTab: 'personal' }">
+<!-- Tab Navigation -->
+<div class="flex items-center gap-3 border-b border-outline-variant/30 pb-4 mb-space-lg">
+<button :class="activeTab === 'personal' ? 'bg-primary-container text-on-primary-container font-semibold shadow-[0_4px_16px_rgba(217,138,86,0.25)]' : 'bg-surface-container-high text-on-surface-variant hover:text-on-surface'" @click="activeTab = 'personal'" class="px-6 py-3 rounded-xl text-body-md transition-all flex items-center gap-2 cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+        Personal Information
+      </button>
+<button :class="activeTab === 'password' ? 'bg-primary-container text-on-primary-container font-semibold shadow-[0_4px_16px_rgba(217,138,86,0.25)]' : 'bg-surface-container-high text-on-surface-variant hover:text-on-surface'" @click="activeTab = 'password'" class="px-6 py-3 rounded-xl text-body-md transition-all flex items-center gap-2 cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+        Change Password
+      </button>
+</div>
+<!-- Tab Content: Personal Information -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8" x-show="activeTab === 'personal'">
+<div class="lg:col-span-8 bg-surface-container-high rounded-xl p-8 shadow-sm">
+<h3 class="font-headline text-headline-sm text-on-surface mb-2">Edit Profile Details</h3>
+<p class="text-body-md text-on-surface-variant mb-6">Update your personal credentials and professional contact details.</p>
+<form class="space-y-6" onsubmit="event.preventDefault(); showToast('Profile updated successfully!');">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">Full Name</label>
+<input class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" type="text" value="James Vance"/>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">Email Address</label>
+<input class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" type="email" value="james.vance@sanctuary-dining.com"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">Phone Number</label>
+<input class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" type="tel" value="+1 (555) 389-4421"/>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">Culinary Specialization</label>
+<select class="w-full bg-[#0A211E] text-on-surface text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+<option>Haute Cuisine &amp; French Technique</option>
+<option>Modern Gastronomy</option>
+<option>Artisanal Pastry &amp; Baking</option>
+<option>Plant-Forward Fine Dining</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">Bio / Professional Statement</label>
+<textarea class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" rows="4">Executive chef with over 15 years of experience in Michelin-starred establishments across Europe and North America. Passionate about heirloom ingredients and precise fermentation techniques.</textarea>
+</div>
+<div class="flex justify-end pt-4">
+<button class="bg-primary-container text-on-primary-container font-semibold px-8 py-3 rounded-full shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-[#E8A173] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all cursor-pointer flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[18px]">save</span>
+              Save Changes
+            </button>
+</div>
+</form>
+</div>
+<!-- Sidebar Helper Card -->
+<div class="lg:col-span-4 space-y-6">
+<div class="bg-surface-container-high rounded-xl p-6 shadow-sm">
+<div class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-[22px]">security</span>
+</div>
+<h4 class="font-headline text-headline-sm text-on-surface mb-2">Account Security</h4>
+<p class="text-body-sm text-on-surface-variant mb-4">Two-factor authentication is active via authenticator app. Your kitchen archive is encrypted at rest.</p>
+<button class="w-full py-2.5 rounded-xl border border-outline-variant text-on-surface hover:bg-surface-container-low transition-all text-body-sm font-medium">
+            Manage 2FA Settings
+          </button>
+</div>
+<div class="bg-surface-container-high rounded-xl p-6 shadow-sm">
+<div class="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center text-secondary mb-4">
+<span class="material-symbols-outlined text-[22px]">notifications_active</span>
+</div>
+<h4 class="font-headline text-headline-sm text-on-surface mb-2">Kitchen Alerts</h4>
+<p class="text-body-sm text-on-surface-variant mb-4">Receive instant notifications for contest judging results and new masterclass drops.</p>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="text-body-sm text-on-surface">Email Notifications</span>
+<input checked="" class="w-5 h-5 rounded accent-primary bg-[#0A211E] border-outline-variant cursor-pointer" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+<!-- Tab Content: Change Password -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8" style="display: none;" x-show="activeTab === 'password'">
+<div class="lg:col-span-8 bg-surface-container-high rounded-xl p-8 shadow-sm" x-data="{ newPass: '' }">
+<h3 class="font-headline text-headline-sm text-on-surface mb-2">Update Password</h3>
+<p class="text-body-md text-on-surface-variant mb-6">Ensure your account is using a long, random password to stay secure.</p>
+<form class="space-y-6" onsubmit="event.preventDefault(); showToast('Password updated successfully!');">
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">Current Password</label>
+<input class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="••••••••••••" type="password"/>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">New Password</label>
+<input class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="••••••••••••" type="password" x-model="newPass"/>
+<!-- Strength Meter -->
+<div class="mt-3 space-y-1.5" x-show="newPass.length &gt; 0">
+<div class="flex items-center justify-between text-label-sm">
+<span class="text-on-surface-variant">Password Strength:</span>
+<span :class="{
+                  'text-error font-medium': newPass.length &lt; 6,
+                  'text-amber-400 font-medium': newPass.length &gt;= 6 &amp;&amp; newPass.length &lt; 10,
+                  'text-secondary font-medium': newPass.length &gt;= 10
+                }" x-text="newPass.length &lt; 6 ? 'Weak' : (newPass.length &lt; 10 ? 'Moderate' : 'Strong')"></span>
+</div>
+<div class="grid grid-cols-3 gap-2 h-1.5 w-full">
+<div :class="newPass.length &gt; 0 ? 'bg-error' : 'bg-surface-container-low'" class="rounded-full transition-all"></div>
+<div :class="newPass.length &gt;= 6 ? 'bg-amber-400' : 'bg-surface-container-low'" class="rounded-full transition-all"></div>
+<div :class="newPass.length &gt;= 10 ? 'bg-secondary' : 'bg-surface-container-low'" class="rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-label-md text-on-surface-variant mb-2">Confirm New Password</label>
+<input class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl px-4 py-3 border border-outline-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="••••••••••••" type="password"/>
+</div>
+<div class="flex justify-end pt-4">
+<button class="bg-primary-container text-on-primary-container font-semibold px-8 py-3 rounded-full shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-[#E8A173] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all cursor-pointer flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+              Update Password
+            </button>
+</div>
+</form>
+</div>
+<!-- Password guidelines sidebar -->
+<div class="lg:col-span-4">
+<div class="bg-surface-container-high rounded-xl p-6 shadow-sm">
+<div class="w-10 h-10 rounded-xl bg-tertiary/20 flex items-center justify-center text-tertiary mb-4">
+<span class="material-symbols-outlined text-[22px]">info</span>
+</div>
+<h4 class="font-headline text-headline-sm text-on-surface mb-2">Password Requirements</h4>
+<ul class="space-y-2 text-body-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+              Minimum 8 characters long
+            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+              At least one uppercase letter
+            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+              At least one numeric digit
+            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check</span>
+              At least one special symbol
+            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Toast Notification System -->
+<div class="fixed bottom-8 right-8 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
+<script>
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'bg-[#0A211E] text-on-surface border-l-4 border-primary px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto';
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+        <span class="text-body-md font-medium">${message}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 10);
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+  </script>
+</div></main></div></body></html>

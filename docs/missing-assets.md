@@ -1,0 +1,3 @@
+# Missing Assets
+
+- The image "Professional_portrait_of_Chef_James_Thew,_an_elegant_distinguished_5star_hotel_executive_chef_in_Karachi_in_his_late_40s,_wearing_an_immaculate_tailored_dark_emerald_green_chef_coat_with_copper_buttons_and_subtle_copper_embroidery,_warm_moody_kitchen_lighting,_confident_warm_smile,_dark_luxury_culinary_studio_background.png" failed to download due to the filename being too long for the file system. A placeholder will be used instead.

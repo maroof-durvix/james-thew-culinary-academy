@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #081d1a; border-bottom: 2px solid var(--color-copper);">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand" href="/Admin/Dashboard">
+            <img src="~/images/logo.svg" alt="James Thew Logo" onerror="this.onerror=null; this.src='/images/logo.png'">
+            <span class="ms-2 text-copper fs-6">Admin Panel</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="adminNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Users">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Recipes">Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Contests">Contests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Subscriptions">Subscriptions</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <form method="post" action="/Account/Logout" class="m-0">
+                    <button type="submit" class="btn btn-outline btn-sm">Log Out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

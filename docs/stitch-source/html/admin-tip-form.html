@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "inverse-primary": "#8e4d1f",
+          "tertiary-fixed": "#c0ecdd",
+          "surface-container": "#052420",
+          "surface-variant": "#1d3a35",
+          "outline-variant": "#53443b",
+          "tertiary": "#a4d0c2",
+          "error": "#ffb4ab",
+          "on-tertiary-container": "#0f3b31",
+          "surface-container-low": "#02201c",
+          "background": "#001714",
+          "surface-container-lowest": "#00110f",
+          "surface-dim": "#001714",
+          "secondary-container": "#1b533a",
+          "inverse-on-surface": "#183531",
+          "on-tertiary": "#0a372d",
+          "primary-fixed": "#ffdbc8",
+          "on-secondary": "#003824",
+          "on-tertiary-fixed-variant": "#254e43",
+          "on-surface-variant": "#d9c2b6",
+          "surface-container-highest": "#1d3a35",
+          "secondary-fixed": "#b5efce",
+          "on-error-container": "#ffdad6",
+          "surface-tint": "#ffb689",
+          "on-secondary-container": "#8cc5a5",
+          "primary": "#ffb689",
+          "surface-bright": "#223e3a",
+          "on-tertiary-fixed": "#002019",
+          "on-primary-fixed": "#311300",
+          "on-error": "#690005",
+          "tertiary-fixed-dim": "#a4d0c2",
+          "primary-fixed-dim": "#ffb689",
+          "on-secondary-fixed": "#002113",
+          "on-surface": "#c9e9e2",
+          "surface-container-high": "#112f2b",
+          "secondary-fixed-dim": "#9ad3b3",
+          "on-background": "#c9e9e2",
+          "tertiary-container": "#7ba598",
+          "on-primary-container": "#572700",
+          "on-primary": "#512300",
+          "on-secondary-fixed-variant": "#185038",
+          "surface": "#001714",
+          "inverse-surface": "#c9e9e2",
+          "primary-container": "#d98a56",
+          "secondary": "#9ad3b3",
+          "error-container": "#93000a",
+          "outline": "#a18d82",
+          "on-primary-fixed-variant": "#713708"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem",
+          "gutter": "1.5rem",
+          "margin": "3rem",
+          "gutter-mobile": "1.0rem",
+          "space-md": "1.0rem",
+          "space-xl": "2.5rem",
+          "margin-mobile": "1.25rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "title-lg": ["Inter"],
+          "headline-md": ["EB Garamond"],
+          "label-sm": ["Inter"],
+          "display-lg": ["EB Garamond"],
+          "headline-sm": ["EB Garamond"],
+          "headline-xl": ["EB Garamond"],
+          "body-sm": ["Inter"],
+          "headline-xl-mobile": ["EB Garamond"],
+          "headline-lg": ["EB Garamond"],
+          "body-lg": ["Inter"],
+          "label-md": ["Inter"],
+          "body-md": ["Inter"],
+          "title-md": ["Inter"
+          ],
+          "display-lg-mobile": ["EB Garamond"]
+        },
+        "fontSize": {
+          "title-lg": ["18px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+          "headline-md": ["26px", {"lineHeight": "34px", "fontWeight": "500"}],
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+          "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+          "headline-sm": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.015em", "fontWeight": "400"}],
+          "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-xl-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+          "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "display-lg-mobile": ["38px", {"lineHeight": "46px", "letterSpacing": "-0.01em", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-[#0A211E] z-50 flex flex-col pt-space-lg pb-space-lg"><div class="px-space-lg mb-space-lg flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #d98a56 - Font: ebGaramond - Mode: dark - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V_6-AG_LZuIcuibpchQWbHO2liZ4nKjUqYT4QzDhhmUXngupBdQ9apyO9f8nrQd_31qIWtIM4Krk-ldOkIPoj43iwvZh1cKbezsjejvApMV2tkHg1uvWyVmEBxf_QpU22n-vhDdppQSDOG1xFdMTryWAT8J-CbZgDtzW4zYhokdHUFUMoofSML_asNCPRRgkhz1Aqb0wMXfUDGhk17X01ugHTkJWLArVDUuwd_vA-113_7WShxJ0bJPeM"/><span class="text-title-md font-headline text-primary">James Thew</span></div><span class="px-2 py-0.5 text-label-sm bg-primary-container/20 text-primary border border-primary/40 rounded-full">Admin</span></div><nav class="flex-1 px-space-md space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary-container font-bold"><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="overview" href="#"><span class="material-symbols-outlined mr-space-md">dashboard</span>Overview</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="recipes" href="#"><span class="material-symbols-outlined mr-space-md">menu_book</span>Recipes</a><a aria-current="page" class="flex items-center px-space-md py-space-sm rounded-xl transition-all bg-primary-container text-on-primary-container font-bold" data-path="tips" href="#"><span class="material-symbols-outlined mr-space-md">lightbulb</span>Tips</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="contests" href="#"><span class="material-symbols-outlined mr-space-md">trophy</span>Contests</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="entries-winners" href="#"><span class="material-symbols-outlined mr-space-md">grade</span>Entries & Winners</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="announcements" href="#"><span class="material-symbols-outlined mr-space-md">campaign</span>Announcements</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="feedback" href="#"><span class="material-symbols-outlined mr-space-md">chat</span>Feedback</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="members" href="#"><span class="material-symbols-outlined mr-space-md">group</span>Members</a></nav><div class="px-space-md pt-space-md border-t border-outline-variant/20"><a class="flex items-center px-space-md py-space-sm rounded-xl text-error hover:bg-error-container/20 hover:text-on-error-container transition-all" data-path="logout" href="#"><span class="material-symbols-outlined mr-space-md">logout</span>Logout</a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-margin"><div class="flex items-center gap-space-sm"><span class="text-headline-sm font-headline text-on-surface">Dashboard</span></div><div class="flex items-center gap-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-sm">search</span><input class="bg-[#0A211E] text-on-surface text-body-sm rounded-full pl-9 pr-4 py-1.5 border border-outline-variant/30 focus:border-primary focus:outline-none w-64" placeholder="Search..." type="text"/></div><button class="relative p-2 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined">notifications</span></button><div class="flex items-center gap-space-sm pl-2 border-l border-outline-variant/30"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1X3EiINyLWdOTRasuyaKqBmVWvLHSWZOndZqaruCuQOWbXZoALe70qIT0QfzvhaKc5_3gdjs72G1rlTGY9VITYFgOak8sQl9Lu09KqoF7RIEoVg_NwZgrbIzFED9z_OIiNhfWojO90SY2xrkQuPehvVr0hJ1H67KbkZs2CPArB7yph0eseVYLT_hquxZwaFiC2BHRbbyhF4jAl3RPlUkLAcP7zGhEnSnUEEhk1CcvOODruI1UvJcZ1dK4U"/><span class="text-body-sm font-medium text-on-surface">Chef James — Admin</span></div></div></header><main class="relative pt-16 bg-[#0C2A26] min-h-screen p-space-margin"><div class="flex flex-col w-full max-w-5xl mx-auto space-y-space-xl pb-space-xl">
+<!-- Top Bar / Header context -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 text-label-sm font-label-sm uppercase bg-primary-container/20 text-primary rounded-full">Culinary Knowledge</span>
+<span class="text-on-surface-variant font-body-sm">•</span>
+<span class="text-on-surface-variant font-body-sm">Admin Publishing Suite</span>
+</div>
+<h1 class="font-headline-xl text-on-surface">Craft Master Tip</h1>
+<p class="font-body-md text-on-surface-variant max-w-xl">Share kitchen wisdom, techniques, and secret curation notes with the James Thew community. Formatted with Michelin-grade precision.</p>
+</div>
+<div class="flex items-center gap-space-md">
+<button class="px-space-md py-space-sm rounded-full font-label-md text-on-surface hover:bg-surface-container-high transition-all border border-outline-variant/30" type="button">
+        Save as Draft
+      </button>
+<button class="px-space-lg py-space-sm rounded-full font-label-md bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-[0_4px_20px_rgba(217,138,86,0.25)] flex items-center gap-2" form="tip-form" type="submit">
+<span class="material-symbols-outlined text-sm">publish</span>
+        Publish Tip
+      </button>
+</div>
+</div>
+<!-- Main Form Card Container -->
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start" id="tip-form" onsubmit="event.preventDefault(); alert('Tip successfully published!');">
+<!-- Left Column: Main Metadata & Description (8 cols) -->
+<div class="lg:col-span-8 space-y-space-lg bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl">
+<!-- Title Input -->
+<div class="space-y-space-xs">
+<label class="block font-label-md text-on-surface" for="tip-title">Tip Title <span class="text-primary">*</span></label>
+<p class="font-body-sm text-on-surface-variant">A compelling title summarizing the technique or secret.</p>
+<input class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="tip-title" placeholder="e.g., The Secret to Achieving Perfect Glaze Emulsification" required="" type="text"/>
+</div>
+<!-- Category & Difficulty Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="space-y-space-xs">
+<label class="block font-label-md text-on-surface" for="tip-category">Category <span class="text-primary">*</span></label>
+<select class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="tip-category">
+<option value="knife-skills">Knife Skills & Prep</option>
+<option value="sauces">Sauces & Emulsions</option>
+<option value="baking">Baking & Pastry</option>
+<option value="heat">Heat Control & Searing</option>
+<option value="plating">Plating & Aesthetics</option>
+</select>
+</div>
+<div class="space-y-space-xs">
+<label class="block font-label-md text-on-surface" for="tip-time">Estimated Read / Practice Time</label>
+<input class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="tip-time" placeholder="e.g., 4 mins read" type="text"/>
+</div>
+</div>
+<!-- Description / Body -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<label class="block font-label-md text-on-surface" for="tip-description">Description & Instructions <span class="text-primary">*</span></label>
+<span class="text-label-sm text-on-surface-variant">Markdown & HTML supported</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Provide step-by-step guidance, scientific explanations, or chef's notes.</p>
+<textarea class="w-full bg-[#0A211E] text-on-surface font-body-md rounded-xl p-space-md border border-outline-variant/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-y" id="tip-description" placeholder="Detail the steps clearly. Mention temperatures, tools, and common pitfalls..." required="" rows="7"></textarea>
+</div>
+</div>
+<!-- Right Column: Access Type & Image Upload (4 cols) -->
+<div class="lg:col-span-4 space-y-space-lg">
+<!-- Access Type Cards Container -->
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl space-y-space-md">
+<div class="space-y-space-xs">
+<h2 class="font-title-md text-on-surface">Access Tier</h2>
+<p class="font-body-sm text-on-surface-variant">Select who can view this tip content.</p>
+</div>
+<div class="grid grid-cols-1 gap-space-sm">
+<!-- Free Radio Card -->
+<label class="relative flex items-start p-space-md rounded-xl bg-[#0A211E] border border-outline-variant/30 hover:border-primary/50 cursor-pointer transition-all group">
+<input checked="" class="mt-1 text-primary focus:ring-primary accent-[#D98A56]" name="access_type" type="radio" value="free"/>
+<div class="ml-space-md flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-on-surface group-hover:text-primary transition-colors">Free Access</span>
+<span class="px-2 py-0.5 text-label-sm bg-secondary/15 text-secondary border border-secondary/30 rounded-full">Public</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">Available to all registered and guest members exploring James Thew kitchen insights.</p>
+</div>
+</label>
+<!-- Premium Radio Card -->
+<label class="relative flex items-start p-space-md rounded-xl bg-[#0A211E] border border-outline-variant/30 hover:border-primary/50 cursor-pointer transition-all group">
+<input class="mt-1 text-primary focus:ring-primary accent-[#D98A56]" name="access_type" type="radio" value="premium"/>
+<div class="ml-space-md flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-on-surface group-hover:text-primary transition-colors">Premium Masterclass</span>
+<span class="px-2 py-0.5 text-label-sm bg-primary/15 text-primary border border-primary/40 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">workspace_premium</span>
+                  VIP
+                </span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">Exclusive to subscribers and contest winners unlocking high-tier culinary secrets.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Optional Image Upload Container -->
+<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-2xl shadow-xl space-y-space-md">
+<div class="space-y-space-xs">
+<h2 class="font-title-md text-on-surface">Featured Image</h2>
+<p class="font-body-sm text-on-surface-variant">Optional visual asset to accompany the tip.</p>
+</div>
+<div class="border-2 border-dashed border-outline-variant/40 hover:border-primary/60 rounded-xl p-space-lg text-center bg-[#0A211E]/50 transition-all cursor-pointer group flex flex-col items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-space-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">add_photo_alternate</span>
+</div>
+<span class="font-label-md text-on-surface">Click to upload image</span>
+<span class="font-body-sm text-on-surface-variant mt-1">PNG, JPG, WEBP up to 10MB</span>
+</div>
+</div>
+<!-- Bottom Form Actions -->
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<a class="px-space-md py-2.5 rounded-full font-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+          Cancel
+        </a>
+<button class="px-space-lg py-2.5 rounded-full font-label-md bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-[0_4px_20px_rgba(217,138,86,0.25)] flex items-center gap-2" type="submit">
+<span>Publish Tip</span>
+</button>
+</div>
+</div>
+</form>
+</div></main></div></body></html>
