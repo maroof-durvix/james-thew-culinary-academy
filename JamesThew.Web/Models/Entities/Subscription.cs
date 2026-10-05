@@ -1,4 +1,3 @@
-#pragma warning disable CS8618
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,10 +10,10 @@ namespace JamesThew.Web.Models.Entities
         
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual User User { get; set; } = null!;
         
         [Required, MaxLength(50)]
-        public string Plan { get; set; }
+        public string Plan { get; set; } = string.Empty;
         
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
@@ -23,7 +22,7 @@ namespace JamesThew.Web.Models.Entities
         public DateTime ExpiryDate { get; set; }
         
         [Required, MaxLength(50)]
-        public string PaymentStatus { get; set; }
+        public string PaymentStatus { get; set; } = string.Empty;
         
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

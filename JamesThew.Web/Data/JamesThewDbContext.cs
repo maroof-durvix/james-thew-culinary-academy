@@ -1,4 +1,3 @@
-#pragma warning disable CS8618
 using JamesThew.Web.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,19 +10,19 @@ namespace JamesThew.Web.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<Tip> Tips { get; set; }
-        public DbSet<Contest> Contests { get; set; }
-        public DbSet<ContestEntry> ContestEntries { get; set; }
-        public DbSet<Announcement> Announcements { get; set; }
-        public DbSet<RecipeFeedback> RecipeFeedbacks { get; set; }
-        public DbSet<SiteFeedback> SiteFeedbacks { get; set; }
-        public DbSet<ContactMessage> ContactMessages { get; set; }
-        public DbSet<Faq> Faqs { get; set; }
-        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Subscription> Subscriptions { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<Recipe> Recipes { get; set; } = null!;
+        public DbSet<Tip> Tips { get; set; } = null!;
+        public DbSet<Contest> Contests { get; set; } = null!;
+        public DbSet<ContestEntry> ContestEntries { get; set; } = null!;
+        public DbSet<Announcement> Announcements { get; set; } = null!;
+        public DbSet<RecipeFeedback> RecipeFeedbacks { get; set; } = null!;
+        public DbSet<SiteFeedback> SiteFeedbacks { get; set; } = null!;
+        public DbSet<ContactMessage> ContactMessages { get; set; } = null!;
+        public DbSet<Faq> Faqs { get; set; } = null!;
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
