@@ -1,0 +1,152 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.Tip>
+@{
+    ViewData["Title"] = "Free Culinary Tips & Tricks - Chef James Thew";
+    var categories = ViewBag.Categories as IEnumerable<JamesThew.Web.Models.Entities.Category> ?? new List<JamesThew.Web.Models.Entities.Category>();
+    var selectedCat = ViewBag.SelectedCategory as string ?? "All";
+    var searchTerm = ViewBag.SearchTerm as string ?? "";
+    var tipCount = Model?.Count() ?? 0;
+}
+
+<div class="w-full px-margin-mobile lg:px-margin py-space-xl">
+  <!-- Breadcrumb & Header Hierarchy -->
+  <nav aria-label="Breadcrumbs" class="flex items-center gap-space-xs text-label-sm font-label-sm text-outline mb-space-md">
+    <a class="hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
+    <span class="text-outline/60">/</span>
+    <span class="text-on-surface-variant">Tips &amp; Tricks</span>
+    <span class="text-outline/60">/</span>
+    <span class="text-primary font-semibold">Free Tips</span>
+  </nav>
+
+  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg mb-space-xl">
+    <div class="max-w-3xl">
+      <span class="inline-block font-label-md text-label-md uppercase tracking-widest text-secondary mb-space-xs">Open Culinary Knowledge</span>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Free Cooking Tips &amp; Tricks</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant mt-space-sm leading-relaxed">
+        Practical, chef-tested kitchen wisdom, foundational knife skills, and seasoning secrets accessible to all.
+      </p>
+    </div>
+
+    <!-- Quick Metrics Ribbon Component -->
+    <div class="flex items-center gap-space-md p-space-sm rounded-xl bg-surface-container/70 backdrop-blur-md self-start lg:self-auto">
+      <div class="px-space-md py-space-xs text-left">
+        <span class="block font-headline-sm text-headline-sm text-on-surface">@tipCount</span>
+        <span class="block font-label-sm text-label-sm text-outline">Open Guides</span>
+      </div>
+      <div class="w-px h-8 bg-surface-variant"></div>
+      <div class="px-space-md py-space-xs text-left">
+        <span class="block font-headline-sm text-headline-sm text-primary">100%</span>
+        <span class="block font-label-sm text-label-sm text-outline">Complimentary</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search & Filter Ribbon -->
+  <section class="mb-space-xl p-space-md rounded-[18px] bg-surface-container/60 backdrop-blur-lg shadow-sm">
+    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+      <!-- Search Bar -->
+      <form method="get" asp-action="Free" class="relative flex-1 max-w-lg">
+        <input type="hidden" name="category" value="@selectedCat" />
+        <span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[20px] text-outline pointer-events-none">search</span>
+        <input name="search" value="@searchTerm" class="w-full bg-surface-container-low/90 text-on-surface placeholder:text-outline font-body-md text-body-md pl-11 pr-space-md py-2.5 rounded-xl focus:outline-none focus:bg-surface-container-lowest transition-all" placeholder="Search foundational techniques, oils, pans..." type="search" />
+      </form>
+
+      <!-- Filter Chips -->
+      <div class="flex items-center gap-space-xs overflow-x-auto pb-1 md:pb-0" id="filter-chips">
+        <a href="@Url.Action("Free", "Tips", new { category = "All", search = searchTerm })"
+           class="whitespace-nowrap px-space-md py-1.5 rounded-full font-label-md text-label-md transition-all @(selectedCat == "All" || string.IsNullOrEmpty(selectedCat) ? "bg-primary-container text-surface-container-lowest font-semibold" : "bg-surface-variant text-on-surface-variant hover:text-on-surface")">
+          All
+        </a>
+        @foreach (var cat in categories)
+        {
+          <a href="@Url.Action("Free", "Tips", new { category = cat.Name, search = searchTerm })"
+             class="whitespace-nowrap px-space-md py-1.5 rounded-full font-label-md text-label-md transition-all @(selectedCat == cat.Name ? "bg-primary-container text-surface-container-lowest font-semibold" : "bg-surface-variant text-on-surface-variant hover:text-on-surface")">
+            @cat.Name
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Two-Column Architecture: 2/3 Main Grid & 1/3 Sidebar -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+    <!-- Main Tip Directory (8 Cols) -->
+    <section aria-label="Tip Directory" class="lg:col-span-8 flex flex-col gap-space-lg">
+      @if (Model != null && Model.Any())
+      {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg" id="tips-grid">
+          @foreach (var tip in Model)
+          {
+            <article class="group flex flex-col justify-between p-space-lg rounded-[18px] bg-surface-container/75 backdrop-blur-md shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div>
+                <div class="flex items-center justify-between gap-space-sm mb-space-md">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-secondary shadow-[0_0_16px_rgba(154,211,179,0.25)]">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                  </div>
+                  <div class="flex items-center gap-space-xs">
+                    <span class="px-2.5 py-0.5 rounded-full bg-surface-variant font-label-sm text-label-sm text-on-surface-variant">@(tip.Category?.Name ?? "Tip")</span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-secondary-container/50 font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider">Free</span>
+                  </div>
+                </div>
+                <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug mb-space-xs line-clamp-2">
+                  @tip.Title
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-space-md">
+                  @tip.Description
+                </p>
+              </div>
+
+              <div class="pt-space-md border-t border-surface-container-highest/60 flex items-center justify-between text-body-sm font-body-sm">
+                <div class="flex flex-col">
+                  <span class="text-on-surface font-medium">@(tip.Author?.FullName ?? "Chef James Thew")</span>
+                  <span class="text-outline text-label-sm font-label-sm">@tip.CreatedAt.ToString("MMM dd, yyyy")</span>
+                </div>
+                <a asp-controller="Tips" asp-action="Details" asp-route-id="@tip.Id" class="inline-flex items-center gap-1 font-title-md text-title-md text-primary hover:text-primary-fixed transition-transform group-hover:translate-x-1">
+                  <span>Read Tip</span>
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </a>
+              </div>
+            </article>
+          }
+        </div>
+      }
+      else
+      {
+        <div class="py-16 text-center bg-surface-container/40 rounded-2xl border border-outline-variant/30 p-space-lg">
+          <span class="material-symbols-outlined text-5xl text-outline mb-2">lightbulb</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">No Tips Found</h3>
+          <p class="font-body-sm text-on-surface-variant mt-1">No culinary tips match your search criteria.</p>
+          <a asp-action="Free" class="inline-block mt-4 px-space-lg py-2 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-sm">Reset Filter</a>
+        </div>
+      }
+    </section>
+
+    <!-- Sidebar Highlights (4 Cols) -->
+    <aside class="lg:col-span-4 flex flex-col gap-space-lg sticky top-24">
+      <div class="p-space-lg rounded-[18px] bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low shadow-xl border border-primary-container/20">
+        <div class="flex items-center gap-2 text-primary font-label-md text-label-md uppercase tracking-widest mb-space-xs">
+          <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+          <span>Secret Technique Vault</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm">Looking for Master Tips?</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Explore sous-vide precision charts, advanced oil infusions, and fermentation formulas in our VIP Vault.
+        </p>
+        <a asp-controller="Tips" asp-action="Premium" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md font-semibold hover:bg-primary transition-all">
+          <span>Explore Premium Tips</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="p-space-lg rounded-[18px] bg-surface-container/60 backdrop-blur-md shadow-md">
+        <h4 class="font-title-md text-title-md text-on-surface mb-space-sm">Got a Secret Culinary Tip?</h4>
+        <p class="font-body-sm text-on-surface-variant mb-space-md">
+          Share your trusted technique with our community of passionate home cooks and executive chefs.
+        </p>
+        <a asp-controller="Dashboard" asp-action="AddTip" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-full bg-surface-container-highest text-on-surface hover:text-primary transition-colors font-title-md text-sm">
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          <span>Submit Your Tip</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+</div>

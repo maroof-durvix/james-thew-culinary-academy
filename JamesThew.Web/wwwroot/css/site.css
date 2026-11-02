@@ -1,164 +1,31 @@
-:root {
-    /* Brand Colors (Midnight Emerald Theme) */
-    --color-bg: #0C2A26;
-    --color-surface: #12362F;
-    --color-surface-hover: #184238;
-    --color-copper: #D98A56;
-    --color-mint: #9FD8B8;
-    --color-cream: #F6EFE3;
-    
-    /* Typography */
-    --font-heading: 'EB Garamond', serif;
-    --font-body: 'Inter', sans-serif;
-    
-    /* Spacing */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-    background-color: var(--color-bg);
-    color: var(--color-cream);
-    font-family: var(--font-body);
-    margin: 0;
-    padding: 0;
+  margin-bottom: 60px;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    color: var(--color-copper);
-    font-weight: 500;
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
 }
 
-/* Utilities */
-.text-copper { color: var(--color-copper) !important; }
-.text-mint { color: var(--color-mint) !important; }
-.text-cream { color: var(--color-cream) !important; }
-.bg-surface { background-color: var(--color-surface) !important; }
-.bg-bg { background-color: var(--color-bg) !important; }
-.font-heading { font-family: var(--font-heading) !important; }
-.font-body { font-family: var(--font-body) !important; }
-
-.dropdown-menu-dark {
-    background-color: var(--color-surface) !important;
-}
-.dropdown-item {
-    color: var(--color-cream) !important;
-}
-.dropdown-item:hover {
-    background-color: var(--color-copper) !important;
-    color: var(--color-bg) !important;
-}
-
-
-/* Buttons */
-.btn-primary {
-    background-color: var(--color-copper);
-    color: var(--color-bg);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border: none;
-    border-radius: 4px;
-    font-family: var(--font-body);
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-    background-color: #e59968;
-    color: var(--color-bg);
-    text-decoration: none;
-}
-
-.btn-outline {
-    background-color: transparent;
-    color: var(--color-copper);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border: 1px solid var(--color-copper);
-    border-radius: 4px;
-    font-family: var(--font-body);
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.2s;
-}
-
-.btn-outline:hover {
-    background-color: var(--color-copper);
-    color: var(--color-bg);
-}
-
-/* Cards */
-.card {
-    background-color: var(--color-surface);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    background-color: var(--color-surface-hover);
-}
-
-.card-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.card-body {
-    padding: var(--spacing-md);
-}
-
-/* Inputs */
-.form-control {
-    background-color: var(--color-bg);
-    color: var(--color-cream);
-    border: 1px solid var(--color-surface-hover);
-    padding: var(--spacing-sm);
-    border-radius: 4px;
-    width: 100%;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--color-copper);
-    box-shadow: 0 0 0 1px var(--color-copper);
-}
-
-/* Navbar specific */
-.navbar {
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-surface);
-    padding: var(--spacing-md) 0;
-}
-
-.nav-link {
-    color: var(--color-cream) !important;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.nav-link:hover {
-    color: var(--color-copper) !important;
-}
-
-.navbar-brand img {
-    height: 40px;
-}
-
-/* Footer specific */
-.footer {
-    background-color: var(--color-surface);
-    color: var(--color-mint);
-    padding: var(--spacing-2xl) 0;
-    margin-top: auto;
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
 }

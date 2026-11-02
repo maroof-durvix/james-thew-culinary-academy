@@ -1,22 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace JamesThew.Web.Controllers;
-
-public class AboutController : Controller
+namespace JamesThew.Web.Controllers
 {
-    public IActionResult ChefJames()
+    public class AboutController : Controller
     {
-        return View();
-    }
+        public IActionResult Index()
+        {
+            return RedirectToAction(nameof(Chef));
+        }
 
-    public IActionResult Classes()
-    {
-        return View();
-    }
+        public IActionResult Chef()
+        {
+            ViewData["Title"] = "Chef James Thew - Master Culinary Artist";
+            return View();
+        }
 
-    public IActionResult Mission()
-    {
-        return View();
-    }
+        public IActionResult Classes()
+        {
+            ViewData["Title"] = "Cookery Classes - Chef James Thew";
+            return View();
+        }
 
+        public IActionResult Mission()
+        {
+            ViewData["Title"] = "Our Mission - Chef James Thew";
+            return View();
+        }
+
+    }
 }

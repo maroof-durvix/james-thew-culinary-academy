@@ -1,0 +1,439 @@
+@model JamesThew.Web.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="relative w-full overflow-hidden py-space-xl">
+<div class="pointer-events-none absolute -top-32 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-[128px]"></div>
+<div class="pointer-events-none absolute top-1/2 -right-24 h-96 w-96 rounded-full bg-secondary/10 blur-[140px]"></div>
+<div class="mx-auto w-full max-w-7xl px-margin-mobile lg:px-margin">
+
+<!-- Wizard Progress Header -->
+<section class="mb-space-xl flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container">Haute Cuisine Academy Induction</span>
+<h1 class="mt-space-xs font-headline-xl text-headline-xl text-on-surface">Member Registration &amp; Enrolment</h1>
+<p class="mt-space-xs max-w-xl font-body-md text-body-md text-on-surface-variant">
+  Complete your membership to unlock master-tier kitchencraft, secluded techniques, and seasonal competitions.
+</p>
+
+<!-- 3-Step Wizard Indicator -->
+<div class="mt-space-lg w-full max-w-3xl rounded-[1.125rem] bg-surface-container/70 p-space-md shadow-xl backdrop-blur-md">
+<div class="relative flex items-center justify-between">
+<div class="absolute left-10 right-10 top-5 -z-0 h-0.5 bg-surface-container-highest">
+<div class="h-full bg-primary-container transition-all duration-500 ease-out" id="wizard-progress-bar" style="width: 50%;"></div>
+</div>
+<!-- Step 1 Indicator -->
+<button class="group z-10 flex flex-col items-center text-left focus:outline-none" onclick="goToStep(1)" type="button">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-container text-on-secondary shadow-md transition-all duration-300" id="step-node-1">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="mt-space-xs font-label-md text-label-md text-on-surface font-semibold">1. Account Details</span>
+<span class="font-label-sm text-label-sm text-secondary">Verified Profile</span>
+</button>
+<!-- Step 2 Indicator -->
+<button class="group z-10 flex flex-col items-center text-center focus:outline-none" onclick="goToStep(2)" type="button">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container text-surface-container-lowest shadow-[0_0_16px_rgba(217,138,86,0.35)] transition-all duration-300 ring-4 ring-surface-container" id="step-node-2">
+<span class="font-title-md text-title-md font-bold">2</span>
+</div>
+<span class="mt-space-xs font-label-md text-label-md text-primary font-semibold">2. Choose Plan</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Annual Recommended</span>
+</button>
+<!-- Step 3 Indicator -->
+<button class="group z-10 flex flex-col items-center text-right focus:outline-none" onclick="goToStep(3)" type="button">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-container-highest text-on-surface-variant transition-all duration-300" id="step-node-3">
+<span class="font-title-md text-title-md font-bold">3</span>
+</div>
+<span class="mt-space-xs font-label-md text-label-md text-on-surface-variant font-semibold">3. Payment</span>
+<span class="font-label-sm text-label-sm text-outline">Simulated Gate</span>
+</button>
+</div>
+</div>
+</section>
+
+<!-- Validation Summary -->
+<div asp-validation-summary="ModelOnly" class="max-w-3xl mx-auto mb-6 p-4 rounded-xl bg-error-container/40 border border-error text-error text-body-sm font-medium"></div>
+
+<!-- Form Container -->
+<form asp-controller="Auth" asp-action="Register" method="post" id="registration-form">
+@Html.AntiForgeryToken()
+<input type="hidden" asp-for="Plan" id="selected-plan-input" value="Yearly" />
+
+<!-- Main Layout: 2 Columns -->
+<div class="grid grid-cols-1 gap-gutter lg:grid-cols-12 items-start">
+<!-- Left Column: Registration Wizard Form (8 Cols) -->
+<div class="flex flex-col gap-space-lg lg:col-span-8">
+
+<!-- SECTION 1: Account Details -->
+<div class="relative overflow-hidden rounded-[1.125rem] bg-surface-container/75 p-space-lg shadow-xl backdrop-blur-md">
+<div class="mb-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="flex h-7 w-7 items-center justify-center rounded-full bg-surface-container-highest font-label-md text-label-md text-primary-container">01</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Account Credentials</h2>
+</div>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Private &amp; Shielded
+</span>
+</div>
+
+<div class="grid grid-cols-1 gap-space-md md:grid-cols-2">
+<div class="flex flex-col gap-1 md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant" asp-for="FullName">Full Name *</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">badge</span>
+<input asp-for="FullName" class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-4 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Chef / Gastronome Name" required="" pattern="^[a-zA-Z\s]{2,50}$" minlength="2" maxlength="50" title="Full name must contain only letters and spaces (2 to 50 characters)" />
+</div>
+<span asp-validation-for="FullName" class="text-error font-label-sm text-label-sm"></span>
+</div>
+
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" asp-for="Email">Email Address *</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">mail</span>
+<input asp-for="Email" class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-4 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="you@domain.com" required="" type="email" pattern="^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address (e.g. name@domain.com)" />
+</div>
+<span asp-validation-for="Email" class="text-error font-label-sm text-label-sm"></span>
+</div>
+
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" asp-for="Phone">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">call</span>
+<input asp-for="Phone" class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-4 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="+1 (555) 000-0000" type="tel" pattern="^[\+]?[0-9\s\-]{7,16}$" title="Please enter a valid phone number (7 to 16 digits)" />
+</div>
+<span asp-validation-for="Phone" class="text-error font-label-sm text-label-sm"></span>
+</div>
+
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" asp-for="Password">Create Password *</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">key</span>
+<input asp-for="Password" class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-10 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="password" oninput="checkStrength(this.value)" placeholder="••••••••••••" required="" type="password" />
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface" onclick="togglePass('password', 'pass-eye-1')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="pass-eye-1">visibility</span>
+</button>
+</div>
+<span asp-validation-for="Password" class="text-error font-label-sm text-label-sm"></span>
+<!-- Password Strength Meter -->
+<div class="mt-2 flex flex-col gap-1">
+<div class="flex justify-between items-center font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Password Strength:</span>
+<span class="text-secondary font-medium" id="strength-label">Strong</span>
+</div>
+<div class="h-1.5 w-full rounded-full bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-secondary transition-all duration-300" id="strength-bar" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" asp-for="ConfirmPassword">Confirm Password *</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">verified_user</span>
+<input asp-for="ConfirmPassword" class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-10 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="confirmPassword" placeholder="••••••••••••" required="" type="password" />
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface" onclick="togglePass('confirmPassword', 'pass-eye-2')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="pass-eye-2">visibility</span>
+</button>
+</div>
+<span asp-validation-for="ConfirmPassword" class="text-error font-label-sm text-label-sm"></span>
+</div>
+</div>
+</div>
+
+<!-- SECTION 2: Choose Plan -->
+<div class="relative overflow-hidden rounded-[1.125rem] bg-surface-container/75 p-space-lg shadow-xl backdrop-blur-md">
+<div class="mb-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="flex h-7 w-7 items-center justify-center rounded-full bg-surface-container-highest font-label-md text-label-md text-primary-container">02</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Select Membership Tier</h2>
+</div>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Flexible Enrollment
+</span>
+</div>
+
+<div class="grid grid-cols-1 gap-space-md md:grid-cols-2">
+<!-- Monthly Tier Option -->
+<div class="group relative cursor-pointer rounded-xl border border-surface-container-high bg-surface-container-lowest/60 p-space-md transition-all duration-300 hover:border-primary-container" id="plan-monthly" onclick="selectPlan('monthly')">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Monthly Pass</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Billed month-to-month</p>
+</div>
+<input class="accent-primary-container h-5 w-5 cursor-pointer" id="radio-monthly" name="planRadio" type="radio" value="Monthly" />
+</div>
+<div class="mt-space-md flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary font-bold">$10</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/ month</span>
+</div>
+<ul class="mt-space-sm flex flex-col gap-1 text-on-surface-variant font-body-sm text-body-sm">
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-secondary">check</span> Access to 50+ recipes</li>
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-secondary">check</span> View secret tips</li>
+</ul>
+</div>
+
+<!-- Yearly Tier Option (Recommended) -->
+<div class="group relative cursor-pointer rounded-xl border-2 border-primary-container bg-surface-container-high/90 p-space-md shadow-[0_4px_20px_rgba(217,138,86,0.18)] transition-all duration-300" id="plan-yearly" onclick="selectPlan('yearly')">
+<span class="absolute -top-3 right-4 rounded-full bg-primary-container px-3 py-0.5 font-label-sm text-label-sm font-semibold uppercase tracking-wider text-surface-container-lowest shadow-md">
+Save 17%
+</span>
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Yearly Patron</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12 months unrestricted access</p>
+</div>
+<input checked="" class="accent-primary-container h-5 w-5 cursor-pointer" id="radio-yearly" name="planRadio" type="radio" value="Yearly" />
+</div>
+<div class="mt-space-md flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary font-bold">$100</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/ year</span>
+</div>
+<ul class="mt-space-sm flex flex-col gap-1 text-on-surface-variant font-body-sm text-body-sm">
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-secondary">check</span> Complete Recipe &amp; Tip Vault</li>
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-secondary">check</span> Post personal dishes &amp; tips</li>
+<li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-secondary">check</span> Full contest participation</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- SECTION 3: Simulated Payment Form -->
+<div class="relative overflow-hidden rounded-[1.125rem] bg-surface-container/75 p-space-lg shadow-xl backdrop-blur-md">
+<div class="mb-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="flex h-7 w-7 items-center justify-center rounded-full bg-surface-container-highest font-label-md text-label-md text-primary-container">03</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Simulated Checkout</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shield</span> Instant Activation
+</span>
+</div>
+
+<div class="grid grid-cols-1 gap-space-md md:grid-cols-3">
+<div class="flex flex-col gap-1 md:col-span-3">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="cardNumber">Card Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">credit_card</span>
+<input class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-12 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="cardNumber" type="text" value="4532 •••• •••• 8829" />
+<span class="absolute right-3.5 top-1/2 -translate-y-1/2 font-label-sm text-label-sm text-secondary font-bold tracking-wider">VISA</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="expiry">Expiry Date</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">calendar_today</span>
+<input class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-4 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="expiry" placeholder="MM/YY" type="text" value="12/28" />
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="cvv">CVV / CVC</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">shield</span>
+<input class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-4 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="cvv" maxlength="4" placeholder="CVC" type="password" value="842" />
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="postal">Postal Code</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-[18px] text-outline">pin_drop</span>
+<input class="w-full rounded-xl bg-surface-container-lowest/80 pl-11 pr-4 py-2.5 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="postal" type="text" value="75500" />
+</div>
+</div>
+</div>
+
+<!-- Agreement Checkbox -->
+<div class="mt-space-md flex items-start gap-space-xs">
+<input checked="" class="accent-primary-container mt-1 h-4 w-4 cursor-pointer rounded" id="termsCheck" required="" type="checkbox" />
+<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer" for="termsCheck">
+  I agree to the <a class="text-primary hover:underline" asp-controller="Legal" asp-action="Terms">Terms of Service</a> and <a class="text-primary hover:underline" asp-controller="Legal" asp-action="Privacy">Privacy Policy</a> of JamesThew.com Haute Cuisine Academy.
+</label>
+</div>
+
+<!-- CTA Action Button -->
+<div class="mt-space-lg">
+<button class="w-full rounded-full bg-primary-container py-3.5 px-space-lg font-title-md text-title-md font-semibold text-surface-container-lowest shadow-[0_4px_20px_rgba(217,138,86,0.30)] hover:bg-primary hover:shadow-[0_6px_28px_rgba(217,138,86,0.45)] transition-all flex items-center justify-center gap-space-sm cursor-pointer" type="submit" id="submit-reg-btn">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+<span>Complete Registration &amp; Enrolment</span>
+</button>
+</div>
+
+</div>
+</div>
+
+<!-- Right Column: Sticky Order Summary Panel (4 Cols) -->
+<aside class="flex flex-col gap-space-md lg:col-span-4 lg:sticky lg:top-28">
+<div class="rounded-[1.125rem] bg-surface-container/85 p-space-lg shadow-2xl backdrop-blur-xl">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Order Summary</h3>
+<span class="rounded-full bg-surface-variant px-2.5 py-0.5 font-label-sm text-label-sm text-secondary">Step 3 of 3</span>
+</div>
+
+<div class="mt-space-md rounded-xl bg-surface-container-lowest/80 p-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-title-md text-title-md text-primary font-bold" id="summary-tier-title">Yearly Master Membership</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant" id="summary-tier-duration">12 Months Unrestricted Access</p>
+</div>
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm text-on-surface" id="summary-tier-badge">$100</span>
+<span class="block font-label-sm text-label-sm text-secondary">Billed Annually</span>
+</div>
+</div>
+</div>
+
+<div class="mt-space-md flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Included Privileges</span>
+<ul class="flex flex-col gap-2">
+<li class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+<span>50+ Michelin-grade secret recipes</span>
+</li>
+<li class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+<span>Chef James master kitchen notes &amp; tips</span>
+</li>
+<li class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+<span>Community dish &amp; recipe posting</span>
+</li>
+<li class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+<span>Seasonal culinary contest eligibility</span>
+</li>
+</ul>
+</div>
+
+<div class="mt-space-lg flex flex-col gap-2 pt-space-md bg-surface-container-high/40 rounded-xl p-space-sm">
+<div class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Subtotal</span>
+<span class="font-medium text-on-surface" id="summary-subtotal">$100.00</span>
+</div>
+<div class="flex items-center justify-between font-body-sm text-body-sm text-secondary">
+<span>Savings (Annual Commitment)</span>
+<span class="font-medium" id="summary-savings">-$20.00</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-title-lg text-title-lg text-on-surface pt-2">
+<span class="font-headline-sm text-headline-sm">Total Due Today</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold" id="summary-total">$100.00</span>
+</div>
+</div>
+
+<div class="mt-space-md flex items-center gap-space-xs text-outline">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+  Encrypted 256-bit SSL transaction • Cancel anytime
+</p>
+</div>
+</div>
+
+<div class="p-4 rounded-xl bg-surface-container-low/80 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+  Already have an account? 
+  <a class="text-primary-container font-semibold hover:underline" asp-controller="Auth" asp-action="Login">Sign in here</a>
+</p>
+</div>
+</aside>
+
+</div>
+</form>
+
+</div>
+</div>
+
+<script>
+let currentPlan = 'Yearly';
+
+function selectPlan(plan) {
+  currentPlan = plan === 'monthly' ? 'Monthly' : 'Yearly';
+  document.getElementById('selected-plan-input').value = currentPlan;
+  
+  const monthlyCard = document.getElementById('plan-monthly');
+  const yearlyCard = document.getElementById('plan-yearly');
+  const radioMonthly = document.getElementById('radio-monthly');
+  const radioYearly = document.getElementById('radio-yearly');
+
+  const title = document.getElementById('summary-tier-title');
+  const duration = document.getElementById('summary-tier-duration');
+  const badge = document.getElementById('summary-tier-badge');
+  const subtotal = document.getElementById('summary-subtotal');
+  const savings = document.getElementById('summary-savings');
+  const total = document.getElementById('summary-total');
+
+  if (currentPlan === 'Yearly') {
+    radioYearly.checked = true;
+    radioMonthly.checked = false;
+
+    yearlyCard.classList.remove('bg-surface-container-lowest/60', 'border');
+    yearlyCard.classList.add('bg-surface-container-high/90', 'border-2', 'border-primary-container');
+
+    monthlyCard.classList.add('bg-surface-container-lowest/60', 'border');
+    monthlyCard.classList.remove('bg-surface-container-high/90', 'border-2', 'border-primary-container');
+
+    title.textContent = 'Yearly Master Membership';
+    duration.textContent = '12 Months Unrestricted Access';
+    badge.textContent = '$100';
+    subtotal.textContent = '$100.00';
+    savings.textContent = '-$20.00';
+    total.textContent = '$100.00';
+  } else {
+    radioMonthly.checked = true;
+    radioYearly.checked = false;
+
+    monthlyCard.classList.remove('bg-surface-container-lowest/60', 'border');
+    monthlyCard.classList.add('bg-surface-container-high/90', 'border-2', 'border-primary-container');
+
+    yearlyCard.classList.add('bg-surface-container-lowest/60', 'border');
+    yearlyCard.classList.remove('bg-surface-container-high/90', 'border-2', 'border-primary-container');
+
+    title.textContent = 'Monthly Member Pass';
+    duration.textContent = 'Month-to-Month Access';
+    badge.textContent = '$10';
+    subtotal.textContent = '$10.00';
+    savings.textContent = '$0.00';
+    total.textContent = '$10.00';
+  }
+}
+
+function checkStrength(val) {
+  const bar = document.getElementById('strength-bar');
+  const label = document.getElementById('strength-label');
+  if (!bar || !label) return;
+
+  if (val.length < 6) {
+    bar.style.width = '25%';
+    bar.className = 'h-full bg-error transition-all duration-300';
+    label.textContent = 'Weak';
+    label.className = 'text-error font-medium';
+  } else if (val.length < 10) {
+    bar.style.width = '60%';
+    bar.className = 'h-full bg-primary transition-all duration-300';
+    label.textContent = 'Fair';
+    label.className = 'text-primary font-medium';
+  } else {
+    bar.style.width = '100%';
+    bar.className = 'h-full bg-secondary transition-all duration-300';
+    label.textContent = 'Strong';
+    label.className = 'text-secondary font-medium';
+  }
+}
+
+function togglePass(inputId, iconId) {
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+  if (!input || !icon) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.textContent = 'visibility_off';
+  } else {
+    input.type = 'password';
+    icon.textContent = 'visibility';
+  }
+}
+
+function goToStep(step) {
+  const bar = document.getElementById('wizard-progress-bar');
+  if (!bar) return;
+  if (step === 1) bar.style.width = '20%';
+  else if (step === 2) bar.style.width = '60%';
+  else if (step === 3) bar.style.width = '100%';
+}
+</script>

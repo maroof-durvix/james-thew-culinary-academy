@@ -1,9 +1,7 @@
 @{
-    ViewData["Title"] = "Our Mission";
+    ViewData["Title"] = "Our Mission - Chef James Thew Culinary Academy";
 }
 
-<div class="flex flex-col w-full">
-<!-- Top Atmospheric Scrim & Ambient Halo -->
 <div class="relative w-full overflow-hidden">
 <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
 <div class="absolute top-20 right-[-100px] w-[450px] h-[450px] bg-secondary-container/20 rounded-full blur-[140px] pointer-events-none"></div>
@@ -11,7 +9,7 @@
 <div class="relative w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin pt-space-md pb-space-xl">
 <!-- Breadcrumb Bar -->
 <nav aria-label="Breadcrumb" class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant mb-space-lg">
-<a class="hover:text-primary transition-colors" data-path="home" href="#">Home</a>
+<a class="hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
 <span class="text-outline/50">/</span>
 <span class="text-outline">About</span>
 <span class="text-outline/50">/</span>
@@ -46,7 +44,7 @@
 <section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-space-xl items-center">
 <div class="lg:col-span-7 relative group overflow-hidden rounded-xl bg-surface-container-high shadow-xl">
 <div class="relative h-[340px] md:h-[420px] w-full overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close up photograph of a professional chef hand precisely garnishing an artisanal dish with delicate microgreens in a moody dimly lit emerald culinary suite with warm copper sauté pans glowing in ambient light, Michelin star fine dining photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl8af1r2aeMdtVyozpFsilXhnO4Qtf2hFSm4noOJbB8DFjP07FyUMjeXT9gDtV1zDDI9HO3MS7lD9us-eCf_Fgb2JIpeo4n8Cq4oCB2s9cG_xiLGFlbWRvGDh8UR-0uNHi7XC1MBNAER1FRfxR6oPrqXMMYc99PyHCF570l-lnYG54XYzYmGhoOtnTfx4-I494_tR4uOLvKmBmAXQXdRxtTDIeXMGCkaP6Z6H4NVkPqEoQSy7zJPMc"/>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close up photograph of a professional chef hand precisely garnishing an artisanal dish with delicate microgreens in a moody dimly lit emerald culinary suite with warm copper sauté pans glowing in ambient light, Michelin star fine dining photography" src="~/images/close-up-photograph-of-a-professional-chef-hand-17da3d.jpg"/>
 <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"></div>
 <div class="absolute bottom-space-lg left-space-lg right-space-lg flex items-end justify-between">
 <div>
@@ -235,29 +233,14 @@
           Join our global kitchen community today to access step-by-step master blueprints, attend Chef James's weekend classes, and elevate every plate you serve.
         </p>
 <div class="flex flex-col sm:flex-row items-center gap-space-md">
-<a class="inline-flex items-center justify-center px-space-xl py-space-sm rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_20px_rgba(217,138,86,0.35)] hover:bg-primary hover:shadow-[0_6px_28px_rgba(217,138,86,0.5)] transition-all duration-300" data-path="register" href="#">
+<a class="inline-flex items-center justify-center px-space-xl py-space-sm rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_20px_rgba(217,138,86,0.35)] hover:bg-primary hover:shadow-[0_6px_28px_rgba(217,138,86,0.5)] transition-all duration-300" asp-controller="Auth" asp-action="Register">
 <span>Join Now</span>
 <span class="material-symbols-outlined ml-space-xs text-[18px]">arrow_forward</span>
 </a>
-<a class="inline-flex items-center justify-center px-space-lg py-space-sm rounded-full bg-surface-container-highest/80 hover:bg-surface-container-highest text-on-surface font-title-md text-title-md transition-colors" data-path="weekend-classes" href="#">
+<a class="inline-flex items-center justify-center px-space-lg py-space-sm rounded-full bg-surface-container-highest/80 hover:bg-surface-container-highest text-on-surface font-title-md text-title-md transition-colors" asp-controller="About" asp-action="Classes">
 <span>Explore Weekend Classes</span>
 </a>
 </div>
 </section>
 </div>
 </div>
-</div>
-<script>
-  (function initMissionPage() {
-    // Subtle interactive focus effect on Pillar Cards
-    const cards = document.querySelectorAll('article');
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.classList.add('translate-y-[-2px]');
-      });
-      card.addEventListener('mouseleave', () => {
-        card.classList.remove('translate-y-[-2px]');
-      });
-    });
-  })();
-</script>

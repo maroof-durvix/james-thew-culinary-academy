@@ -1,0 +1,127 @@
+@{
+    ViewData["Title"] = "Recharge Membership - JamesThew.com";
+    var preFillEmail = ViewBag.PreFillEmail as string ?? "";
+}
+
+<section class="relative w-full min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 bg-surface overflow-hidden">
+    <!-- Atmospheric Glow Background Elements -->
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-primary-container/15 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-secondary-container/15 rounded-full blur-[130px] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full max-w-xl mx-auto">
+        <!-- Return Link -->
+        <div class="mb-6 flex items-center justify-between">
+            <a asp-controller="Auth" asp-action="Login" class="group inline-flex items-center gap-2 text-tertiary hover:text-primary-container transition-colors text-sm font-medium">
+                <span class="material-symbols-outlined text-lg transition-transform group-hover:-translate-x-1">arrow_back</span>
+                <span>Back to Member Login</span>
+            </a>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/40 text-secondary text-xs font-semibold tracking-wider uppercase">
+                <span class="material-symbols-outlined text-xs text-primary-container" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                Instant Plan Renewal
+            </div>
+        </div>
+
+        <!-- Main Recharge Glass Card -->
+        <div class="rounded-[22px] bg-surface-container/85 backdrop-blur-xl p-8 sm:p-10 shadow-2xl border border-white/5">
+            <!-- Header Segment -->
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-primary-container/20 border border-primary-container/40 flex items-center justify-center text-primary-container shadow-lg">
+                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">autorenew</span>
+                </div>
+                <h1 class="font-headline-lg text-2xl sm:text-3xl font-medium text-on-surface tracking-tight">Recharge VIP Pass</h1>
+                <p class="font-body-md text-on-surface-variant text-sm mt-2 max-w-md mx-auto leading-relaxed">
+                    Renew your subscription to instantly reactivate your VIP status, culinary masterclasses, secret formulas, and member notebooks.
+                </p>
+            </div>
+
+            <!-- Validation Errors -->
+            <div asp-validation-summary="All" class="mb-6 p-4 rounded-xl bg-error-container/30 border border-error/50 text-error text-sm font-medium empty:hidden"></div>
+
+            <!-- Recharge Form -->
+            <form asp-controller="Plans" asp-action="Recharge" method="post" class="space-y-6">
+                @Html.AntiForgeryToken()
+
+                <!-- Plan Selection Cards -->
+                <div>
+                    <label class="block font-label-md text-xs uppercase tracking-wider text-secondary mb-3">Choose Your Membership Tier</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <!-- Monthly Plan Option -->
+                        <label class="relative flex flex-col p-4 rounded-xl border border-surface-variant/60 bg-surface-container-lowest/60 hover:bg-surface-container-lowest/90 cursor-pointer transition-all duration-200 has-[:checked]:border-primary-container has-[:checked]:bg-primary-container/10 has-[:checked]:ring-1 has-[:checked]:ring-primary-container">
+                            <input type="radio" name="plan" value="Monthly" class="sr-only" checked />
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-title-md text-on-surface font-semibold text-base">Monthly Pass</span>
+                                <span class="text-primary-container font-headline-md font-bold text-lg">$10</span>
+                            </div>
+                            <span class="text-xs text-on-surface-variant leading-snug">30 Days Full Access. Billed once, renew when needed.</span>
+                        </label>
+
+                        <!-- Yearly Plan Option -->
+                        <label class="relative flex flex-col p-4 rounded-xl border border-surface-variant/60 bg-surface-container-lowest/60 hover:bg-surface-container-lowest/90 cursor-pointer transition-all duration-200 has-[:checked]:border-primary-container has-[:checked]:bg-primary-container/10 has-[:checked]:ring-1 has-[:checked]:ring-primary-container">
+                            <input type="radio" name="plan" value="Yearly" class="sr-only" />
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="font-title-md text-on-surface font-semibold text-base">Yearly Pass</span>
+                                    <span class="px-1.5 py-0.5 rounded text-[10px] bg-secondary-container text-secondary font-bold uppercase">Save 17%</span>
+                                </div>
+                                <span class="text-primary-container font-headline-md font-bold text-lg">$100</span>
+                            </div>
+                            <span class="text-xs text-on-surface-variant leading-snug">365 Days Unrestricted VIP Masterclass Entry.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Account Credentials Verification -->
+                <div class="space-y-4 pt-1">
+                    <!-- Email -->
+                    <div class="space-y-1.5">
+                        <label class="block font-label-md text-xs uppercase tracking-wider text-secondary" for="email">Account Email Address</label>
+                        <div class="relative flex items-center">
+                            <span class="material-symbols-outlined absolute left-3.5 text-outline text-lg pointer-events-none">mail</span>
+                            <input id="email" name="email" value="@preFillEmail" class="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-container-lowest/80 text-on-surface placeholder:text-outline text-sm transition-all outline-none focus:ring-1 focus:ring-primary shadow-inner" placeholder="member@jamesthew.com" required type="email" pattern="^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address (e.g. name@domain.com)" />
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="space-y-1.5">
+                        <label class="block font-label-md text-xs uppercase tracking-wider text-secondary" for="password">Account Password</label>
+                        <div class="relative flex items-center">
+                            <span class="material-symbols-outlined absolute left-3.5 text-outline text-lg pointer-events-none">lock</span>
+                            <input id="password" name="password" class="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-container-lowest/80 text-on-surface placeholder:text-outline text-sm transition-all outline-none focus:ring-1 focus:ring-primary shadow-inner" placeholder="Enter your password" required type="password" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulated Secure Checkout Payment Segment -->
+                <div class="p-4 rounded-xl bg-surface-container-lowest/50 border border-white/5 space-y-3">
+                    <div class="flex items-center justify-between text-xs text-on-surface-variant font-medium">
+                        <span class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm text-secondary">shield</span>
+                            Instant Mock Payment Verification
+                        </span>
+                        <span class="text-secondary font-semibold">Test Mode Active</span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="relative flex items-center">
+                            <span class="material-symbols-outlined absolute left-3.5 text-outline text-lg pointer-events-none">credit_card</span>
+                            <input name="cardNumber" class="w-full pl-11 pr-4 py-2.5 rounded-lg bg-surface-container-high/60 text-on-surface placeholder:text-outline text-xs outline-none focus:ring-1 focus:ring-primary" placeholder="•••• •••• •••• 4242 (Any test card)" value="4242 •••• •••• 4242" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full py-3.5 px-6 rounded-full bg-primary-container text-surface-container-lowest font-title-md font-semibold text-base hover:bg-primary transition-all duration-300 shadow-[0_4px_20px_rgba(217,138,86,0.25)] hover:shadow-[0_6px_26px_rgba(217,138,86,0.40)] flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]">
+                    <span class="material-symbols-outlined text-lg">bolt</span>
+                    <span>Recharge & Unlock Kitchen Now</span>
+                </button>
+            </form>
+
+            <!-- Bottom Note -->
+            <div class="mt-6 pt-5 border-t border-surface-variant/30 text-center">
+                <p class="text-xs text-outline">
+                    Upon recharging, you will be automatically logged into your VIP Member dashboard.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

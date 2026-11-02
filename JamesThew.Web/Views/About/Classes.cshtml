@@ -1,12 +1,11 @@
 @{
-    ViewData["Title"] = "Cookery Classes";
+    ViewData["Title"] = "Weekend Cookery Classes - Chef James Thew Culinary Academy";
 }
 
-<div class="flex flex-col w-full">
 <!-- Atmospheric Breadcrumb & Hero Area -->
 <section class="relative w-full overflow-hidden bg-surface-container-lowest">
 <div class="absolute inset-0 z-0">
-<div class="w-full h-full bg-cover bg-center opacity-35 filter brightness-75 scale-105 transition-transform duration-1000" data-alt="An atmospheric, moody five-star culinary workshop kitchen late in the afternoon. Burnished copper sauté pans hanging from rustic wooden beams, warm golden embers glowing from an open hearth, fresh aromatic herbs scattered across dark emerald slate prep counters, Chef James mentoring an attentive apprentice under subtle cinematic rim lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBWCi9f0J0Da9p1rqw_vNzflVYRl7zwfIYFnF5i2yLmLJ6oYiA8QbKuKRoljiia-ez6e8YDkbHSSjcji4gAPeQhYgMcjwKRl3tVG3sxq11gfJozXsic6XnEyn95RrGZmAzU-FfyeQFEjdKZR-Vr1RiUDKwXktYJsurwT-72QC0Sl-X67U3Wbm-_CPmHQ2INmcBRO1I59i6UKs5lqnVEQofvx1M-6R8zCOZ86ivCaNMmZHvG8y35GWs3')"></div>
+<div class="w-full h-full bg-cover bg-center opacity-35 filter brightness-75 scale-105 transition-transform duration-1000" data-alt="An atmospheric, moody five-star culinary workshop kitchen late in the afternoon. Burnished copper sauté pans hanging from rustic wooden beams, warm golden embers glowing from an open hearth, fresh aromatic herbs scattered across dark emerald slate prep counters, Chef James mentoring an attentive apprentice under subtle cinematic rim lighting." style="background-image: url('/images/about-classes-img-87cf20.jpg')"></div>
 <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent"></div>
 <div class="absolute -top-32 right-10 w-96 h-96 rounded-full bg-primary-container/10 blur-3xl pointer-events-none"></div>
 <div class="absolute bottom-0 left-12 w-80 h-80 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
@@ -14,7 +13,7 @@
 <div class="relative z-10 px-margin-mobile lg:px-margin pt-space-lg pb-space-xl max-w-7xl mx-auto flex flex-col">
 <!-- Breadcrumb -->
 <nav aria-label="Breadcrumb" class="flex items-center gap-space-xs text-label-sm font-label-sm uppercase tracking-wider text-outline mb-space-lg">
-<a class="text-on-surface-variant hover:text-primary transition-colors" data-path="home" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
 <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
 <span class="text-on-surface-variant">About</span>
 <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
@@ -35,7 +34,7 @@
           </p>
 </div>
 <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-space-md justify-end lg:items-end">
-<a class="inline-flex items-center justify-center gap-space-sm px-space-xl py-space-sm rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-primary shadow-[0_4px_20px_rgba(217,138,86,0.3)] transition-all" data-path="contact-us" href="#">
+<a class="inline-flex items-center justify-center gap-space-sm px-space-xl py-space-sm rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-primary shadow-[0_4px_20px_rgba(217,138,86,0.3)] transition-all" asp-controller="Help" asp-action="Contact">
 <span>Contact Us to Enrol</span>
 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
 </a>
@@ -47,7 +46,6 @@
 </div>
 </div>
 </section>
-<!-- Section 1: Why Join Section (4 Glass Cards) -->
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl max-w-7xl mx-auto">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
 <div>
@@ -133,7 +131,6 @@
 </div>
 </div>
 </section>
-<!-- Section 2: Course Categories -->
 <section class="w-full bg-surface-container-low/60 py-space-xl">
 <div class="px-margin-mobile lg:px-margin max-w-7xl mx-auto flex flex-col gap-space-lg">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
@@ -149,7 +146,7 @@
 <!-- Juices & Tonics -->
 <div class="flex flex-col rounded-xl bg-surface-container-high/90 overflow-hidden shadow-lg group">
 <div class="relative h-48 w-full overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Artisanal cold-pressed botanical juices, clarifying tinctures, and vibrant green infusions in cut crystal carafes, accented by sliced citrus, fresh mint, and star anise on dark wet marble." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl_nCPoc1pxeKnTMF8j2jClqf9ARrhxTntrSm2YT3z3JUmGPbFvogyeYrpTMyrBtxHdINN5ZG5lW6t24gg92uMytSBPlPYbg0f3yV94guElXj4r2QlMr3QTxm1C4HZD6qmMFkb35DPfz1cE5bco1Mo6yRxpsS7nD3iTb09W-J5VEbv4iAeL7iLrA67w-DzpM-ngiaytDCCHM6d-imZOoZla2eJX1n1ZLjBikb3VaB-jNdWsPi_1_NF"/>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Artisanal cold-pressed botanical juices, clarifying tinctures, and vibrant green infusions in cut crystal carafes, accented by sliced citrus, fresh mint, and star anise on dark wet marble." src="~/images/artisanal-cold-pressed-botanical-juices-clarifyi-2bc7cb.jpg"/>
 <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-secondary-container/90 backdrop-blur-md text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
 <span class="material-symbols-outlined text-[14px]">local_offer</span>
               Low fee
@@ -174,7 +171,7 @@
 <!-- Vegetarian Gourmet -->
 <div class="flex flex-col rounded-xl bg-surface-container-high/90 overflow-hidden shadow-lg group">
 <div class="relative h-48 w-full overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Gourmet roasted heirloom vegetables, caramelized baby root vegetables, whipped herb chevre, and microgreens plated with artistic restaurant precision on dark matte ceramic plate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiPy-fXVhPj-6SMi-o6c3bK27z_ReCj8wyhmePgOx2ckRHGzr2YHUxpgmc3vPV_AzEBETrfPMJbX6o6DVIPlOSjfSSa7vmn1gqh_QV1xuI_yovPjut_veR_rorlS08DQu53sXX_yYkNd81fYwZ6tJS9vjDU7OZ1JWR5SPhjbgz5BaIN6yS2ypDBMoViofJWTLCtwCwR3QjiZRPBNVD1Wow2_amTGyLww0gIAgOsBPYj-lyC1wpRIdN"/>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Gourmet roasted heirloom vegetables, caramelized baby root vegetables, whipped herb chevre, and microgreens plated with artistic restaurant precision on dark matte ceramic plate." src="~/images/gourmet-roasted-heirloom-vegetables-caramelized-5bdc19.jpg"/>
 <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-secondary-container/90 backdrop-blur-md text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
 <span class="material-symbols-outlined text-[14px]">local_offer</span>
               Low fee
@@ -199,7 +196,7 @@
 <!-- Non-Vegetarian Foundations -->
 <div class="flex flex-col rounded-xl bg-surface-container-high/90 overflow-hidden shadow-lg group">
 <div class="relative h-48 w-full overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sizzling thick-cut dry aged steak resting alongside roasted bone marrow and copper saucepan filled with glossy dark demi-glace sauce, dark moody kitchen backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoEUAhcD6uy8kuUHWtnUcL0X3KXYeI2O1--kN4jvWZDBKDBw6mxizb53z4ZAmc3ViQpno7ySoe41aDZ7hTlEo-tS71KkUWOoOQey5i-j5Ty9CA_8KLwuCLBV42zP76XbS5sOfOn4dW7OXb5rZTfANP9BIGh9wxqahB2wuqIW7mGYMGLYxnvUx_wF8fxRnAdfZuBsGmwX2qJ-RmcGZ2sAt1cbi3uABnBGISuNJqLOLAIGJw-hincPBo"/>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sizzling thick-cut dry aged steak resting alongside roasted bone marrow and copper saucepan filled with glossy dark demi-glace sauce, dark moody kitchen backdrop." src="~/images/a-sizzling-thick-cut-dry-aged-steak-resting-alon-924634.jpg"/>
 <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-primary-container/20 backdrop-blur-md text-primary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
 <span class="material-symbols-outlined text-[14px]">local_offer</span>
               Low fee
@@ -224,7 +221,7 @@
 <!-- Italian Tradition & Handcrafted Pasta -->
 <div class="flex flex-col rounded-xl bg-surface-container-high/90 overflow-hidden shadow-lg group">
 <div class="relative h-48 w-full overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Handcrafted fresh tagliatelle pasta tossed in aged pecorino cheese and crushed black peppercorns on rustic dark wooden counter dusted with golden semolina flour." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABS4I1V_-_yJgH3qfuuVKZUk_M808RKqdGjjJqdm6bhoYyD69-eIYvWz8bdfzmmYgPB6ugdT2g76oVobo0c98GHy8WQiUJUl_hoCb4JXp0JghzEpZigCjxC30P2T0h16E-e_t9BoaGoUvRUX5Ft_zT2PsEd17bHNehP3kSpW_raTOoCmrACFO3uwQtty28aNcBthPQgefV-GCMox3Y9kaqZvtCBgMNn8czx6WNmpE2oJOWXKajR-1_"/>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Handcrafted fresh tagliatelle pasta tossed in aged pecorino cheese and crushed black peppercorns on rustic dark wooden counter dusted with golden semolina flour." src="~/images/handcrafted-fresh-tagliatelle-pasta-tossed-in-ag-6c7b12.jpg"/>
 <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-secondary-container/90 backdrop-blur-md text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
 <span class="material-symbols-outlined text-[14px]">local_offer</span>
               Low fee
@@ -249,7 +246,6 @@
 </div>
 </div>
 </section>
-<!-- Section 3: Weekend Schedule Table -->
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl max-w-7xl mx-auto">
 <div class="flex flex-col gap-space-sm mb-space-lg">
 <div class="flex items-center gap-2">
@@ -362,7 +358,6 @@
 </div>
 </div>
 </section>
-<!-- Section 4: Split Layout - Fee Breakdown & Location -->
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl max-w-7xl mx-auto">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
 <!-- Fee Details Card (7 Cols) -->
@@ -430,7 +425,7 @@
             Conveniently situated in the central culinary enclave, offering a high-spec stainless kitchen environment designed for immersive weekend masteries.
           </p>
 <!-- Dark Moody Map Container -->
-<div class="relative w-full h-56 rounded-lg overflow-hidden mt-space-xs shadow-inner" data-location="Culinary Suite, Karachi, Pakistan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-_GwwLSxmWc6kLEzMSSqUvfHSbTIKRYHCUrEZEfXNfgabH8jegFaog0ZemnrkJl_bOyByXsbYmEU43CXvpfWCRuqrIB0GQVojirj-ORNhQuzmgx8iooEuHB6dSGF0KJsjq9vkaqgMcG3Mc4JKZUfYlBU_W0jLrb2Xd47HN5-34nsI1pbAFcr0ZmHTrTWZCN4a0uX6SPUiqVG47WjEOSs1QJ_IBRzWqzSiDTv3DJTwfZTKc16VrHf_')">
+<div class="relative w-full h-56 rounded-lg overflow-hidden mt-space-xs shadow-inner" data-location="Culinary Suite, Karachi, Pakistan" style="background-image: url('/images/about-classes-img-2070ec.png')">
 <!-- Ambient Vignette -->
 <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/40 to-transparent"></div>
 <div class="absolute bottom-3 left-3 right-3 p-space-sm rounded-lg bg-surface-container-high/90 backdrop-blur-md flex items-center justify-between">
@@ -454,7 +449,6 @@
 </div>
 </div>
 </section>
-<!-- Section 5: Short Notes & Preparatory Guidelines -->
 <section class="w-full px-margin-mobile lg:px-margin py-space-lg max-w-7xl mx-auto">
 <div class="p-space-lg lg:p-space-xl rounded-xl bg-surface-container-low/70 backdrop-blur-md flex flex-col md:flex-row gap-space-lg items-start">
 <div class="md:w-1/3 flex flex-col gap-space-xs">
@@ -498,7 +492,6 @@
 </div>
 </div>
 </section>
-<!-- Section 6: Direct Call to Action -->
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl max-w-7xl mx-auto mb-space-xl">
 <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-surface-container-highest via-surface-container to-surface-container-high p-space-xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-space-xl text-center md:text-left">
 <div class="flex flex-col gap-space-xs max-w-xl">
@@ -509,11 +502,10 @@
         </p>
 </div>
 <div class="flex flex-col sm:flex-row items-center gap-space-md shrink-0">
-<a class="px-space-xl py-space-md rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-primary shadow-[0_6px_24px_rgba(217,138,86,0.35)] transition-all flex items-center gap-2" data-path="contact-us" href="#">
+<a class="px-space-xl py-space-md rounded-full bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-primary shadow-[0_6px_24px_rgba(217,138,86,0.35)] transition-all flex items-center gap-2" asp-controller="Help" asp-action="Contact">
 <span>Contact Us to Enrol</span>
 <span class="material-symbols-outlined text-[20px]">send</span>
 </a>
 </div>
 </div>
 </section>
-</div>

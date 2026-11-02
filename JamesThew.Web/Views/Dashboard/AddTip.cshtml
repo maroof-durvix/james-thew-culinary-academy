@@ -1,189 +1,162 @@
+@model JamesThew.Web.Models.ViewModels.AddTipViewModel
 @{
     ViewData["Title"] = "Add Tip";
+    Layout = "_DashboardLayout";
 }
 
 <div class="flex flex-col w-full max-w-5xl mx-auto space-y-10 pb-16">
-<!-- Page Header -->
-<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-6 border-b border-outline-variant/30">
-<div class="space-y-2">
-<div class="flex items-center gap-2 text-primary font-label-md uppercase tracking-wider">
-<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
-        Culinary Knowledge Base
-      </div>
-<h2 class="font-headline-xl text-on-surface">Publish a Professional Tip</h2>
-<p class="font-body-md text-on-surface-variant max-w-2xl">
-        Share your refined techniques, pairing secrets, or kitchen shortcuts with the community. Member-submitted tips are curated and published directly to our exclusive Premium library.
-      </p>
+    <!-- Page Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-6 border-b border-outline-variant/30">
+        <div class="space-y-2">
+            <div class="flex items-center gap-2 text-primary font-label-md uppercase tracking-wider">
+                <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                Culinary Knowledge Base
+            </div>
+            <h2 class="font-headline-xl text-on-surface">Publish a Professional Tip</h2>
+            <p class="font-body-md text-on-surface-variant max-w-2xl">
+                Share your refined techniques, pairing secrets, or kitchen shortcuts with the community.
+            </p>
+        </div>
+        <div class="flex items-center gap-3 bg-surface-container-high px-4 py-3 rounded-xl border border-outline-variant/30 shadow-sm">
+            <span class="material-symbols-outlined text-primary text-[20px]">lightbulb</span>
+            <div class="text-left">
+                <span class="block font-label-sm text-on-surface-variant uppercase">Publishing Channel</span>
+                <span class="font-title-md text-primary">Sanctuary Technique Lab</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Layout: Asymmetric Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Main Form Glass Card -->
+        <div class="lg:col-span-8 bg-[#12362F]/75 backdrop-blur-[16px] p-8 rounded-xl shadow-xl relative overflow-hidden ring-1 ring-[#f6efe3]/10">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <form asp-action="AddTip" method="post" enctype="multipart/form-data" class="space-y-6 relative z-10">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-error/15 border border-error/30 text-error text-body-sm"></div>
+
+                <!-- Tip Title -->
+                <div class="space-y-2">
+                    <label asp-for="Title" class="block font-label-md text-on-surface uppercase tracking-wider">Tip Title <span class="text-primary">*</span></label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-3.5 text-outline text-[18px]">title</span>
+                        <input asp-for="Title" class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl pl-11 pr-4 py-3 border border-outline-variant/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-inner" placeholder="e.g., The Secret to Crystal-Clear Consomé Every Time" required />
+                    </div>
+                    <span asp-validation-for="Title" class="text-error text-label-sm"></span>
+                </div>
+
+                <!-- Category Dropdown -->
+                <div class="space-y-2">
+                    <label asp-for="CategoryId" class="block font-label-md text-on-surface uppercase tracking-wider">Category <span class="text-primary">*</span></label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-3.5 text-outline text-[18px]">category</span>
+                        <select asp-for="CategoryId" class="w-full bg-[#0A211E] text-on-surface text-body-md rounded-xl pl-11 pr-10 py-3 border border-outline-variant/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer shadow-inner" required>
+                            <option value="">Select culinary domain...</option>
+                            @if (Model.AvailableCategories != null)
+                            {
+                                foreach (var cat in Model.AvailableCategories)
+                                {
+                                    <option value="@cat.Id">@cat.Name</option>
+                                }
+                            }
+                        </select>
+                        <span class="material-symbols-outlined absolute right-3.5 top-3.5 text-outline text-[20px] pointer-events-none">expand_more</span>
+                    </div>
+                    <span asp-validation-for="CategoryId" class="text-error text-label-sm"></span>
+                </div>
+
+                <!-- Access Tier Selection -->
+                <div class="space-y-2">
+                    <label asp-for="Access" class="block font-label-md text-on-surface uppercase tracking-wider">Access Tier</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="flex items-center gap-3 p-4 rounded-xl bg-[#0A211E] border border-outline-variant/40 cursor-pointer hover:border-primary transition-all">
+                            <input type="radio" asp-for="Access" value="Free" class="accent-primary" checked />
+                            <div>
+                                <span class="font-title-md text-on-surface block">Free Public</span>
+                                <span class="text-label-sm text-on-surface-variant">Available to everyone</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 rounded-xl bg-[#0A211E] border border-outline-variant/40 cursor-pointer hover:border-primary transition-all">
+                            <input type="radio" asp-for="Access" value="Premium" class="accent-primary" />
+                            <div>
+                                <span class="font-title-md text-primary block">Premium Archive</span>
+                                <span class="text-label-sm text-on-surface-variant">Subscribed members only</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Description / Technique -->
+                <div class="space-y-2">
+                    <label asp-for="Description" class="block font-label-md text-on-surface uppercase tracking-wider">Technique Description &amp; Instructions <span class="text-primary">*</span></label>
+                    <textarea asp-for="Description" rows="6" class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl p-4 border border-outline-variant/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-inner" placeholder="Detail the step-by-step technique, thermal thresholds, and chef secrets..." required></textarea>
+                    <span asp-validation-for="Description" class="text-error text-label-sm"></span>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="space-y-2">
+                    <label asp-for="ImageFile" class="block font-label-md text-on-surface uppercase tracking-wider">Demonstration Photography (Optional)</label>
+                    <div class="border-2 border-dashed border-outline-variant hover:border-primary rounded-xl p-6 text-center cursor-pointer transition-all bg-[#0A211E]/40" onclick="document.getElementById('tip-image-input').click()">
+                        <input type="file" id="tip-image-input" asp-for="ImageFile" accept="image/*" class="hidden" onchange="previewTipImage(this)" />
+                        <span class="material-symbols-outlined text-[36px] text-primary mb-2">add_photo_alternate</span>
+                        <p class="text-body-md text-on-surface">Click to upload step-by-step technique visual</p>
+                        <p class="text-label-sm text-outline mt-1">JPEG, PNG, or WEBP up to 5MB</p>
+                        <div id="tip-image-preview" class="mt-4 hidden">
+                            <img id="tip-preview-img" class="max-h-48 mx-auto rounded-lg object-cover shadow-md" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center justify-end gap-4 pt-4 border-t border-[rgba(246,239,227,0.1)]">
+                    <a asp-action="Tips" class="px-6 py-3 rounded-full border border-outline-variant text-on-surface hover:bg-[rgba(246,239,227,0.08)] transition-all font-title-md">
+                        Cancel
+                    </a>
+                    <button type="submit" class="px-8 py-3 rounded-full bg-primary hover:bg-[#E8A173] text-on-primary font-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[20px]">publish</span>
+                        Publish Tip
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Column: Editorial Standards -->
+        <div class="lg:col-span-4 space-y-6">
+            <div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-6 shadow-xl border border-[rgba(246,239,227,0.12)]">
+                <div class="flex items-center gap-2 mb-4 text-primary font-title-md">
+                    <span class="material-symbols-outlined">tips_and_updates</span>
+                    Quality Standards
+                </div>
+                <ul class="space-y-3 text-body-sm text-on-surface-variant">
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[#5DBB8A] text-[18px] shrink-0 mt-0.5">check_circle</span>
+                        <span>State the culinary purpose clearly in the first paragraph.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[#5DBB8A] text-[18px] shrink-0 mt-0.5">check_circle</span>
+                        <span>Highlight common mistakes to avoid.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-[#5DBB8A] text-[18px] shrink-0 mt-0.5">check_circle</span>
+                        <span>Ensure advice is scientifically sound and field-tested.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="flex items-center gap-3 bg-surface-container-high px-4 py-3 rounded-xl border border-outline-variant/30 shadow-sm">
-<span class="material-symbols-outlined text-primary text-[20px]">card_membership</span>
-<div class="text-left">
-<span class="block font-label-sm text-on-surface-variant uppercase">Publishing Tier</span>
-<span class="font-title-md text-primary flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
-          Premium Archive
-        </span>
-</div>
-</div>
-</div>
-<!-- Form Layout: Asymmetric Grid -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-<!-- Main Form Glass Card -->
-<div class="lg:col-span-8 bg-[#12362F]/75 backdrop-blur-[16px] p-8 rounded-xl shadow-xl relative overflow-hidden ring-1 ring-[#f6efe3]/10">
-<!-- Ambient interior glow -->
-<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
-<form class="space-y-6 relative z-10" id="add-tip-form" onsubmit="event.preventDefault(); showToast();">
-<!-- Tip Title -->
-<div class="space-y-2">
-<label class="block font-label-md text-on-surface uppercase tracking-wider">Tip Title <span class="text-primary">*</span></label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3.5 top-3.5 text-outline text-[18px]">title</span>
-<input class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl pl-11 pr-4 py-3 border border-outline-variant/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-inner" placeholder="e.g., The Secret to Crystal-Clear Consomé Every Time" required="" type="text"/>
-</div>
-<p class="font-body-sm text-on-surface-variant/70">Craft a compelling, descriptive headline for your culinary insight.</p>
-</div>
-<!-- Category Dropdown -->
-<div class="space-y-2">
-<label class="block font-label-md text-on-surface uppercase tracking-wider">Category <span class="text-primary">*</span></label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3.5 top-3.5 text-outline text-[18px]">category</span>
-<select class="w-full bg-[#0A211E] text-on-surface text-body-md rounded-xl pl-11 pr-10 py-3 border border-outline-variant/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer shadow-inner" required="">
-<option disabled="" selected="" value="">Select kitchen domain...</option>
-<option value="knife-skills">Knife Skills &amp; Prep</option>
-<option value="sauces-stocks">Sauces &amp; Stocks</option>
-<option value="baking-pastry">Baking &amp; Pastry Precision</option>
-<option value="heat-control">Heat Control &amp; Searing</option>
-<option value="plating-aesthetics">Plating &amp; Presentation</option>
-<option value="flavor-pairing">Flavor Pairing &amp; Seasoning</option>
-</select>
-<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-outline text-[20px] pointer-events-none">expand_more</span>
-</div>
-</div>
-<!-- Tip Description Textarea -->
-<div class="space-y-2">
-<label class="block font-label-md text-on-surface uppercase tracking-wider">Tip Description &amp; Methodology <span class="text-primary">*</span></label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3.5 top-3.5 text-outline text-[18px]">description</span>
-<textarea class="w-full bg-[#0A211E] text-on-surface placeholder:text-outline text-body-md rounded-xl pl-11 pr-4 py-3 border border-outline-variant/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-y shadow-inner" placeholder="Describe your technique step-by-step. Include the science, the exact conditions, and why this elevates the dish..." required="" rows="6"></textarea>
-</div>
-<div class="flex justify-between items-center text-body-sm text-on-surface-variant/70">
-<span>Markdown formatting supported.</span>
-<span id="char-count">0 / 2000 chars</span>
-</div>
-</div>
-<!-- Optional Image Upload Drop Zone -->
-<div class="space-y-2">
-<label class="block font-label-md text-on-surface uppercase tracking-wider">Demonstration Visual (Optional)</label>
-<div class="border-2 border-dashed border-outline-variant/50 hover:border-primary/60 rounded-xl p-8 text-center bg-[#0A211E]/50 hover:bg-[#0A211E] transition-all cursor-pointer group relative">
-<input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" onchange="updateFileName(this)" type="file"/>
-<div class="flex flex-col items-center justify-center space-y-3 relative z-10 pointer-events-none">
-<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-md">
-<span class="material-symbols-outlined text-[24px]">cloud_upload</span>
-</div>
-<div class="space-y-1">
-<p class="font-title-md text-on-surface group-hover:text-primary transition-colors">Drag &amp; drop visual evidence here</p>
-<p class="font-body-sm text-on-surface-variant" id="file-upload-label">Supports high-res PNG, JPG, WebP up to 15MB</p>
-</div>
-<span class="inline-block px-3 py-1 rounded-full bg-surface-container text-label-sm text-primary border border-outline-variant/30">Browse Files</span>
-</div>
-</div>
-</div>
-<!-- Form Actions -->
-<div class="flex items-center justify-end gap-4 pt-6 border-t border-outline-variant/20">
-<a class="px-6 py-3 rounded-full text-on-surface-variant hover:text-on-surface font-title-md transition-colors" href="#">
-            Cancel
-          </a>
-<button class="px-8 py-3.5 rounded-full bg-primary hover:bg-[#E8A173] text-on-primary font-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all flex items-center gap-2 cursor-pointer" type="submit">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">publish</span>
-            Submit Tip
-          </button>
-</div>
-</form>
-</div>
-<!-- Sidebar Guidelines & Preview Card -->
-    lg:col-span-4 space-y-6"&gt;
-      
-      <!-- Expert Guidelines -->
-<div class="bg-[#12362F]/75 backdrop-blur-[16px] p-6 rounded-xl shadow-xl ring-1 ring-[#f6efe3]/10 space-y-4">
-<div class="flex items-center gap-3 text-primary">
-<span class="material-symbols-outlined text-[24px]">workspace_premium</span>
-<h3 class="font-headline-sm text-on-surface">The Executive Standard</h3>
-</div>
-<p class="font-body-sm text-on-surface-variant leading-relaxed">
-          Tips published to The Sanctuary undergo peer review by our executive kitchen panel. Ensure your instructions are precise, reproducible, and offer authentic culinary value.
-        </p>
-<div class="space-y-3 pt-2">
-<div class="flex items-start gap-3">
-<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">check_circle</span>
-<span class="font-body-sm text-on-surface">Provide exact measurements or time markers.</span>
-</div>
-<div class="flex items-start gap-3">
-<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">check_circle</span>
-<span class="font-body-sm text-on-surface">Explain the 'why' behind the technique.</span>
-</div>
-<div class="flex items-start gap-3">
-<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">check_circle</span>
-<span class="font-body-sm text-on-surface">High-contrast photos increase member engagement by 40%.</span>
-</div>
-</div>
-</div>
-<!-- Live Metadata Preview Box -->
-<div class="bg-[#0A211E] p-6 rounded-xl border border-outline-variant/30 space-y-4 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl pointer-events-none"></div>
-<div class="flex items-center justify-between">
-<span class="font-label-md text-outline uppercase tracking-wider">Live Preview Badge</span>
-<span class="px-2.5 py-1 rounded-full bg-[#D98A56]/18 border border-[#D98A56]/45 text-[#D98A56] text-label-sm font-semibold flex items-center gap-1">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
-            PREMIUM TIP
-          </span>
-</div>
-<div class="space-y-1">
-<h4 class="font-headline-sm text-on-surface line-clamp-1">Your Tip Headline Appears Here</h4>
-<p class="font-body-sm text-on-surface-variant/70 line-clamp-2">Category selection and short description will be indexed instantly upon successful submission.</p>
-</div>
-<div class="pt-2 flex items-center justify-between text-label-sm text-outline border-t border-outline-variant/20">
-<span>By Executive Chef (You)</span>
-<span>Pending Review</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Toast Notification (Hidden by default) -->
-<div class="fixed bottom-8 right-8 bg-[#0A211E] border-l-4 border-primary text-on-surface px-6 py-4 rounded-xl shadow-2xl backdrop-blur-xl transform translate-y-24 opacity-0 transition-all duration-300 z-50 flex items-center gap-4" id="success-toast">
-<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-[22px]">verified</span>
-</div>
-<div>
-<h5 class="font-title-md text-on-surface">Tip Submitted Successfully</h5>
-<p class="font-body-sm text-on-surface-variant">Your submission is now queued for Premium archival review.</p>
-</div>
-</div>
+
 <script>
-    // Character counter simulation
-    const textarea = document.querySelector('textarea');
-    const charCount = document.getElementById('char-count');
-    if (textarea && charCount) {
-      textarea.addEventListener('input', (e) => {
-        const len = e.target.value.length;
-        charCount.textContent = `${len} / 2000 chars`;
-      });
+    function previewTipImage(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('tip-preview-img').src = e.target.result;
+                document.getElementById('tip-image-preview').classList.remove('hidden');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-
-    // File name update simulation
-    function updateFileName(input) {
-      const label = document.getElementById('file-upload-label');
-      if (input.files && input.files[0]) {
-        label.textContent = `Selected: ${input.files[0].name}`;
-        label.classList.add('text-primary', 'font-semibold');
-      }
-    }
-
-    // Toast trigger simulation
-    function showToast() {
-      const toast = document.getElementById('success-toast');
-      toast.classList.remove('translate-y-24', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-24', 'opacity-0');
-      }, 4000);
-    }
-  </script>
+</script>

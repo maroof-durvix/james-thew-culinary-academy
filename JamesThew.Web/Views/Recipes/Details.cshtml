@@ -1,0 +1,454 @@
+@model JamesThew.Web.Models.Entities.Recipe
+@{
+    ViewData["Title"] = $"{Model.Title} - Recipe by Chef James Thew";
+    bool isMember = ViewBag.IsMember ?? false;
+    bool isLocked = Model.Access == "Premium" && !isMember;
+    var relatedRecipes = ViewBag.RelatedRecipes as IEnumerable<JamesThew.Web.Models.Entities.Recipe> ?? new List<JamesThew.Web.Models.Entities.Recipe>();
+
+    var feedbacks = Model.Feedbacks != null ? Model.Feedbacks.OrderByDescending(f => f.CreatedAt).ToList() : new List<JamesThew.Web.Models.Entities.RecipeFeedback>();
+    var avgRating = feedbacks.Any() ? feedbacks.Average(f => f.Rating).ToString("0.0") : "4.9";
+    var totalReviews = feedbacks.Count;
+
+    var ingredientLines = Model.Ingredients?.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
+    var procedureSteps = Model.Procedure?.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
+
+    var imgUrl = !string.IsNullOrEmpty(Model.ImagePath) ? Model.ImagePath : "/images/recipe-5.jpg";
+}
+
+<!-- Dynamic Atmospheric Glow Background -->
+<div class="relative w-full px-margin-mobile lg:px-margin pt-space-lg pb-space-xl overflow-hidden">
+  <div class="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+  <div class="absolute top-1/2 right-[-100px] w-[500px] h-[500px] bg-secondary-container/20 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+
+  @if (TempData["SuccessMessage"] != null)
+  {
+    <div class="mb-6 p-4 rounded-xl bg-secondary-container/60 text-secondary border border-secondary/30 flex items-center gap-3">
+      <span class="material-symbols-outlined text-[24px]">check_circle</span>
+      <span class="font-body-md">@TempData["SuccessMessage"]</span>
+    </div>
+  }
+  @if (TempData["ErrorMessage"] != null)
+  {
+    <div class="mb-6 p-4 rounded-xl bg-error-container/60 text-error border border-error/30 flex items-center gap-3">
+      <span class="material-symbols-outlined text-[24px]">error</span>
+      <span class="font-body-md">@TempData["ErrorMessage"]</span>
+    </div>
+  }
+
+  <!-- Editorial Breadcrumb Navigation -->
+  <nav aria-label="Breadcrumbs" class="flex items-center gap-space-xs text-on-surface-variant mb-space-lg overflow-x-auto whitespace-nowrap">
+    <a class="font-body-sm text-body-sm hover:text-primary transition-colors flex items-center gap-1" asp-controller="Home" asp-action="Index">
+      <span class="material-symbols-outlined text-[16px]">home</span>
+      <span>Home</span>
+    </a>
+    <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+    <a class="font-body-sm text-body-sm hover:text-primary transition-colors" asp-controller="Recipes" asp-action="@Model.Access">@Model.Access Recipes</a>
+    <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+    <span class="font-body-sm text-body-sm text-secondary">@(Model.Category?.Name ?? "Specialty")</span>
+    <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+    <span class="font-body-sm text-body-sm text-primary font-medium truncate">@Model.Title</span>
+  </nav>
+
+  <!-- Dish Hero & Cinematic Header Card -->
+  <div class="relative w-full bg-surface-container rounded-[20px] p-space-md lg:p-space-xl shadow-xl backdrop-blur-xl mb-space-xl">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+      <!-- Visual Presentation -->
+      <div class="lg:col-span-6 relative w-full h-[380px] lg:h-[460px] rounded-[18px] overflow-hidden group bg-surface-container-highest">
+        <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="@imgUrl" alt="@Model.Title" onerror="this.src='/images/recipe-5.jpg'" />
+        <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-black/20 pointer-events-none"></div>
+
+        <!-- Badges Floating Over Image -->
+        <div class="absolute top-space-md left-space-md flex items-center gap-space-sm">
+          <span class="px-space-md py-1 rounded-full @(Model.Access == "Premium" ? "bg-primary-container text-surface-container-lowest font-bold" : "bg-secondary/15 text-secondary") backdrop-blur-md font-label-md text-label-md tracking-wider uppercase">
+            @Model.Access Recipe
+          </span>
+          <span class="px-space-md py-1 rounded-full bg-surface-container-high/80 backdrop-blur-md text-on-surface font-label-md text-label-md">
+            @(Model.Category?.Name ?? "General")
+          </span>
+        </div>
+
+        <!-- Bottom Image Accent Pill -->
+        <div class="absolute bottom-space-md right-space-md flex items-center gap-2 px-space-md py-1.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md">
+          <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+          <span class="font-label-sm text-label-sm text-on-surface tracking-wide">@(Model.PrepMinutes + Model.CookMinutes) Mins Total</span>
+        </div>
+      </div>
+
+      <!-- Recipe Identity & Accolades -->
+      <div class="lg:col-span-6 flex flex-col justify-center gap-space-md lg:pl-space-md">
+        <div class="flex items-center gap-space-sm text-primary font-label-md text-label-md uppercase tracking-widest">
+          <span class="w-8 h-[2px] bg-primary"></span>
+          <span>Master Culinary Formula</span>
+        </div>
+        <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface tracking-tight leading-tight">
+          @Model.Title
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          Meticulously formulated by @(Model.Author?.FullName ?? "Chef James Thew"), balanced for exquisite flavor profile and texture.
+        </p>
+
+        <!-- Chef Author Credit Card -->
+        <div class="flex items-center gap-space-md py-space-sm">
+          <div class="relative w-12 h-12 rounded-full overflow-hidden bg-primary-container/20 flex items-center justify-center font-bold text-primary text-xl">
+            @(Model.Author?.FullName?.Substring(0, 1) ?? "J")
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5">
+              <span class="font-title-md text-title-md text-on-surface">@(Model.Author?.FullName ?? "Chef James Thew")</span>
+              <span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+            </div>
+            <span class="font-body-sm text-body-sm text-primary font-medium">@(Model.Author?.Role ?? "Executive Chef") • Master Culinary Arts</span>
+          </div>
+        </div>
+
+        <!-- Stat Badges Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm pt-space-xs">
+          <div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+            <span class="material-symbols-outlined text-primary text-[22px] mb-1">hourglass_top</span>
+            <span class="font-label-sm text-label-sm text-outline">Prep Time</span>
+            <span class="font-title-md text-title-md text-on-surface">@Model.PrepMinutes Mins</span>
+          </div>
+          <div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+            <span class="material-symbols-outlined text-primary text-[22px] mb-1">skillet</span>
+            <span class="font-label-sm text-label-sm text-outline">Cooking Time</span>
+            <span class="font-title-md text-title-md text-on-surface">@Model.CookMinutes Mins</span>
+          </div>
+          <div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+            <span class="material-symbols-outlined text-primary text-[22px] mb-1">room_service</span>
+            <span class="font-label-sm text-label-sm text-outline">Yield</span>
+            <span class="font-title-md text-title-md text-on-surface">4 Portions</span>
+          </div>
+          <div class="flex flex-col items-center justify-center p-space-sm bg-surface-container-high/70 backdrop-blur-md rounded-xl text-center shadow-sm">
+            <div class="flex items-center gap-1 text-primary mb-1">
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="font-title-md text-title-md text-on-surface">@avgRating</span>
+            </div>
+            <span class="font-label-sm text-label-sm text-outline">@totalReviews Reviews</span>
+          </div>
+        </div>
+
+        <!-- Quick Action Bar -->
+        <div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+          <button onclick="window.print()" class="inline-flex items-center gap-2 px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface hover:text-primary transition-colors cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">print</span>
+            <span class="font-body-sm text-body-sm">Print Sheet</span>
+          </button>
+          <a href="#feedbackSection" class="inline-flex items-center gap-2 px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface hover:text-primary transition-colors cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">rate_review</span>
+            <span class="font-body-sm text-body-sm">Leave Tasting Note</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (isLocked)
+  {
+    <!-- VIP Locked State Banner -->
+    <div class="mb-space-xl p-space-xl rounded-2xl bg-gradient-to-r from-surface-container-high via-surface-container to-surface-container-low border border-primary-container/40 text-center shadow-2xl relative overflow-hidden">
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/20 rounded-full blur-2xl pointer-events-none"></div>
+      <span class="material-symbols-outlined text-6xl text-primary mb-2">lock</span>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">This is a Premium VIP Formula</h2>
+      <p class="font-body-md text-on-surface-variant max-w-xl mx-auto mb-6">
+        Full ingredients manifest, exact kitchen ratios, sous-vide timings, and master steps are exclusive to subscribed Members.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a asp-controller="Plans" asp-action="Index" class="px-space-xl py-3 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md font-semibold hover:bg-primary shadow-[0_4px_20px_rgba(217,138,86,0.4)] transition-all">
+          Unlock Full Recipe ($10/mo)
+        </a>
+        <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" class="px-space-lg py-3 rounded-full bg-surface-container-highest text-on-surface hover:text-primary font-title-md transition-all">
+          Already a Member? Log In
+        </a>
+      </div>
+    </div>
+  }
+
+  <!-- Master Two-Column Culinary Architecture -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start mb-space-xl @(isLocked ? "opacity-60 pointer-events-none filter blur-[2px]" : "")">
+    <!-- LEFT COLUMN: Ingredients Manifest -->
+    <aside class="lg:col-span-5 flex flex-col gap-space-lg">
+      <div class="bg-surface-container/90 backdrop-blur-xl p-space-lg rounded-[18px] shadow-lg sticky top-24">
+        <div class="flex items-center justify-between pb-space-sm mb-space-md bg-surface-container-high/40 p-space-sm rounded-xl">
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-primary text-[24px]">kitchen</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface">Pantry Checklist</h2>
+          </div>
+          <span class="font-label-sm text-label-sm text-secondary bg-secondary-container/40 px-space-sm py-0.5 rounded-full">
+            4 Servings
+          </span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Tick off hand-inspected ingredients as you prep your kitchen station mise en place.
+        </p>
+
+        <ul class="space-y-2.5 pt-space-xs">
+          @{ int ingIndex = 1; }
+          @foreach (var ing in ingredientLines)
+          {
+            <li class="flex items-start gap-space-sm group cursor-pointer p-space-xs rounded-lg hover:bg-surface-container-highest transition-colors">
+              <input class="mt-1 h-4 w-4 rounded accent-primary-container cursor-pointer" id="ing-@ingIndex" type="checkbox" />
+              <label class="font-body-md text-body-md text-on-surface leading-tight cursor-pointer group-hover:text-primary-fixed transition-colors" for="ing-@ingIndex">
+                @ing
+              </label>
+            </li>
+            ingIndex++;
+          }
+        </ul>
+      </div>
+    </aside>
+
+    <!-- RIGHT COLUMN: Culinary Procedure -->
+    <main class="lg:col-span-7 flex flex-col gap-space-lg">
+      <div class="bg-surface-container/90 backdrop-blur-xl p-space-lg lg:p-space-xl rounded-[18px] shadow-lg">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-md mb-space-lg gap-space-sm bg-surface-container-high/40 p-space-md rounded-xl">
+          <div>
+            <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Master Class Walkthrough</span>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">Cooking Procedure</h2>
+          </div>
+          <div class="flex items-center gap-2 bg-surface-container-lowest px-space-md py-1.5 rounded-full">
+            <span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+            <span class="font-body-sm text-body-sm text-on-surface font-medium">@procedureSteps.Length Stages</span>
+          </div>
+        </div>
+
+        <div class="space-y-space-xl">
+          @{ int stepIndex = 1; }
+          @foreach (var step in procedureSteps)
+          {
+            <div class="flex flex-col md:flex-row gap-space-md items-start group">
+              <div class="w-12 h-12 rounded-2xl bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-[0_4px_16px_rgba(217,138,86,0.35)]">
+                @stepIndex
+              </div>
+              <div class="flex-1 space-y-2">
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  @step
+                </p>
+              </div>
+            </div>
+            stepIndex++;
+          }
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Reviews & Tasting Feedback Section -->
+  <section id="feedbackSection" class="w-full mb-space-xl">
+    <div class="bg-surface-container/90 backdrop-blur-xl p-space-lg lg:p-space-xl rounded-[18px] shadow-lg">
+      <div class="flex items-center justify-between mb-space-lg">
+        <div>
+          <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Tasting Impressions</span>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface">Reviews & Kitchen Notes (@totalReviews)</h2>
+        </div>
+      </div>
+
+      <!-- Existing Reviews Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mb-space-xl">
+        @if (feedbacks.Any())
+        {
+          @foreach (var fb in feedbacks)
+          {
+            <div class="bg-surface-container-high/60 backdrop-blur-md p-space-md rounded-2xl flex flex-col justify-between gap-space-md shadow-sm">
+              <div class="space-y-space-sm">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-space-sm">
+                    <div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center font-bold text-primary">
+                      @(fb.Name?.Substring(0, 1) ?? "U")
+                    </div>
+                    <div>
+                      <h4 class="font-title-md text-title-md text-on-surface">@fb.Name</h4>
+                      <span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[13px]">verified</span> Verified Gourmet
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-center text-primary">
+                    @for (int s = 1; s <= 5; s++)
+                    {
+                      <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' @(s <= fb.Rating ? "1" : "0");">star</span>
+                    }
+                  </div>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  "@fb.Comment"
+                </p>
+              </div>
+              <span class="font-label-sm text-label-sm text-outline">@fb.CreatedAt.ToString("MMMM dd, yyyy")</span>
+            </div>
+          }
+        }
+        else
+        {
+          <div class="col-span-full py-8 text-center text-on-surface-variant bg-surface-container-high/30 rounded-xl">
+            <p class="font-body-md">No tasting impressions have been submitted yet. Be the first to review this formula!</p>
+          </div>
+        }
+      </div>
+
+      <!-- Add Your Feedback Form Module -->
+      <div class="bg-surface-container-lowest/80 p-space-lg lg:p-space-xl rounded-2xl backdrop-blur-md">
+        <div class="max-w-2xl">
+          <div class="flex items-center gap-2 text-primary font-label-md text-label-md uppercase tracking-widest mb-1">
+            <span class="material-symbols-outlined text-[18px]">edit_note</span>
+            <span>Contribute Tasting Impressions</span>
+          </div>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Leave Your Review & Culinary Notes</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
+            Share how the seasoning translated in your kitchen, temperature modifications, or pairing suggestions for fellow members.
+          </p>
+
+          <form asp-controller="Recipes" asp-action="AddFeedback" method="post" class="space-y-space-md">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="recipeId" value="@Model.Id" />
+            <input type="hidden" name="rating" id="ratingInput" value="5" />
+
+            <!-- Rating Selector -->
+            <div>
+              <label class="block font-title-md text-title-md text-on-surface mb-2">Your Overall Rating</label>
+              <div class="flex items-center gap-2 cursor-pointer text-primary" id="starContainer">
+                <span class="material-symbols-outlined text-[28px] star-item cursor-pointer" data-index="1" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[28px] star-item cursor-pointer" data-index="2" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[28px] star-item cursor-pointer" data-index="3" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[28px] star-item cursor-pointer" data-index="4" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="material-symbols-outlined text-[28px] star-item cursor-pointer" data-index="5" style="font-variation-settings: 'FILL' 1;">star</span>
+                <span class="font-label-md text-label-md text-primary ml-2" id="starLabel">5 Stars (Masterpiece)</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+              <div>
+                <label class="block font-body-sm text-body-sm text-on-surface mb-1">Full Name <span class="text-primary">*</span></label>
+                <input name="userName" value="@(User.Identity?.Name ?? "")" class="w-full px-space-md py-space-sm bg-surface-container rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary transition-all" placeholder="e.g. Elena Rostova" required type="text" pattern="^[a-zA-Z\s]{2,50}$" minlength="2" maxlength="50" title="Full name must contain only letters and spaces (2 to 50 characters)" />
+              </div>
+              <div>
+                <label class="block font-body-sm text-body-sm text-on-surface mb-1">Email Address <span class="text-primary">*</span></label>
+                <input name="userEmail" value="@(User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "")" class="w-full px-space-md py-space-sm bg-surface-container rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary transition-all" placeholder="elena@example.com" required type="email" pattern="^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address (e.g. name@domain.com)" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-body-sm text-body-sm text-on-surface mb-1">Tasting Impressions & Kitchen Adjustments <span class="text-primary">*</span></label>
+              <textarea name="comment" class="w-full px-space-md py-space-sm bg-surface-container rounded-xl text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary transition-all" placeholder="Share your culinary impressions, seasoning notes, or heat adjustments..." required minlength="5" rows="4"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md pt-space-xs">
+              <button class="inline-flex items-center gap-2 px-space-xl py-3 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary transition-all cursor-pointer" type="submit">
+                <span>Submit Feedback</span>
+                <span class="material-symbols-outlined text-[18px]">send</span>
+              </button>
+              <span class="font-label-sm text-label-sm text-outline">
+                All submissions are published directly on Chef James Thew's portal.
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated "More Recipes" Section -->
+  @if (relatedRecipes.Any())
+  {
+    <section class="w-full">
+      <div class="flex items-center justify-between mb-space-lg">
+        <div>
+          <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Recommended Companions</span>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface">More Recipes from Chef James</h2>
+        </div>
+        <a asp-controller="Recipes" asp-action="@Model.Access" class="hidden sm:inline-flex items-center gap-1 font-title-md text-title-md text-primary hover:text-primary-fixed transition-colors">
+          <span>Explore All Creations</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        @foreach (var rel in relatedRecipes)
+        {
+          var relImg = !string.IsNullOrEmpty(rel.ImagePath) ? rel.ImagePath : "/images/recipe-2.jpg";
+
+          <div class="bg-surface-container/80 backdrop-blur-xl rounded-[18px] overflow-hidden group shadow-lg flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
+            <div>
+              <div class="relative w-full h-52 overflow-hidden bg-surface-container-highest">
+                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="@relImg" alt="@rel.Title" onerror="this.src='/images/recipe-2.jpg'" />
+                <span class="absolute top-space-sm left-space-sm px-space-sm py-0.5 rounded-full @(rel.Access == "Premium" ? "bg-primary-container text-surface-container-lowest font-bold" : "bg-secondary/15 text-secondary") backdrop-blur-md font-label-sm text-label-sm uppercase">
+                  @rel.Access
+                </span>
+              </div>
+              <div class="p-space-md space-y-space-xs">
+                <div class="flex items-center justify-between text-outline font-label-sm text-label-sm">
+                  <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px] text-primary">schedule</span> @(rel.PrepMinutes + rel.CookMinutes)m
+                  </span>
+                  <span class="text-secondary">@(rel.Category?.Name ?? "Recipe")</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors line-clamp-1">
+                  @rel.Title
+                </h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                  @rel.Procedure
+                </p>
+              </div>
+            </div>
+            <div class="p-space-md pt-0">
+              @if (rel.Access == "Premium" && !isMember && (User.Identity == null || !User.Identity.IsAuthenticated))
+              {
+                <a asp-controller="Auth" asp-action="Register" class="inline-flex items-center gap-1 font-title-md text-title-md text-primary hover:text-primary-fixed transition-colors">
+                  <span class="material-symbols-outlined text-[16px]">lock</span>
+                  <span>Register to View</span>
+                </a>
+              }
+              else
+              {
+                <a asp-controller="Recipes" asp-action="Details" asp-route-id="@rel.Id" class="inline-flex items-center gap-1 font-title-md text-title-md text-primary hover:text-primary-fixed transition-colors">
+                  <span>View Recipe</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+</div>
+
+<!-- Star Rating Script -->
+<script>
+  (function initRating() {
+    const stars = document.querySelectorAll('.star-item');
+    const starLabel = document.getElementById('starLabel');
+    const ratingInput = document.getElementById('ratingInput');
+    const labels = [
+      '1 Star (Requires Recalibration)',
+      '2 Stars (Fair Attempt)',
+      '3 Stars (Good Technique)',
+      '4 Stars (Great Execution)',
+      '5 Stars (Masterpiece)'
+    ];
+
+    function setRating(val) {
+      if (ratingInput) ratingInput.value = val;
+      stars.forEach((s, idx) => {
+        if (idx < val) {
+          s.style.fontVariationSettings = "'FILL' 1";
+          s.classList.add('text-primary');
+          s.classList.remove('text-outline');
+        } else {
+          s.style.fontVariationSettings = "'FILL' 0";
+          s.classList.remove('text-primary');
+          s.classList.add('text-outline');
+        }
+      });
+      if (starLabel && labels[val - 1]) {
+        starLabel.textContent = labels[val - 1];
+      }
+    }
+
+    stars.forEach(s => {
+      s.addEventListener('click', () => {
+        const val = parseInt(s.getAttribute('data-index') || '5');
+        setRating(val);
+      });
+    });
+  })();
+</script>

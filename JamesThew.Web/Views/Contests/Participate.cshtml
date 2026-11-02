@@ -1,0 +1,208 @@
+@{
+    ViewData["Title"] = "Submit Contest Entry - James Thew Culinary Challenge";
+    var activeContests = ViewBag.ActiveContests as IEnumerable<JamesThew.Web.Models.Entities.Contest> ?? new List<JamesThew.Web.Models.Entities.Contest>();
+    var categories = ViewBag.Categories as IEnumerable<JamesThew.Web.Models.Entities.Category> ?? new List<JamesThew.Web.Models.Entities.Category>();
+    int? selectedContestId = ViewBag.SelectedContestId as int?;
+}
+
+<div class="w-full px-margin-mobile lg:px-margin py-space-xl">
+  <!-- Breadcrumb Hierarchy -->
+  <nav aria-label="Breadcrumbs" class="flex items-center gap-space-xs text-label-sm font-label-sm uppercase tracking-wider text-outline mb-space-lg">
+    <a class="text-on-surface-variant hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
+    <span class="text-outline/60">/</span>
+    <a class="text-on-surface-variant hover:text-primary transition-colors" asp-controller="Contests" asp-action="Index">Contests</a>
+    <span class="text-outline/60">/</span>
+    <span class="text-primary-container font-semibold">Submit Contest Entry</span>
+  </nav>
+
+  @if (TempData["ErrorMessage"] != null)
+  {
+    <div class="mb-6 p-4 rounded-xl bg-error-container/60 text-error border border-error/30 flex items-center gap-3">
+      <span class="material-symbols-outlined text-[24px]">error</span>
+      <span class="font-body-md">@TempData["ErrorMessage"]</span>
+    </div>
+  }
+
+  <!-- Main Two-Column Layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+    <!-- LEFT COLUMN: Form Container -->
+    <section class="lg:col-span-8 flex flex-col gap-space-lg">
+      <div class="bg-surface-container/75 backdrop-blur-md rounded-[18px] p-space-md lg:p-space-xl shadow-xl relative overflow-hidden border border-outline-variant/30">
+        <div class="absolute -top-32 -right-32 w-72 h-72 rounded-full bg-primary-container/10 blur-3xl pointer-events-none"></div>
+
+        <!-- Header Section -->
+        <div class="relative z-10 mb-space-xl">
+          <span class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-secondary-container/30 text-secondary text-label-sm font-label-sm uppercase tracking-widest mb-space-sm">
+            <span class="material-symbols-outlined text-[14px]">restaurant_menu</span> Culinary Challenge Entry
+          </span>
+          <h1 class="font-headline-xl text-headline-xl text-on-surface mb-space-xs">Contest Entry Submission</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant">Open to all culinary creators — registered members and guest gourmands alike.</p>
+        </div>
+
+        <!-- Entry Submission Form -->
+        <form asp-action="Participate" method="post" enctype="multipart/form-data" class="relative z-10 flex flex-col gap-space-lg">
+          @Html.AntiForgeryToken()
+          <input type="hidden" name="entryType" id="entryTypeInput" value="Recipe" />
+
+          <!-- Field 1: Active Contest Dropdown -->
+          <div class="flex flex-col gap-space-xs">
+            <label class="font-label-md text-label-md text-on-surface" for="contestId">Select Active Contest</label>
+            <div class="relative">
+              <select name="contestId" id="contestId" class="w-full bg-surface-container-low text-on-surface rounded-xl px-space-md py-3 appearance-none font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all cursor-pointer" required>
+                @foreach (var contest in activeContests)
+                {
+                  <option value="@contest.Id" selected="@(selectedContestId == contest.Id ? "selected" : null)">
+                    @contest.Title (Prize: @contest.Prize - Closes @contest.EndDate.ToString("MMM dd, yyyy"))
+                  </option>
+                }
+              </select>
+              <span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+            </div>
+          </div>
+
+          <!-- Field 2: Entry Type Selector (Recipe vs Tip) -->
+          <div class="flex flex-col gap-space-xs">
+            <label class="font-label-md text-label-md text-on-surface">Entry Type</label>
+            <div class="grid grid-cols-2 gap-space-xs p-1 bg-surface-container-low rounded-xl" role="radiogroup">
+              <button class="flex items-center justify-center gap-space-xs py-2.5 rounded-lg font-title-md text-title-md transition-all bg-primary-container text-surface-container-lowest shadow-sm" id="typeRecipeBtn" onclick="setEntryType('Recipe')" type="button">
+                <span class="material-symbols-outlined text-[18px]">skillet</span>
+                <span>Recipe Entry</span>
+              </button>
+              <button class="flex items-center justify-center gap-space-xs py-2.5 rounded-lg font-title-md text-title-md transition-all text-on-surface-variant hover:text-on-surface" id="typeTipBtn" onclick="setEntryType('Tip')" type="button">
+                <span class="material-symbols-outlined text-[18px]">lightbulb</span>
+                <span>Tip Entry</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Submitter Information -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+            <div class="flex flex-col gap-space-xs">
+              <label class="font-label-md text-label-md text-on-surface" for="submitter_name">Your Name <span class="text-primary">*</span></label>
+              <input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 rounded-xl px-space-md py-3 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all" id="submitter_name" name="submitter_name" value="@(User.Identity?.Name ?? "")" placeholder="e.g. Tariq Mansoor" required type="text" pattern="^[a-zA-Z\s]{2,50}$" minlength="2" maxlength="50" title="Your name must contain only letters and spaces (2 to 50 characters)" />
+            </div>
+            <div class="flex flex-col gap-space-xs">
+              <label class="font-label-md text-label-md text-on-surface" for="submitter_email">Your Email <span class="text-primary">*</span></label>
+              <input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 rounded-xl px-space-md py-3 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all" id="submitter_email" name="submitter_email" value="@(User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "")" placeholder="e.g. tariq@domain.com" required type="email" pattern="^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address (e.g. name@domain.com)" />
+              <span class="font-label-sm text-label-sm text-outline">Used to notify you if you are selected as an official winner</span>
+            </div>
+          </div>
+
+          <!-- Field 3: Entry Title -->
+          <div class="flex flex-col gap-space-xs">
+            <label class="font-label-md text-label-md text-on-surface" for="entry_title">Entry Title</label>
+            <input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 rounded-xl px-space-md py-3 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all" id="entry_title" name="entry_title" placeholder="e.g. Wild Morel & Saffron Risotto with Charred Leek Emulsion" required type="text" />
+          </div>
+
+          <!-- Field 4: Category Dropdown -->
+          <div class="flex flex-col gap-space-xs">
+            <label class="font-label-md text-label-md text-on-surface" for="entry_category">Category</label>
+            <div class="relative">
+              <select class="w-full bg-surface-container-low text-on-surface rounded-xl px-space-md py-3 appearance-none font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all cursor-pointer" id="entry_category" name="entry_category">
+                @foreach (var cat in categories)
+                {
+                  <option value="@cat.Id">@cat.Name</option>
+                }
+              </select>
+              <span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+            </div>
+          </div>
+
+          <!-- Recipe-Specific Fields (Visible when Recipe selected) -->
+          <div class="flex flex-col gap-space-lg" id="recipeFieldsGroup">
+            <div class="flex flex-col gap-space-xs">
+              <label class="font-label-md text-label-md text-on-surface" for="recipe_ingredients">Ingredients</label>
+              <textarea class="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 rounded-xl p-space-md font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all resize-y" id="recipe_ingredients" name="recipe_ingredients" placeholder="List each ingredient on a new line with exact quantities" rows="4"></textarea>
+            </div>
+            <div class="flex flex-col gap-space-xs">
+              <label class="font-label-md text-label-md text-on-surface" for="cooking_procedure">Cooking Procedure</label>
+              <textarea class="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 rounded-xl p-space-md font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all resize-y" id="cooking_procedure" name="cooking_procedure" placeholder="Step-by-step cooking instructions with heat and time indicators..." rows="5"></textarea>
+            </div>
+          </div>
+
+          <!-- Tip-Specific Fields (Hidden when Recipe selected) -->
+          <div class="flex flex-col gap-space-xs hidden" id="tipFieldsGroup">
+            <label class="font-label-md text-label-md text-on-surface" for="tip_description">Tip Description & Technique</label>
+            <textarea class="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 rounded-xl p-space-md font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary-container/50 transition-all resize-y" id="tip_description" name="tip_description" placeholder="Explain the kitchen trick, science, and why it produces better results..." rows="5"></textarea>
+          </div>
+
+          <!-- Field 5: Photo Upload -->
+          <div class="flex flex-col gap-space-xs">
+            <label class="font-label-md text-label-md text-on-surface">Dish or Technique Photo (Optional)</label>
+            <input type="file" name="entry_photo" accept="image/*" class="w-full bg-surface-container-low text-on-surface file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-surface-container-lowest hover:file:bg-primary cursor-pointer rounded-xl p-2" />
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-space-md">
+            <button class="w-full py-3.5 rounded-full bg-primary-container hover:bg-primary text-surface-container-lowest font-title-md text-title-md font-semibold transition-all shadow-[0_4px_20px_rgba(217,138,86,0.35)] flex items-center justify-center gap-2 cursor-pointer" type="submit">
+              <span class="material-symbols-outlined text-[20px]">send</span>
+              <span>Submit Contest Entry</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: Guidelines & Judging Panel -->
+    <aside class="lg:col-span-4 flex flex-col gap-space-lg sticky top-24">
+      <div class="bg-surface-container/75 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg border border-outline-variant/30">
+        <h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">gavel</span>
+          <span>Judging Criteria</span>
+        </h3>
+        <ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+          <li class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">check_circle</span>
+            <span><strong>Flavor Profile & Texture:</strong> Harmonious seasoning and balanced taste notes.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">check_circle</span>
+            <span><strong>Clarity & Reproducibility:</strong> Clear instructions that any home gourmet can follow.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">check_circle</span>
+            <span><strong>Innovation:</strong> A creative modern spin on classic techniques.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-surface-container/75 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg border border-outline-variant/30">
+        <h4 class="font-title-md text-title-md text-on-surface mb-space-xs">Tasting Panel Lead</h4>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+          Chef James Thew personally reviews top-ranking finalists for each seasonal competition.
+        </p>
+        <div class="flex items-center gap-3 pt-space-xs">
+          <div class="w-10 h-10 rounded-full overflow-hidden ring-1 ring-primary/40 shrink-0">
+            <img class="w-full h-full object-cover" src="~/images/chef-james-portrait.jpg" alt="Chef James Thew" />
+          </div>
+          <div>
+            <span class="font-title-md text-sm text-on-surface block">Chef James Thew</span>
+            <span class="font-label-sm text-outline">Executive Laureate</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  function setEntryType(type) {
+    document.getElementById('entryTypeInput').value = type;
+    const rBtn = document.getElementById('typeRecipeBtn');
+    const tBtn = document.getElementById('typeTipBtn');
+    const rGroup = document.getElementById('recipeFieldsGroup');
+    const tGroup = document.getElementById('tipFieldsGroup');
+
+    if (type === 'Recipe') {
+      rBtn.className = 'flex items-center justify-center gap-space-xs py-2.5 rounded-lg font-title-md text-title-md transition-all bg-primary-container text-surface-container-lowest shadow-sm';
+      tBtn.className = 'flex items-center justify-center gap-space-xs py-2.5 rounded-lg font-title-md text-title-md transition-all text-on-surface-variant hover:text-on-surface';
+      rGroup.classList.remove('hidden');
+      tGroup.classList.add('hidden');
+    } else {
+      tBtn.className = 'flex items-center justify-center gap-space-xs py-2.5 rounded-lg font-title-md text-title-md transition-all bg-primary-container text-surface-container-lowest shadow-sm';
+      rBtn.className = 'flex items-center justify-center gap-space-xs py-2.5 rounded-lg font-title-md text-title-md transition-all text-on-surface-variant hover:text-on-surface';
+      tGroup.classList.remove('hidden');
+      rGroup.classList.add('hidden');
+    }
+  }
+</script>

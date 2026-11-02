@@ -1,0 +1,189 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.Tip>
+@{
+    ViewData["Title"] = "Premium Chef Secrets & Master Techniques - James Thew VIP";
+    var categories = ViewBag.Categories as IEnumerable<JamesThew.Web.Models.Entities.Category> ?? new List<JamesThew.Web.Models.Entities.Category>();
+    var selectedCat = ViewBag.SelectedCategory as string ?? "All";
+    var searchTerm = ViewBag.SearchTerm as string ?? "";
+    bool isMember = ViewBag.IsMember ?? false;
+    bool isAuthenticated = User.Identity != null && User.Identity.IsAuthenticated;
+    var tipCount = Model?.Count() ?? 0;
+}
+
+<div class="w-full px-margin-mobile lg:px-margin py-space-xl">
+  <!-- Breadcrumb -->
+  <nav class="flex items-center gap-space-xs font-label-sm text-label-sm text-outline mb-space-lg">
+    <a class="hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
+    <span>/</span>
+    <a class="hover:text-primary transition-colors" asp-controller="Tips" asp-action="Free">Tips &amp; Tricks</a>
+    <span>/</span>
+    <span class="text-primary-container font-semibold">Premium Tips</span>
+  </nav>
+
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg mb-space-xl">
+    <div class="max-w-3xl">
+      <span class="font-label-sm text-label-sm text-primary-container uppercase tracking-widest block mb-space-xs">Culinary Mastery Archive</span>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-space-sm">Premium Tips from Chef James</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">Executive-level trade secrets, molecular gastronomy guidelines, and 5-star hotel kitchen formulations.</p>
+    </div>
+    <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm shrink-0">
+      <span class="material-symbols-outlined text-primary text-[18px]">workspace_premium</span>
+      <span>@(isMember ? "VIP Vault Unlocked" : "VIP Vault Preview")</span>
+    </div>
+  </div>
+
+  @if (!isMember)
+  {
+    <!-- Membership Privilege Banner -->
+    <div class="relative w-full rounded-[18px] bg-surface-container-high/90 p-space-lg md:p-space-xl shadow-[0_4px_24px_rgba(217,138,86,0.20)] overflow-hidden mb-space-xl border border-primary-container/30">
+      <div class="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-primary-container/15 blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-xl">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-primary-container/20 text-primary-container font-label-sm text-label-sm mb-space-md">
+            <span class="material-symbols-outlined text-[14px]">lock_open</span>
+            <span>MEMBERSHIP PRIVILEGE</span>
+          </div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-sm leading-tight">Unlock all premium kitchen master-tips — $10/month or $100/year</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant">Gain unrestricted access to Chef James's private kitchen notes, ratio tables, sous-vide precision charts, and professional troubleshooting guides.</p>
+        </div>
+        <div class="flex flex-wrap sm:flex-nowrap items-center gap-space-md shrink-0">
+          @if (isAuthenticated)
+          {
+            <a asp-controller="Plans" asp-action="Index" class="inline-flex items-center justify-center px-space-xl py-space-sm rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary transition-all whitespace-nowrap">
+              Upgrade Now ($10/mo)
+            </a>
+          }
+          else
+          {
+            <a asp-controller="Auth" asp-action="Register" class="inline-flex items-center justify-center px-space-xl py-space-sm rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary transition-all whitespace-nowrap">
+              Register Now ($10/mo)
+            </a>
+            <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" class="inline-flex items-center justify-center px-space-lg py-space-sm rounded-full bg-surface-container-highest text-on-surface font-title-md text-title-md hover:bg-surface-bright transition-all whitespace-nowrap">
+              Login
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Filter & Search Toolbar -->
+  <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md mb-space-xl">
+    <div class="flex flex-wrap items-center gap-space-xs" id="categoryChips">
+      <a href="@Url.Action("Premium", "Tips", new { category = "All", search = searchTerm })"
+         class="px-space-md py-1.5 rounded-full font-label-md text-label-md transition-all @(selectedCat == "All" || string.IsNullOrEmpty(selectedCat) ? "bg-primary-container text-surface-container-lowest font-semibold" : "bg-surface-container text-outline hover:text-on-surface")">
+        All
+      </a>
+      @foreach (var cat in categories)
+      {
+        <a href="@Url.Action("Premium", "Tips", new { category = cat.Name, search = searchTerm })"
+           class="px-space-md py-1.5 rounded-full font-label-md text-label-md transition-all @(selectedCat == cat.Name ? "bg-primary-container text-surface-container-lowest font-semibold" : "bg-surface-container text-outline hover:text-on-surface")">
+          @cat.Name
+        </a>
+      }
+    </div>
+
+    <!-- Search Form -->
+    <form method="get" asp-action="Premium" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm">
+      <input type="hidden" name="category" value="@selectedCat" />
+      <div class="relative flex-1 sm:w-64">
+        <input name="search" value="@searchTerm" class="w-full h-10 pl-10 pr-4 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:bg-surface-container transition-all" placeholder="Search secrets..." type="text" />
+        <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tips Cards Grid -->
+  @if (Model != null && Model.Any())
+  {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter mb-space-xl">
+      @foreach (var tip in Model)
+      {
+        <div class="relative rounded-[18px] bg-surface-container-high/80 p-space-lg flex flex-col justify-between overflow-hidden shadow-lg group hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all">
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="flex items-center justify-between gap-space-xs mb-space-md">
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container/20 text-primary-container font-label-sm text-label-sm font-semibold">
+                <span class="material-symbols-outlined text-[13px]">military_tech</span>
+                <span>Premium</span>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm">@(tip.Category?.Name ?? "General")</span>
+            </div>
+
+            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm leading-snug group-hover:text-primary transition-colors">
+              @if (isMember)
+              {
+                <a asp-controller="Tips" asp-action="Details" asp-route-id="@tip.Id">@tip.Title</a>
+              }
+              else if (!isAuthenticated)
+              {
+                <a asp-controller="Auth" asp-action="Register">@tip.Title</a>
+              }
+              else
+              {
+                <a asp-controller="Plans" asp-action="Index">@tip.Title</a>
+              }
+            </h3>
+
+            <div class="flex items-center gap-space-xs text-outline font-label-sm text-label-sm mb-space-md">
+              <span class="material-symbols-outlined text-[16px] text-primary-container">verified</span>
+              <span class="truncate">@(tip.Author?.FullName ?? "Chef James Thew")</span>
+            </div>
+
+            <div class="relative mt-auto pt-space-xs">
+              @if (isMember)
+              {
+                <p class="text-on-surface-variant font-body-sm text-body-sm leading-relaxed line-clamp-3 mb-space-md">
+                  @tip.Description
+                </p>
+                <a asp-controller="Tips" asp-action="Details" asp-route-id="@tip.Id" class="inline-flex items-center gap-1 font-title-md text-title-md text-primary hover:text-primary-fixed transition-colors">
+                  <span>Read Full Secret</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+              }
+              else
+              {
+                <div class="blur-[4px] select-none text-outline font-body-sm text-body-sm leading-relaxed pointer-events-none line-clamp-3">
+                  @tip.Description
+                </div>
+                <div class="absolute inset-0 bg-surface-container-high/60 rounded-xl flex flex-col items-center justify-center p-space-sm text-center">
+                  <div class="w-8 h-8 rounded-full bg-primary-container/20 text-primary-container flex items-center justify-center mb-1 shadow-[0_2px_10px_rgba(217,138,86,0.3)]">
+                    <span class="material-symbols-outlined text-[18px]">lock</span>
+                  </div>
+                  <span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wide uppercase mb-1">VIP Vault Formula</span>
+                  @if (!isAuthenticated)
+                  {
+                    <a asp-controller="Auth" asp-action="Register" class="mt-1 inline-flex items-center gap-1 text-primary-container hover:text-primary font-label-md text-label-md font-semibold transition-colors">
+                      Register to Unlock <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </a>
+                  }
+                  else
+                  {
+                    <a asp-controller="Plans" asp-action="Index" class="mt-1 inline-flex items-center gap-1 text-primary-container hover:text-primary font-label-md text-label-md font-semibold transition-colors">
+                      Unlock Tip <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </a>
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="mt-space-md pt-space-sm flex items-center justify-between font-label-sm text-label-sm text-outline border-t border-surface-container-highest/40">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                @tip.CreatedAt.ToString("MMM dd, yyyy")
+              </span>
+              <span class="text-primary-container font-medium">VIP Secret #@tip.Id</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  else
+  {
+    <div class="py-16 text-center bg-surface-container/40 rounded-2xl border border-outline-variant/30 p-space-lg mb-space-xl">
+      <span class="material-symbols-outlined text-5xl text-outline mb-2">military_tech</span>
+      <h3 class="font-headline-sm text-headline-sm text-on-surface">No Premium Secrets Found</h3>
+      <p class="font-body-sm text-on-surface-variant mt-1">No VIP kitchen techniques match your filter selection.</p>
+      <a asp-action="Premium" class="inline-block mt-4 px-space-lg py-2 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-sm">Clear Filter</a>
+    </div>
+  }
+</div>

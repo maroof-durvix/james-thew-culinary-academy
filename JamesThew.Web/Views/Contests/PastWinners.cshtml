@@ -1,0 +1,171 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.ContestEntry>
+@{
+    ViewData["Title"] = "Hall of Fame - Past Contest Winners";
+    var reigning = Model?.FirstOrDefault();
+    var otherWinners = Model?.Skip(1).ToList() ?? new List<JamesThew.Web.Models.Entities.ContestEntry>();
+}
+
+<!-- Subtle Ambient Glow -->
+<div class="relative w-full overflow-hidden">
+  <div class="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[140px] pointer-events-none"></div>
+  <div class="absolute top-96 right-10 w-[420px] h-[420px] bg-secondary/5 rounded-full blur-[160px] pointer-events-none"></div>
+
+  <div class="w-full px-margin-mobile lg:px-margin py-space-xl">
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb" class="mb-space-lg">
+      <ol class="flex items-center gap-space-xs text-label-sm font-label-sm text-outline uppercase tracking-widest">
+        <li>
+          <a class="text-on-surface-variant hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li><span class="text-outline/50">/</span></li>
+        <li>
+          <a class="text-on-surface-variant hover:text-primary transition-colors" asp-controller="Contests" asp-action="Index">Contests</a>
+        </li>
+        <li><span class="text-outline/50">/</span></li>
+        <li class="text-primary font-semibold">Past Winners</li>
+      </ol>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-md mb-space-xl">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-space-xs mb-space-sm">
+          <span class="w-8 h-px bg-primary-container"></span>
+          <span class="font-label-md text-label-md tracking-widest uppercase text-primary font-semibold">HALL OF CULINARY HONORS</span>
+        </div>
+        <h1 class="font-display-lg text-display-lg text-inverse-surface tracking-tight mb-space-sm">
+          Contest Winners Archive
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-3xl">
+          Celebrating domestic chefs and passionate gourmands who have mastered seasonal challenges and earned Chef James's acclaim.
+        </p>
+      </div>
+      <a asp-action="Index" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md transition-all shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        <span>Enter Current Contest</span>
+      </a>
+    </header>
+
+    @if (reigning != null)
+    {
+      var reigningImg = !string.IsNullOrEmpty(reigning.ImagePath) ? reigning.ImagePath : "/images/exquisite-fine-dining-presentation-of-saffron-sp-bd79b4.jpg";
+      var winnerName = reigning.User?.FullName ?? (string.IsNullOrEmpty(reigning.GuestName) ? "Honored Culinary Creator" : reigning.GuestName);
+
+      <!-- Featured Latest Winner Card -->
+      <section class="mb-space-xl">
+        <div class="relative rounded-2xl bg-surface-container-high/90 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,17,15,0.85)] p-space-md lg:p-space-xl overflow-hidden border border-primary-container/30">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center relative z-10">
+            <!-- Left Info Panel -->
+            <div class="lg:col-span-7 flex flex-col justify-between space-y-space-md">
+              <div class="flex flex-wrap items-center gap-space-sm">
+                <span class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-primary-container/20 text-primary font-label-md text-label-md tracking-wider uppercase shadow-[0_2px_12px_rgba(217,138,86,0.3)]">
+                  <span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                  REIGNING CHAMPION • @reigning.SubmittedAt.ToString("MMMM yyyy").ToUpper()
+                </span>
+                <span class="inline-flex items-center px-space-sm py-1 rounded-full bg-surface-container-highest text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+                  @(reigning.Category?.Name ?? reigning.EntryType)
+                </span>
+              </div>
+
+              <div>
+                <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Contest Challenge</span>
+                <h3 class="font-headline-md text-headline-md text-inverse-surface mt-0.5">
+                  @(reigning.Contest?.Title ?? "Seasonal Culinary Contest")
+                </h3>
+              </div>
+
+              <div class="p-space-md rounded-xl bg-surface-container/70 shadow-sm backdrop-blur-sm">
+                <span class="font-label-sm text-label-sm text-primary uppercase font-semibold block mb-1">Awarded Winning Entry</span>
+                <h4 class="font-headline-sm text-headline-sm text-inverse-surface">
+                  @reigning.Title
+                </h4>
+                @if (!string.IsNullOrEmpty(reigning.Description))
+                {
+                  <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">@reigning.Description</p>
+                }
+              </div>
+
+              <!-- Winner Profile -->
+              <div class="flex items-center gap-space-md">
+                <div class="relative w-14 h-14 rounded-full overflow-hidden ring-2 ring-primary/40 shadow-md shrink-0">
+                  <img class="w-full h-full object-cover" alt="@winnerName" src="~/images/portrait-of-culinary-contest-winner-farah-al-say-0a207c.jpg" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-2xl\'>@winnerName.Substring(0, 1)</div>'"/>
+                </div>
+                <div class="min-w-0">
+                  <h5 class="font-title-lg text-title-lg text-inverse-surface">@winnerName</h5>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                    Grand Champion • Submitted @reigning.SubmittedAt.ToString("MMM dd, yyyy")
+                  </p>
+                </div>
+              </div>
+
+              <!-- Chef James's Critique -->
+              <div class="relative pl-space-md">
+                <span class="absolute left-0 top-0 bottom-0 w-1 rounded-full bg-primary-container"></span>
+                <p class="font-body-md text-body-md text-on-surface-variant italic leading-relaxed">
+                  @(reigning.WinnerAnnouncement?.Message ?? "“A breathtaking display of technique, depth, and presentation. Chef James and the tasting panel were unanimous in awarding top honors.”")
+                </p>
+                <span class="font-label-sm text-label-sm text-primary mt-space-xs block uppercase tracking-wider font-semibold">
+                  — Chef James Thew, Executive Tasting Panel
+                </span>
+              </div>
+            </div>
+
+            <!-- Right Image -->
+            <div class="lg:col-span-5">
+              <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-surface-container">
+                <img src="@reigningImg" alt="@reigning.Title" class="w-full h-full object-cover" onerror="this.src='/images/exquisite-fine-dining-presentation-of-saffron-sp-bd79b4.jpg'" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+    else
+    {
+      <div class="py-16 text-center bg-surface-container/40 rounded-2xl border border-outline-variant/30 mb-space-xl p-space-lg">
+        <span class="material-symbols-outlined text-6xl text-primary mb-2">emoji_events</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">No Winners Crowned Yet</h3>
+        <p class="font-body-sm text-on-surface-variant mt-1">Our seasonal contest judging is underway. Check back once winners are officially announced!</p>
+        <a asp-action="Index" class="inline-block mt-4 px-space-lg py-2.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-sm">View Active Challenges</a>
+      </div>
+    }
+
+    <!-- Hall of Past Winners Grid -->
+    @if (otherWinners.Any())
+    {
+      <section>
+        <h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-lg">Archived Champions</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+          @foreach (var w in otherWinners)
+          {
+            var wName = w.User?.FullName ?? (string.IsNullOrEmpty(w.GuestName) ? "Gourmet Creator" : w.GuestName);
+            var wImg = !string.IsNullOrEmpty(w.ImagePath) ? w.ImagePath : "/images/recipe-5.jpg";
+
+            <div class="bg-surface-container/80 backdrop-blur-xl rounded-[18px] overflow-hidden shadow-lg border border-outline-variant/30 flex flex-col justify-between">
+              <div>
+                <div class="relative w-full h-48 bg-surface-container-highest">
+                  <img src="@wImg" alt="@w.Title" class="w-full h-full object-cover" onerror="this.src='/images/recipe-5.jpg'" />
+                  <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-primary-container text-surface-container-lowest font-label-sm text-label-sm font-semibold uppercase">Winner</span>
+                </div>
+                <div class="p-space-md space-y-space-xs">
+                  <span class="text-outline font-label-sm text-label-sm">@(w.Contest?.Title ?? "Contest")</span>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface line-clamp-1">@w.Title</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">@(w.Description ?? w.Procedure)</p>
+                </div>
+              </div>
+              <div class="p-space-md pt-0 border-t border-surface-container-highest/40 mt-space-sm flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-primary-container/20 text-primary flex items-center justify-center font-bold text-xs">
+                    @wName.Substring(0, 1)
+                  </div>
+                  <span class="font-title-md text-sm text-on-surface">@wName</span>
+                </div>
+                <span class="font-label-sm text-outline">@w.SubmittedAt.ToString("MMM yyyy")</span>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</div>

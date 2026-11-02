@@ -1,0 +1,201 @@
+@model JamesThew.Web.Models.Entities.Tip
+@{
+    ViewData["Title"] = $"{Model.Title} - Culinary Tip by Chef James Thew";
+    bool isMember = ViewBag.IsMember ?? false;
+    bool isLocked = Model.Access == "Premium" && !isMember;
+    var relatedTips = ViewBag.RelatedTips as IEnumerable<JamesThew.Web.Models.Entities.Tip> ?? new List<JamesThew.Web.Models.Entities.Tip>();
+    var imgUrl = !string.IsNullOrEmpty(Model.ImagePath) ? Model.ImagePath : "/images/tip-7.jpg";
+}
+
+<!-- Editorial Breadcrumb -->
+<div class="w-full px-margin-mobile lg:px-margin pt-space-md pb-space-sm">
+  <nav class="flex items-center gap-space-xs text-label-sm font-label-sm uppercase tracking-widest text-outline">
+    <a class="hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
+    <span>/</span>
+    <a class="hover:text-primary transition-colors" asp-controller="Tips" asp-action="@Model.Access">Tips &amp; Tricks</a>
+    <span>/</span>
+    <a class="hover:text-primary transition-colors" asp-controller="Tips" asp-action="@Model.Access">@Model.Access Tips</a>
+    <span>/</span>
+    <span class="text-on-surface truncate max-w-[200px] md:max-w-none">@Model.Title</span>
+  </nav>
+</div>
+
+<!-- Hero Header Section -->
+<header class="w-full px-margin-mobile lg:px-margin pb-space-lg">
+  <div class="max-w-4xl mx-auto flex flex-col gap-space-md">
+    <!-- Badges -->
+    <div class="flex flex-wrap items-center gap-space-sm">
+      <span class="px-space-md py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-md text-label-md">
+        @(Model.Category?.Name ?? "Culinary Technique")
+      </span>
+      <span class="inline-flex items-center px-space-md py-1 rounded-full @(Model.Access == "Premium" ? "bg-primary-container text-surface-container-lowest font-bold" : "bg-secondary-container/30 text-secondary") font-label-md text-label-md tracking-wider uppercase">
+        @Model.Access
+      </span>
+    </div>
+
+    <!-- Main Title -->
+    <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-tight tracking-tight">
+      @Model.Title
+    </h1>
+
+    <!-- Metadata Strip -->
+    <div class="flex flex-wrap items-center gap-y-space-xs gap-x-space-lg pt-space-xs text-body-sm font-body-sm text-outline">
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-primary text-[18px]">person</span>
+        <span class="text-on-surface font-title-md text-body-sm">@(Model.Author?.FullName ?? "Chef James Thew")</span>
+        <span class="text-outline-variant">(@(Model.Author?.Role ?? "Executive Chef"))</span>
+      </div>
+      <span class="hidden md:inline text-outline-variant">•</span>
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+        <span>@Model.CreatedAt.ToString("MMMM dd, yyyy")</span>
+      </div>
+      <span class="hidden md:inline text-outline-variant">•</span>
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+        <span class="text-on-surface font-title-md text-body-sm">5.0</span>
+        <span>(Verified Kitchen Technique)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Atmospheric Feature Photography -->
+<section class="w-full px-margin-mobile lg:px-margin mb-space-xl">
+  <div class="max-w-4xl mx-auto overflow-hidden rounded-xl bg-surface-container shadow-xl">
+    <div class="w-full h-[320px] md:h-[460px] bg-cover bg-center relative" style="background-image: url('@imgUrl')">
+      <div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent opacity-80"></div>
+      <div class="absolute bottom-4 left-6 flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant/80">
+        <span class="material-symbols-outlined text-[16px] text-primary">skillet</span>
+        <span>Curated Culinary Method: @Model.Title</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+@if (isLocked)
+{
+  <!-- Locked Banner -->
+  <section class="w-full px-margin-mobile lg:px-margin mb-space-xl">
+    <div class="max-w-4xl mx-auto p-space-xl rounded-2xl bg-gradient-to-r from-surface-container-high via-surface-container to-surface-container-low border border-primary-container/40 text-center shadow-2xl">
+      <span class="material-symbols-outlined text-6xl text-primary mb-2">lock</span>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">VIP Members Exclusive Technique</h2>
+      <p class="font-body-md text-on-surface-variant max-w-xl mx-auto mb-6">
+        This master culinary tip is part of Chef James Thew's restricted VIP knowledge base. Upgrade to a membership plan to unlock full procedures, ratios, and temperature calibration tables.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a asp-controller="Plans" asp-action="Index" class="px-space-xl py-3 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md font-semibold hover:bg-primary shadow-[0_4px_20px_rgba(217,138,86,0.4)] transition-all">
+          Unlock All Tips ($10/mo)
+        </a>
+        <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" class="px-space-lg py-3 rounded-full bg-surface-container-highest text-on-surface hover:text-primary font-title-md transition-all">
+          Log In to Account
+        </a>
+      </div>
+    </div>
+  </section>
+}
+
+<!-- Main Content Body -->
+<article class="w-full px-margin-mobile lg:px-margin mb-space-xl @(isLocked ? "opacity-50 filter blur-[2px] pointer-events-none" : "")">
+  <div class="max-w-4xl mx-auto flex flex-col gap-space-lg text-body-lg font-body-md text-on-surface-variant leading-relaxed">
+    <div class="p-space-lg rounded-2xl bg-surface-container/80 backdrop-blur-md shadow-sm border border-outline-variant/30">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-space-sm">Core Culinary Guidance</h2>
+      <p class="font-body-lg text-body-lg text-on-surface whitespace-pre-line leading-relaxed">
+        @Model.Description
+      </p>
+    </div>
+
+    <!-- Chef's Note Box -->
+    <div class="relative overflow-hidden rounded-xl bg-surface-container-high p-space-lg shadow-md my-space-sm">
+      <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+      <div class="flex items-start gap-space-md">
+        <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-primary text-[22px]">local_fire_department</span>
+        </div>
+        <div class="space-y-space-xs">
+          <h3 class="font-title-lg text-title-lg text-on-surface">Chef James’s Rule of Thumb</h3>
+          <p class="font-body-md text-body-md text-on-surface italic">
+            "Kitchen consistency is the true difference between chance success and Michelin excellence. Practice each technique repeatedly until muscle memory takes over."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Share Row -->
+    <div class="pt-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md border-t border-surface-container-highest/60">
+      <span class="font-title-md text-title-md text-on-surface">Share this culinary secret</span>
+      <div class="flex items-center gap-space-sm">
+        <button class="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer text-label-md font-label-md" id="copy-link-btn" onclick="navigator.clipboard.writeText(window.location.href); const t = document.getElementById('copy-label'); t.innerText = 'Copied!'; setTimeout(() => t.innerText = 'Copy Link', 2000);" type="button">
+          <span class="material-symbols-outlined text-[18px]">link</span>
+          <span id="copy-label">Copy Link</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- More Tips Section -->
+@if (relatedTips.Any())
+{
+  <section class="w-full px-margin-mobile lg:px-margin pt-space-xl pb-space-xl bg-surface-container-low">
+    <div class="max-w-6xl mx-auto flex flex-col gap-space-lg">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm">
+        <div>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Mastery Archive</span>
+          <h2 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-surface">
+            More Culinary Wisdom from Chef James
+          </h2>
+        </div>
+        <a asp-controller="Tips" asp-action="@Model.Access" class="font-title-md text-primary hover:text-primary-fixed flex items-center gap-1">
+          <span>View All</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        @foreach (var rTip in relatedTips)
+        {
+          <div class="rounded-xl bg-surface-container-high p-space-lg flex flex-col justify-between hover:-translate-y-1 transition-transform duration-200 shadow-md">
+            <div class="space-y-space-sm">
+              <div class="flex items-center justify-between gap-space-xs">
+                <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+                  <span class="material-symbols-outlined text-[18px]">lightbulb</span>
+                </div>
+                <div class="flex items-center gap-space-xs">
+                  <span class="px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm">@(rTip.Category?.Name ?? "Tip")</span>
+                  <span class="px-2 py-0.5 rounded-full @(rTip.Access == "Premium" ? "bg-primary-container/30 text-primary" : "bg-secondary-container/30 text-secondary") font-label-sm text-label-sm uppercase">@rTip.Access</span>
+                </div>
+              </div>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface pt-space-xs leading-snug line-clamp-2">
+                @rTip.Title
+              </h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                @rTip.Description
+              </p>
+            </div>
+            <div class="pt-space-md mt-space-md flex flex-col gap-space-sm border-t border-surface-container-highest/40">
+              <div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+                <span>@(rTip.Author?.FullName ?? "Chef James Thew")</span>
+                <span>@rTip.CreatedAt.ToString("MMM dd, yyyy")</span>
+              </div>
+              @if (rTip.Access == "Premium" && !isMember && (User.Identity == null || !User.Identity.IsAuthenticated))
+              {
+                <a asp-controller="Auth" asp-action="Register" class="inline-flex items-center gap-space-xs text-primary font-title-md text-body-sm hover:text-primary-fixed transition-colors">
+                  <span class="material-symbols-outlined text-[14px]">lock</span>
+                  <span>Register to Read</span>
+                </a>
+              }
+              else
+              {
+                <a asp-controller="Tips" asp-action="Details" asp-route-id="@rTip.Id" class="inline-flex items-center gap-space-xs text-primary font-title-md text-body-sm hover:text-primary-fixed transition-colors">
+                  <span>Read Tip</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+}

@@ -1,0 +1,222 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.User>
+@{
+    ViewData["Title"] = "User & Member Management";
+    Layout = "_AdminLayout";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-[rgba(93,187,138,0.15)] border border-[rgba(93,187,138,0.3)] text-[#5DBB8A] flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <span>@TempData["Success"]</span>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-error/15 border border-error/30 text-error flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">error</span>
+        <span>@TempData["Error"]</span>
+    </div>
+}
+
+<div class="flex flex-col w-full space-y-space-xl pb-16">
+    <!-- Top Stats Row (KPI Cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-lg">
+        <!-- Card 1: Total Users -->
+        <div class="p-space-lg rounded-xl bg-[#12362F]/75 backdrop-blur-md shadow-lg relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Total Accounts</span>
+                <div class="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+            </div>
+            <div class="flex items-baseline gap-space-sm">
+                <span class="font-headline text-headline-xl text-on-surface">@Model.Count()</span>
+            </div>
+            <span class="text-body-sm text-on-surface-variant mt-space-xs">Registered platform accounts</span>
+        </div>
+
+        <!-- Card 2: Free Users -->
+        <div class="p-space-lg rounded-xl bg-[#12362F]/75 backdrop-blur-md shadow-lg relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Free Explorers</span>
+                <div class="w-10 h-10 rounded-full bg-secondary/15 flex items-center justify-center text-secondary">
+                    <span class="material-symbols-outlined">public</span>
+                </div>
+            </div>
+            <div class="flex items-baseline gap-space-sm">
+                <span class="font-headline text-headline-xl text-on-surface">@Model.Count(u => u.Role == "Free")</span>
+            </div>
+            <span class="text-body-sm text-on-surface-variant mt-space-xs">Community standard tier</span>
+        </div>
+
+        <!-- Card 3: VIP Members -->
+        <div class="p-space-lg rounded-xl bg-[#12362F]/75 backdrop-blur-md shadow-lg relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">VIP Members</span>
+                <div class="w-10 h-10 rounded-full bg-primary-container/25 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                </div>
+            </div>
+            <div class="flex items-baseline gap-space-sm">
+                <span class="font-headline text-headline-xl text-on-surface">@Model.Count(u => u.Role == "Member")</span>
+            </div>
+            <span class="text-body-sm text-on-surface-variant mt-space-xs">Subscribed culinary artists</span>
+        </div>
+
+        <!-- Card 4: Deactivated -->
+        <div class="p-space-lg rounded-xl bg-[#12362F]/75 backdrop-blur-md shadow-lg relative overflow-hidden flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-space-md">
+                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Deactivated</span>
+                <div class="w-10 h-10 rounded-full bg-error/15 flex items-center justify-center text-error">
+                    <span class="material-symbols-outlined">block</span>
+                </div>
+            </div>
+            <div class="flex items-baseline gap-space-sm">
+                <span class="font-headline text-headline-xl text-on-surface">@Model.Count(u => u.IsBlocked)</span>
+            </div>
+            <span class="text-body-sm text-on-surface-variant mt-space-xs">Suspended or blocked</span>
+        </div>
+    </div>
+
+    <!-- Main Content Panel / Table Section -->
+    <div class="p-space-lg rounded-xl bg-[#12362F]/75 backdrop-blur-md shadow-xl">
+        <!-- Filter & Search Toolbar -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-lg">
+            <div class="relative flex-1 max-w-md">
+                <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-base">search</span>
+                <input id="user-search" oninput="filterUsers()" class="w-full bg-[#0A211E] text-on-surface text-body-sm rounded-xl pl-10 pr-space-md py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/40 placeholder:text-on-surface-variant/60 transition-all" placeholder="Search members by name, email, or role..." type="text"/>
+            </div>
+            <div class="flex flex-wrap items-center gap-space-sm">
+                <button onclick="setRoleFilter('all')" class="role-filter-btn px-space-md py-1.5 rounded-full text-label-md bg-[#D98A56]/15 text-primary border border-primary/40 font-semibold transition-all cursor-pointer">All Users</button>
+                <button onclick="setRoleFilter('Member')" class="role-filter-btn px-space-md py-1.5 rounded-full text-label-md bg-[#184238] text-on-surface-variant hover:text-on-surface transition-all cursor-pointer">Members Only</button>
+                <button onclick="setRoleFilter('Free')" class="role-filter-btn px-space-md py-1.5 rounded-full text-label-md bg-[#184238] text-on-surface-variant hover:text-on-surface transition-all cursor-pointer">Free Users</button>
+                <button onclick="setRoleFilter('Admin')" class="role-filter-btn px-space-md py-1.5 rounded-full text-label-md bg-[#184238] text-on-surface-variant hover:text-on-surface transition-all cursor-pointer">Admins</button>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="text-label-sm text-[#7F9990] uppercase tracking-wider border-b border-[rgba(246,239,227,0.08)]">
+                        <th class="pb-space-md font-medium px-4">User</th>
+                        <th class="pb-space-md font-medium px-4">Contact</th>
+                        <th class="pb-space-md font-medium px-4">Role / Plan</th>
+                        <th class="pb-space-md font-medium px-4">Join Date</th>
+                        <th class="pb-space-md font-medium px-4">Status</th>
+                        <th class="pb-space-md font-medium px-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F6EFE3]/5 text-body-sm text-on-surface" id="users-table-body">
+                    @foreach (var user in Model)
+                    {
+                        <tr class="user-row hover:bg-[#184238]/40 transition-colors group" data-role="@user.Role" data-search="@($"{user.FullName} {user.Email} {user.Role}".ToLower())">
+                            <td class="py-space-md px-4">
+                                <div class="flex items-center gap-space-md">
+                                    <div class="w-10 h-10 rounded-full bg-[#184238] flex items-center justify-center text-primary font-bold overflow-hidden">
+                                        @if (!string.IsNullOrEmpty(user.AvatarPath))
+                                        {
+                                            <img src="@user.AvatarPath" alt="@user.FullName" class="w-full h-full object-cover" onerror="this.style.display='none'"/>
+                                        }
+                                        else
+                                        {
+                                            <span>@user.FullName.Substring(0, 1).ToUpper()</span>
+                                        }
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-on-surface">@user.FullName</div>
+                                        <div class="text-xs text-[#7F9990]">ID: #USR-@user.Id</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-space-md px-4">
+                                <div class="text-on-surface">@user.Email</div>
+                                <div class="text-xs text-[#7F9990]">@(string.IsNullOrEmpty(user.Phone) ? "No phone" : user.Phone)</div>
+                            </td>
+                            <td class="py-space-md px-4">
+                                @if (user.Role == "Admin")
+                                {
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-[#E5736A]/15 text-[#E5736A] border border-[#E5736A]/40">
+                                        <span class="material-symbols-outlined text-[12px]">admin_panel_settings</span> Administrator
+                                    </span>
+                                }
+                                else if (user.Role == "Member")
+                                {
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-label-sm font-semibold bg-[#D98A56]/18 text-primary border border-[#D98A56]/45">
+                                        <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span> VIP Member
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm font-semibold bg-[#9AD3B3]/15 text-[#9AD3B3] border border-[#9AD3B3]/35">
+                                        Free Tier
+                                    </span>
+                                }
+                            </td>
+                            <td class="py-space-md px-4 text-[#7F9990]">
+                                @user.CreatedAt.ToString("MMM dd, yyyy")
+                            </td>
+                            <td class="py-space-md px-4">
+                                @if (!user.IsBlocked)
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-semibold bg-[#5DBB8A]/15 text-[#5DBB8A] border border-[#5DBB8A]/30">
+                                        Active
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-semibold bg-error/15 text-error border border-error/30">
+                                        Deactivated
+                                    </span>
+                                }
+                            </td>
+                            <td class="py-space-md px-4 text-right">
+                                @if (user.Role != "Admin")
+                                {
+                                    <form asp-action="ToggleBlockUser" asp-route-id="@user.Id" method="post" class="inline" onsubmit="return confirm('Are you sure you want to change activation status for this user?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="p-1.5 rounded-lg bg-[#184238] @(user.IsBlocked ? "text-[#5DBB8A] hover:bg-[#5DBB8A]/20" : "text-error hover:bg-error-container/30") transition-colors cursor-pointer" title="@(user.IsBlocked ? "Reactivate User" : "Deactivate User")">
+                                            <span class="material-symbols-outlined text-sm">@(user.IsBlocked ? "check_circle" : "block")</span>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-xs text-[#7F9990] italic">Protected</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    let activeRoleFilter = 'all';
+
+    function setRoleFilter(role) {
+        activeRoleFilter = role;
+        document.querySelectorAll('.role-filter-btn').forEach(btn => {
+            btn.classList.remove('bg-[#D98A56]/15', 'text-primary', 'border', 'border-primary/40');
+            btn.classList.add('bg-[#184238]', 'text-on-surface-variant');
+        });
+        event.target.classList.remove('bg-[#184238]', 'text-on-surface-variant');
+        event.target.classList.add('bg-[#D98A56]/15', 'text-primary', 'border', 'border-primary/40');
+        filterUsers();
+    }
+
+    function filterUsers() {
+        const query = (document.getElementById('user-search').value || '').toLowerCase();
+        const rows = document.querySelectorAll('.user-row');
+        rows.forEach(row => {
+            const role = row.getAttribute('data-role');
+            const searchData = row.getAttribute('data-search');
+            const matchesRole = (activeRoleFilter === 'all' || role === activeRoleFilter);
+            const matchesQuery = searchData.includes(query);
+            row.style.display = (matchesRole && matchesQuery) ? '' : 'none';
+        });
+    }
+</script>

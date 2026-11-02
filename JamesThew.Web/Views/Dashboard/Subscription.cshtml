@@ -1,303 +1,299 @@
+@model JamesThew.Web.Models.Entities.User
 @{
-    ViewData["Title"] = "Subscription";
+    ViewData["Title"] = "Membership Subscription";
+    Layout = "_DashboardLayout";
+
+    var activeSub = Model.Subscriptions
+        .OrderByDescending(s => s.ExpiryDate)
+        .FirstOrDefault(s => s.ExpiryDate > DateTime.UtcNow && s.PaymentStatus == "Active");
 }
 
-<div class="flex flex-col w-full">
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-[rgba(93,187,138,0.15)] border border-[rgba(93,187,138,0.3)] text-[#5DBB8A] flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <span>@TempData["Success"]</span>
+    </div>
+}
+
 <!-- Top Section: Header & Active Plan Overview -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-space-xl">
-<!-- Left Column: Current Plan Status Card -->
-<div class="lg:col-span-7 bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl relative overflow-hidden flex flex-col justify-between">
-<!-- Ambient background glow -->
-<div class="absolute -right-12 -top-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
-<div>
-<div class="flex items-center justify-between mb-space-md">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">card_membership</span>
-<span class="font-label-md uppercase text-on-surface-variant">Active Membership Tier</span>
+    <!-- Left Column: Current Plan Status Card -->
+    <div class="lg:col-span-7 bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl relative overflow-hidden flex flex-col justify-between">
+        <div class="absolute -right-12 -top-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div>
+            <div class="flex items-center justify-between mb-space-md">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">card_membership</span>
+                    <span class="font-label-md uppercase text-on-surface-variant">Active Membership Tier</span>
+                </div>
+                <!-- Status Badge -->
+                @if (activeSub != null)
+                {
+                    <span class="px-3 py-1 rounded-full text-label-md bg-[rgba(93,187,138,0.15)] text-[#5DBB8A] border border-[rgba(93,187,138,0.3)] flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#5DBB8A] animate-pulse"></span>
+                        Active VIP
+                    </span>
+                }
+                else
+                {
+                    <span class="px-3 py-1 rounded-full text-label-md bg-[rgba(154,211,179,0.15)] text-[#9AD3B3] border border-[rgba(154,211,179,0.3)] flex items-center gap-1.5">
+                        Free Explorer
+                    </span>
+                }
+            </div>
+
+            <h2 class="font-headline-lg text-on-surface mb-space-xs">
+                @(activeSub != null ? activeSub.Plan : "Free Sanctuary Explorer")
+            </h2>
+            <p class="font-body-md text-on-surface-variant mb-space-lg">
+                @(activeSub != null 
+                    ? "Full access to Michelin-tier archives, masterclasses, and private contest entries." 
+                    : "Standard access to free recipes and tips. Upgrade to access premium masterclasses.")
+            </p>
+
+            <!-- Dates Grid -->
+            <div class="grid grid-cols-2 gap-space-md bg-[#0A211E]/60 rounded-xl p-space-md mb-space-lg">
+                <div>
+                    <span class="font-label-sm text-on-surface-variant block mb-1">Started On</span>
+                    <span class="font-title-md text-on-surface">
+                        @(activeSub != null ? activeSub.StartDate.ToString("MMMM dd, yyyy") : Model.CreatedAt.ToString("MMMM dd, yyyy"))
+                    </span>
+                </div>
+                <div>
+                    <span class="font-label-sm text-on-surface-variant block mb-1">Renews / Expires</span>
+                    <span class="font-title-md text-on-surface">
+                        @(activeSub != null ? activeSub.ExpiryDate.ToString("MMMM dd, yyyy") : "Never (Free)")
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-space-md">
+            <button class="flex-1 py-3 px-6 rounded-full bg-primary text-on-primary font-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-[#E8A173] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all text-center cursor-pointer" onclick="openPlanModal('Yearly', '$100.00 / year')">
+                @(activeSub != null ? "Renew VIP Pass" : "Upgrade to VIP")
+            </button>
+            <button class="flex-1 py-3 px-6 rounded-full border-[1.5px] border-[rgba(246,239,227,0.40)] text-on-surface font-title-md hover:bg-[rgba(246,239,227,0.08)] hover:border-on-surface transition-all text-center cursor-pointer" onclick="scrollToPlans()">
+                Change Tier
+            </button>
+        </div>
+    </div>
+
+    <!-- Right Column: Quick Stats / Demo Note -->
+    <div class="lg:col-span-5 flex flex-col gap-gutter">
+        <div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg flex-1 flex flex-col justify-between shadow-xl">
+            <div>
+                <div class="flex items-center gap-2 mb-space-sm">
+                    <span class="material-symbols-outlined text-primary-container">info</span>
+                    <span class="font-title-md text-on-surface">Instant Simulated Activation</span>
+                </div>
+                <p class="font-body-sm text-on-surface-variant">
+                    All transactions within The Sanctuary are processed seamlessly with <strong class="text-primary">Instant Simulated Fulfillment</strong>. Upgrading your plan grants immediate unlocked access to all Michelin-tier archives and secret techniques.
+                </p>
+            </div>
+            <div class="mt-space-md pt-space-md border-t border-[rgba(246,239,227,0.08)] flex items-center justify-between text-label-sm text-on-surface-variant">
+                <span>Security Protocol</span>
+                <span class="text-tertiary">TLS 256-bit Encrypted</span>
+            </div>
+        </div>
+        <div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary-container shrink-0">
+                <span class="material-symbols-outlined text-[24px]">savings</span>
+            </div>
+            <div>
+                <span class="font-label-sm text-on-surface-variant block">Annual Value</span>
+                <span class="font-headline-md text-on-surface">Save $20 / year on Yearly Mastership</span>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- Status Badge -->
-<span class="px-3 py-1 rounded-full text-label-md bg-[rgba(93,187,138,0.15)] text-[#5DBB8A] border border-[rgba(93,187,138,0.3)] flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-[#5DBB8A] animate-pulse"></span>
-            Active
-          </span>
-</div>
-<h2 class="font-headline-lg text-on-surface mb-space-xs">Executive Culinary Scholar</h2>
-<p class="font-body-md text-on-surface-variant mb-space-lg">Full access to Michelin-tier archives, masterclasses, and private contest entries.</p>
-<!-- Dates Grid -->
-<div class="grid grid-cols-2 gap-space-md bg-[#0A211E]/60 rounded-xl p-space-md mb-space-lg">
-<div>
-<span class="font-label-sm text-on-surface-variant block mb-1">Started On</span>
-<span class="font-title-md text-on-surface">October 14, 2023</span>
-</div>
-<div>
-<span class="font-label-sm text-on-surface-variant block mb-1">Renews / Expires</span>
-<span class="font-title-md text-on-surface">October 14, 2024</span>
-</div>
-</div>
-</div>
-<!-- Action Buttons -->
-<div class="flex items-center gap-space-md">
-<button class="flex-1 py-3 px-6 rounded-full bg-primary text-on-primary font-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-[#E8A173] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all text-center" onclick="openRenewModal()">
-          Renew Plan
-        </button>
-<button class="flex-1 py-3 px-6 rounded-full border-[1.5px] border-[rgba(246,239,227,0.40)] text-on-surface font-title-md hover:bg-[rgba(246,239,227,0.08)] hover:border-on-surface transition-all text-center" onclick="scrollToPlans()">
-          Change Plan
-        </button>
-</div>
-</div>
-<!-- Right Column: Quick Stats / Demo Note -->
-<div class="lg:col-span-5 flex flex-col gap-gutter">
-<div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg flex-1 flex flex-col justify-between shadow-xl">
-<div>
-<div class="flex items-center gap-2 mb-space-sm">
-<span class="material-symbols-outlined text-primary-container">info</span>
-<span class="font-title-md text-on-surface">Simulated Environment</span>
-</div>
-<p class="font-body-sm text-on-surface-variant">
-            All transactions and renewals within The Sanctuary are currently operating in <strong class="text-primary">Simulated Payments</strong> mode. No real charges are applied to your linked accounts.
-          </p>
-</div>
-<div class="mt-space-md pt-space-md border-t border-[rgba(246,239,227,0.08)] flex items-center justify-between text-label-sm text-on-surface-variant">
-<span>Security Protocol</span>
-<span class="text-tertiary">TLS 256-bit Encrypted</span>
-</div>
-</div>
-<div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl flex items-center gap-4">
-<div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary-container shrink-0">
-<span class="material-symbols-outlined text-[24px]">savings</span>
-</div>
-<div>
-<span class="font-label-sm text-on-surface-variant block">Annual Savings</span>
-<span class="font-headline-md text-on-surface">You save $20 / year</span>
-</div>
-</div>
-</div>
-</div>
+
 <!-- Plan Comparison Section -->
 <div class="mb-space-xl" id="plans-section">
-<div class="text-center max-w-xl mx-auto mb-space-lg">
-<span class="font-label-md uppercase text-primary tracking-widest block mb-2">Upgrade &amp; Save</span>
-<h3 class="font-headline-xl text-on-surface">Choose Your Culinary Pace</h3>
-<p class="font-body-md text-on-surface-variant mt-2">Select the tier that aligns with your kitchen ambitions. Switch or cancel at any moment.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto">
-<!-- Monthly Plan -->
-<div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl flex flex-col justify-between relative hover:border hover:border-primary/40 transition-all">
-<div>
-<div class="flex justify-between items-center mb-space-md">
-<span class="font-headline-sm text-on-surface">Monthly Access</span>
-<span class="px-3 py-1 rounded-full text-label-md bg-[rgba(159,216,184,0.15)] text-[#9FD8B8] border border-[rgba(159,216,184,0.35)]">Flexible</span>
-</div>
-<div class="flex items-baseline gap-1 mb-space-md">
-<span class="font-display-lg text-on-surface">$10</span>
-<span class="font-body-sm text-on-surface-variant">/ month</span>
-</div>
-<p class="font-body-sm text-on-surface-variant mb-space-lg">Billed monthly. Ideal for exploratory home chefs and seasonal enthusiasts.</p>
-<ul class="space-y-3 mb-space-lg font-body-sm text-on-surface">
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-              Full access to James Thew masterclasses
-            </li>
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-              Unlimited recipe saving &amp; notes
-            </li>
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-              Monthly culinary contest entries
-            </li>
-</ul>
-</div>
-<button class="w-full py-3 rounded-full border-[1.5px] border-[rgba(246,239,227,0.40)] text-on-surface font-title-md hover:bg-[rgba(246,239,227,0.08)] hover:border-on-surface transition-all" onclick="selectPlan('Monthly', '$10')">
-          Select Monthly
-        </button>
-</div>
-<!-- Yearly Plan -->
-<div class="bg-[#184238]/85 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl flex flex-col justify-between relative border border-primary/40 ring-1 ring-primary/20">
-<!-- Recommended Ribbon -->
-<div class="absolute -top-3 right-6 bg-primary text-on-primary font-label-md px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-          Best Value
+    <div class="text-center max-w-xl mx-auto mb-space-lg">
+        <span class="font-label-md uppercase text-primary tracking-widest block mb-2">Upgrade &amp; Save</span>
+        <h3 class="font-headline-xl text-on-surface">Choose Your Culinary Pace</h3>
+        <p class="font-body-md text-on-surface-variant mt-2">Select the tier that aligns with your kitchen ambitions. Switch or cancel at any moment.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto">
+        <!-- Monthly Plan -->
+        <div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl flex flex-col justify-between relative hover:border hover:border-primary/40 transition-all">
+            <div>
+                <div class="flex justify-between items-center mb-space-md">
+                    <span class="font-headline-sm text-on-surface">Monthly Access</span>
+                    <span class="px-3 py-1 rounded-full text-label-md bg-[rgba(159,216,184,0.15)] text-[#9FD8B8] border border-[rgba(159,216,184,0.35)]">Flexible</span>
+                </div>
+                <div class="flex items-baseline gap-1 mb-space-md">
+                    <span class="font-display-lg text-on-surface text-[42px] font-bold font-headline">$10</span>
+                    <span class="font-body-sm text-on-surface-variant">/ month</span>
+                </div>
+                <p class="font-body-sm text-on-surface-variant mb-space-lg">Billed monthly. Ideal for exploratory home chefs and seasonal enthusiasts.</p>
+                <ul class="space-y-3 mb-space-lg font-body-sm text-on-surface">
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        Full access to James Thew masterclasses
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        Unlimited recipe saving &amp; notes
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        Quarterly culinary contest submissions
+                    </li>
+                </ul>
+            </div>
+            <button class="w-full py-3 rounded-full border-[1.5px] border-[rgba(246,239,227,0.40)] text-on-surface font-title-md hover:bg-[rgba(246,239,227,0.08)] hover:border-on-surface transition-all cursor-pointer" onclick="openPlanModal('Monthly', '$10.00 / month')">
+                Select Monthly
+            </button>
         </div>
-<div>
-<div class="flex justify-between items-center mb-space-md">
-<span class="font-headline-sm text-on-surface">Yearly Mastership</span>
-<span class="px-3 py-1 rounded-full text-label-md bg-[rgba(217,138,86,0.18)] text-primary border border-[rgba(217,138,86,0.45)] flex items-center gap-1">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">crown</span>
-              Popular
-            </span>
+
+        <!-- Yearly Plan -->
+        <div class="bg-[#184238]/85 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl flex flex-col justify-between relative border border-primary/40 ring-1 ring-primary/20">
+            <div class="absolute -top-3 right-6 bg-primary text-on-primary font-label-md px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                Best Value
+            </div>
+            <div>
+                <div class="flex justify-between items-center mb-space-md">
+                    <span class="font-headline-sm text-on-surface">Yearly Mastership</span>
+                    <span class="px-3 py-1 rounded-full text-label-md bg-[rgba(217,138,86,0.18)] text-primary border border-[rgba(217,138,86,0.45)] flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">crown</span>
+                        Popular
+                    </span>
+                </div>
+                <div class="flex items-baseline gap-1 mb-space-md">
+                    <span class="font-display-lg text-on-surface text-[42px] font-bold font-headline">$100</span>
+                    <span class="font-body-sm text-on-surface-variant">/ year</span>
+                </div>
+                <p class="font-body-sm text-on-surface-variant mb-space-lg">Billed annually ($8.33/mo). Two months free for dedicated culinary artists.</p>
+                <ul class="space-y-3 mb-space-lg font-body-sm text-on-surface">
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        Everything in Monthly Access
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        Exclusive 4K video technique library
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        Direct Q&amp;A sessions with Chef James Thew
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                        VIP seating access for live kitchen events
+                    </li>
+                </ul>
+            </div>
+            <button class="w-full py-3 rounded-full bg-primary text-on-primary font-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-[#E8A173] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all cursor-pointer" onclick="openPlanModal('Yearly', '$100.00 / year')">
+                Select Yearly
+            </button>
+        </div>
+    </div>
 </div>
-<div class="flex items-baseline gap-1 mb-space-md">
-<span class="font-display-lg text-on-surface">$100</span>
-<span class="font-body-sm text-on-surface-variant">/ year</span>
-</div>
-<p class="font-body-sm text-on-surface-variant mb-space-lg">Billed annually ($8.33/mo). Two months free for dedicated culinary artists.</p>
-<ul class="space-y-3 mb-space-lg font-body-sm text-on-surface">
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-              Everything in Monthly Access
-            </li>
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-              Exclusive 4K video technique library
-            </li>
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-              Direct Q&amp;A sessions with Chef James Thew
-            </li>
-<li class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-              VIP seating access for live kitchen events
-            </li>
-</ul>
-</div>
-<button class="w-full py-3 rounded-full bg-primary text-on-primary font-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-[#E8A173] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all" onclick="selectPlan('Yearly', '$100')">
-          Select Yearly
-        </button>
-</div>
-</div>
-</div>
+
 <!-- Payment History Section -->
 <div class="bg-[#12362F]/75 backdrop-blur-[16px] rounded-xl p-space-lg shadow-xl mb-space-xl">
-<div class="flex items-center justify-between mb-space-md">
-<div>
-<h3 class="font-headline-md text-on-surface">Payment History</h3>
-<p class="font-body-sm text-on-surface-variant">A complete ledger of your simulated subscription billing.</p>
+    <div class="flex items-center justify-between mb-space-md">
+        <div>
+            <h3 class="font-headline-md text-on-surface">Subscription &amp; Payment History</h3>
+            <p class="font-body-sm text-on-surface-variant">A verified ledger of your membership billing records.</p>
+        </div>
+    </div>
+    
+    @if (!Model.Subscriptions.Any())
+    {
+        <div class="p-8 text-center text-on-surface-variant">
+            <span class="material-symbols-outlined text-outline text-[36px] mb-2">receipt_long</span>
+            <p class="text-body-md">No billing history recorded yet. Choose a plan above to activate your membership!</p>
+        </div>
+    }
+    else
+    {
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-[rgba(246,239,227,0.08)]">
+                        <th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Date</th>
+                        <th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Plan Description</th>
+                        <th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Amount</th>
+                        <th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Status</th>
+                        <th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider text-right">Expires</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[rgba(246,239,227,0.08)] font-body-sm text-on-surface">
+                    @foreach (var sub in Model.Subscriptions.OrderByDescending(s => s.CreatedAt))
+                    {
+                        <tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
+                            <td class="py-4 px-4 text-on-surface-variant">@sub.CreatedAt.ToString("MMM dd, yyyy")</td>
+                            <td class="py-4 px-4 font-title-md text-on-surface">@sub.Plan</td>
+                            <td class="py-4 px-4 text-primary font-semibold">$@sub.Amount.ToString("0.00")</td>
+                            <td class="py-4 px-4">
+                                <span class="px-2.5 py-0.5 rounded-full text-label-sm bg-[rgba(93,187,138,0.15)] text-[#5DBB8A] border border-[rgba(93,187,138,0.3)]">
+                                    @sub.PaymentStatus
+                                </span>
+                            </td>
+                            <td class="py-4 px-4 text-right text-on-surface-variant">
+                                @sub.ExpiryDate.ToString("MMM dd, yyyy")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 </div>
-<button class="flex items-center gap-2 text-label-md text-primary hover:text-on-surface transition-colors" onclick="showToast('Downloading statement...')">
-<span class="material-symbols-outlined text-[18px]">download</span>
-        Export Ledger
-      </button>
-</div>
-<!-- Table Container -->
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="border-b border-[rgba(246,239,227,0.08)]">
-<th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Date</th>
-<th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Plan Description</th>
-<th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Amount</th>
-<th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider">Status</th>
-<th class="py-3 px-4 font-label-sm text-[#7F9990] uppercase tracking-wider text-right">Receipt</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-[rgba(246,239,227,0.08)] font-body-sm text-on-surface">
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
-<td class="py-4 px-4 text-on-surface-variant">Oct 14, 2023</td>
-<td class="py-4 px-4 font-title-md text-on-surface">Yearly Mastership (2023 - 2024)</td>
-<td class="py-4 px-4 text-primary font-semibold">$100.00</td>
-<td class="py-4 px-4">
-<span class="px-2.5 py-0.5 rounded-full text-label-sm bg-[rgba(93,187,138,0.15)] text-[#5DBB8A] border border-[rgba(93,187,138,0.3)]">Completed</span>
-</td>
-<td class="py-4 px-4 text-right">
-<button class="text-primary-container hover:text-primary transition-colors underline text-label-md" onclick="showToast('Simulated receipt downloaded.')">View</button>
-</td>
-</tr>
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
-<td class="py-4 px-4 text-on-surface-variant">Oct 14, 2022</td>
-<td class="py-4 px-4 font-title-md text-on-surface">Yearly Mastership (2022 - 2023)</td>
-<td class="py-4 px-4 text-primary font-semibold">$100.00</td>
-<td class="py-4 px-4">
-<span class="px-2.5 py-0.5 rounded-full text-label-sm bg-[rgba(93,187,138,0.15)] text-[#5DBB8A] border border-[rgba(93,187,138,0.3)]">Completed</span>
-</td>
-<td class="py-4 px-4 text-right">
-<button class="text-primary-container hover:text-primary transition-colors underline text-label-md" onclick="showToast('Simulated receipt downloaded.')">View</button>
-</td>
-</tr>
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
-<td class="py-4 px-4 text-on-surface-variant">Sep 14, 2022</td>
-<td class="py-4 px-4 font-title-md text-on-surface">Monthly Access (Trial Conversion)</td>
-<td class="py-4 px-4 text-primary font-semibold">$10.00</td>
-<td class="py-4 px-4">
-<span class="px-2.5 py-0.5 rounded-full text-label-sm bg-[rgba(93,187,138,0.15)] text-[#5DBB8A] border border-[rgba(93,187,138,0.3)]">Completed</span>
-</td>
-<td class="py-4 px-4 text-right">
-<button class="text-primary-container hover:text-primary transition-colors underline text-label-md" onclick="showToast('Simulated receipt downloaded.')">View</button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<!-- Toast Notification Container -->
-<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
-<!-- Interactive Modal Overlay -->
-<div class="fixed inset-0 bg-[#001714]/80 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" id="modal-overlay">
-<div class="bg-[#184238] border border-[rgba(246,239,227,0.20)] rounded-xl p-space-lg max-w-md w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300" id="modal-card">
-<div class="flex items-center justify-between mb-space-md">
-<h4 class="font-headline-md text-on-surface" id="modal-title">Confirm Subscription Action</h4>
-<button class="w-8 h-8 rounded-full bg-[#0A211E] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="closeModal()">
-<span class="material-symbols-outlined text-[18px]">close</span>
-</button>
-</div>
-<p class="font-body-sm text-on-surface-variant mb-space-lg" id="modal-desc">Are you sure you wish to process this simulated payment action for your membership?</p>
-<div class="flex items-center gap-space-md">
-<button class="flex-1 py-3 rounded-full border-[1.5px] border-[rgba(246,239,227,0.40)] text-on-surface font-title-md hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="closeModal()">Cancel</button>
-<button class="flex-1 py-3 rounded-full bg-primary text-on-primary font-title-md hover:bg-[#E8A173] transition-all" id="modal-confirm-btn" onclick="confirmAction()">Confirm Payment</button>
-</div>
-</div>
-</div>
+
+<!-- Interactive Modal Overlay & Hidden Form -->
+<form asp-action="UpgradePlan" method="post" id="upgrade-form">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="plan" id="selected-plan-input" value="Yearly" />
+
+    <div class="fixed inset-0 bg-[#001714]/80 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" id="modal-overlay">
+        <div class="bg-[#184238] border border-[rgba(246,239,227,0.20)] rounded-xl p-space-lg max-w-md w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-300" id="modal-card">
+            <div class="flex items-center justify-between mb-space-md">
+                <h4 class="font-headline-md text-on-surface" id="modal-title">Confirm Membership Tier</h4>
+                <button type="button" class="w-8 h-8 rounded-full bg-[#0A211E] flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" onclick="closeModal()">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+            </div>
+            <p class="font-body-sm text-on-surface-variant mb-space-lg" id="modal-desc">
+                Are you sure you wish to activate this plan for your membership?
+            </p>
+            <div class="flex items-center gap-space-md">
+                <button type="button" class="flex-1 py-3 rounded-full border-[1.5px] border-[rgba(246,239,227,0.40)] text-on-surface font-title-md hover:bg-[rgba(246,239,227,0.08)] transition-all cursor-pointer" onclick="closeModal()">
+                    Cancel
+                </button>
+                <button type="submit" class="flex-1 py-3 rounded-full bg-primary text-on-primary font-title-md hover:bg-[#E8A173] transition-all cursor-pointer" id="modal-confirm-btn">
+                    Confirm &amp; Activate
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
 <script>
     function scrollToPlans() {
-      document.getElementById('plans-section').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('plans-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function showToast(message) {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      toast.className = 'bg-[#0A211E] text-on-surface px-4 py-3 rounded-xl border border-primary/40 shadow-xl font-body-sm flex items-center gap-3 pointer-events-auto transform translate-y-4 opacity-0 transition-all duration-300';
-      toast.innerHTML = \`<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span><span>\${message}</span>\`;
-      container.appendChild(toast);
-      
-      setTimeout(() => {
-        toast.classList.remove('translate-y-4', 'opacity-0');
-      }, 10);
-
-      setTimeout(() => {
-        toast.classList.add('translate-y-4', 'opacity-0');
-        setTimeout(() => toast.remove(), 300);
-      }, 3500);
-    }
-
-    let pendingActionType = '';
-
-    function openRenewModal() {
-      pendingActionType = 'renew';
-      document.getElementById('modal-title').innerText = 'Simulate Plan Renewal';
-      document.getElementById('modal-desc').innerText = 'This will simulate a renewal charge of $100.00 for your Yearly Mastership plan. Proceed?';
-      document.getElementById('modal-confirm-btn').innerText = 'Process Renewal';
-      
-      const overlay = document.getElementById('modal-overlay');
-      const card = document.getElementById('modal-card');
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      card.classList.remove('scale-95');
-    }
-
-    function selectPlan(planName, price) {
-      pendingActionType = 'change';
-      document.getElementById('modal-title').innerText = \`Switch to \${planName} Plan\`;
-      document.getElementById('modal-desc').innerText = \`You are about to switch your active billing tier to \${planName} (\${price}). Simulated payment will be processed immediately.\`;
-      document.getElementById('modal-confirm-btn').innerText = \`Confirm \${planName}\`;
-      
-      const overlay = document.getElementById('modal-overlay');
-      const card = document.getElementById('modal-card');
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      card.classList.remove('scale-95');
+    function openPlanModal(plan, price) {
+        document.getElementById('selected-plan-input').value = plan;
+        document.getElementById('modal-title').innerText = `Activate ${plan} Mastership`;
+        document.getElementById('modal-desc').innerText = `You are activating ${plan} Access (${price}). Simulated transaction will grant instant VIP member permissions.`;
+        document.getElementById('modal-confirm-btn').innerText = `Activate ${plan}`;
+        
+        const overlay = document.getElementById('modal-overlay');
+        const card = document.getElementById('modal-card');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        card.classList.remove('scale-95');
     }
 
     function closeModal() {
-      const overlay = document.getElementById('modal-overlay');
-      const card = document.getElementById('modal-card');
-      overlay.classList.add('opacity-0', 'pointer-events-none');
-      card.classList.add('scale-95');
+        const overlay = document.getElementById('modal-overlay');
+        const card = document.getElementById('modal-card');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        card.classList.add('scale-95');
     }
-
-    function confirmAction() {
-      closeModal();
-      if (pendingActionType === 'renew') {
-        showToast('Renewal successful! Simulated payment of $100.00 processed.');
-      } else {
-        showToast('Plan successfully updated and simulated charge completed.');
-      }
-    }
-  </script>
-</div>
+</script>

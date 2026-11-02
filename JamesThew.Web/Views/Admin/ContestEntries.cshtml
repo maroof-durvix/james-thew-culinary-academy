@@ -1,0 +1,139 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.ContestEntry>
+@{
+    ViewData["Title"] = "Contest Entries & Judging";
+    Layout = "_AdminLayout";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-[rgba(93,187,138,0.15)] border border-[rgba(93,187,138,0.3)] text-[#5DBB8A] flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <span>@TempData["Success"]</span>
+    </div>
+}
+
+<div class="flex flex-col w-full text-on-surface pb-16">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-space-xl gap-space-md">
+        <div>
+            <span class="text-label-sm text-primary tracking-wider uppercase">Culinary Competition Management</span>
+            <h1 class="text-headline-xl font-headline-xl text-on-surface mt-1">Entries &amp; Judging</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="px-4 py-2 rounded-full bg-surface-container text-primary font-semibold text-body-sm">
+                Total Submissions: @Model.Count()
+            </span>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="bg-surface-container-low/70 backdrop-blur-xl rounded-xl p-12 text-center border border-outline-variant/10">
+            <span class="material-symbols-outlined text-primary text-[48px] mb-2">military_tech</span>
+            <h3 class="text-headline-sm font-headline text-on-surface mb-2">No Submissions Found</h3>
+            <p class="text-body-md text-on-surface-variant">There are currently no contest submissions awaiting evaluation.</p>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            @foreach (var entry in Model)
+            {
+                <div class="bg-[#12362F]/75 backdrop-blur-md rounded-xl p-6 border border-[#F6EFE3]/10 relative group hover:border-primary/40 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between gap-4 mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 text-label-sm @(entry.EntryType == "Recipe" ? "bg-primary-container/20 text-primary border border-primary/40" : "bg-tertiary-container/20 text-tertiary border border-tertiary/40") rounded-full">
+                                    @entry.EntryType
+                                </span>
+                                <span class="text-label-sm text-on-surface-variant">@(entry.Contest?.Title ?? "Open Contest")</span>
+                            </div>
+
+                            @if (entry.Status == "Winner")
+                            {
+                                <span class="px-3 py-1 rounded-full text-label-sm font-bold bg-[#D98A56]/20 text-[#D98A56] border border-[#D98A56]/50 flex items-center gap-1 shadow-sm">
+                                    <span class="material-symbols-outlined text-sm">trophy</span> Winner Selected
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="px-3 py-1 rounded-full text-label-sm bg-[#F5A623]/20 text-[#F5A623] border border-[#F5A623]/40">
+                                    Pending Evaluation
+                                </span>
+                            }
+                        </div>
+
+                        <h3 class="text-headline-sm font-headline text-on-surface mb-2">@entry.Title</h3>
+                        
+                        <div class="flex items-center gap-3 mb-4 text-body-sm text-on-surface">
+                            <span class="font-medium text-primary">By: @(entry.User?.FullName ?? (!string.IsNullOrEmpty(entry.GuestName) ? entry.GuestName : "Guest Chef"))</span>
+                            <span class="text-outline">·</span>
+                            <span class="text-on-surface-variant">@entry.SubmittedAt.ToString("MMM dd, yyyy")</span>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(entry.ImagePath))
+                        {
+                            <div class="mb-4 rounded-xl overflow-hidden h-40 bg-surface-container">
+                                <img src="@entry.ImagePath" alt="@entry.Title" class="w-full h-full object-cover" onerror="this.src='/images/recipe-default.jpg'"/>
+                            </div>
+                        }
+
+                        <div class="bg-surface-container-low p-4 rounded-xl mb-4 text-body-sm text-on-surface-variant space-y-2">
+                            @if (!string.IsNullOrEmpty(entry.Ingredients))
+                            {
+                                <div>
+                                    <strong class="text-on-surface block text-xs uppercase text-primary">Ingredients:</strong>
+                                    <p class="line-clamp-2">@entry.Ingredients</p>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(entry.Procedure))
+                            {
+                                <div>
+                                    <strong class="text-on-surface block text-xs uppercase text-primary">Procedure:</strong>
+                                    <p class="line-clamp-2">@entry.Procedure</p>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(entry.Description))
+                            {
+                                <div>
+                                    <strong class="text-on-surface block text-xs uppercase text-primary">Technique Notes:</strong>
+                                    <p class="line-clamp-2">@entry.Description</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Judging Actions -->
+                    <div class="pt-4 border-t border-[#F6EFE3]/10 flex items-center justify-between">
+                        <span class="text-label-sm text-outline font-mono">ID: #ENTRY-@entry.Id</span>
+                        
+                        <div class="flex items-center gap-2">
+                            @if (entry.Status != "Winner")
+                            {
+                                <form asp-action="SetEntryStatus" method="post" class="inline" onsubmit="return confirm('Award this entry as the official Contest Winner?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@entry.Id" />
+                                    <input type="hidden" name="status" value="Winner" />
+                                    <button type="submit" class="px-5 py-2 rounded-full bg-primary hover:bg-[#E8A173] text-[#0A211E] text-label-md font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                                        <span class="material-symbols-outlined text-sm">trophy</span>
+                                        Award as Winner
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="SetEntryStatus" method="post" class="inline" onsubmit="return confirm('Reset entry back to pending status?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@entry.Id" />
+                                    <input type="hidden" name="status" value="Pending" />
+                                    <button type="submit" class="px-4 py-2 rounded-full bg-[#184238] hover:bg-[#184238]/80 text-on-surface-variant text-label-md transition-all cursor-pointer">
+                                        Reset to Pending
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

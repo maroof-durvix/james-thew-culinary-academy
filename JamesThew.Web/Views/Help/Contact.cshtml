@@ -1,0 +1,220 @@
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="w-full px-margin-mobile lg:px-margin py-space-xl relative">
+<div class="absolute top-10 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-[120px] pointer-events-none -z-10"></div>
+<div class="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-secondary/5 blur-[100px] pointer-events-none -z-10"></div>
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="mb-space-lg">
+<ol class="flex items-center gap-space-xs font-body-sm text-body-sm text-outline">
+<li>
+<a class="hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
+</li>
+<li class="flex items-center opacity-60">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</li>
+<li>
+<span class="text-on-surface-variant">Help</span>
+</li>
+<li class="flex items-center opacity-60">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</li>
+<li class="text-on-surface font-title-md text-body-sm">
+          Contact Us
+        </li>
+</ol>
+</nav>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="mb-space-lg flex items-center gap-space-md px-space-lg py-space-sm rounded-xl bg-surface-container-high/95 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-secondary/30 transition-all max-w-3xl">
+        <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-secondary shrink-0">
+            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface font-medium">
+            @TempData["SuccessMessage"]
+        </p>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="mb-space-lg flex items-center gap-space-md px-space-lg py-space-sm rounded-xl bg-error-container/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-error/30 transition-all max-w-3xl">
+        <div class="w-8 h-8 rounded-full bg-error flex items-center justify-center text-on-error shrink-0">
+            <span class="material-symbols-outlined text-[18px]">priority_high</span>
+        </div>
+        <p class="font-body-md text-body-md text-on-error font-medium">
+            @TempData["ErrorMessage"]
+        </p>
+    </div>
+}
+
+<!-- Page Header -->
+<header class="max-w-3xl mb-space-xl">
+<div class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high/60 backdrop-blur-md mb-space-sm shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container">Academy Concierge &amp; Inquiries</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-space-sm">
+        Contact Chef James Thew
+      </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+        Inquire about Weekend Cookery Classes, culinary academy enrollment, contest adjudication, or press engagements.
+      </p>
+</header>
+<!-- 2-Column Bespoke Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- LEFT COLUMN: Contact Information & Location -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Info Cards -->
+<div class="flex flex-col gap-space-md">
+<!-- Address Card -->
+<div class="relative overflow-hidden rounded-[18px] bg-surface-container/75 backdrop-blur-[16px] p-space-lg shadow-xl group transition-all duration-300 hover:bg-surface-container-high/80">
+<div class="flex items-start gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-surface-container-highest/80 flex items-center justify-center shrink-0 text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[22px]">location_on</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm uppercase text-outline tracking-wider">Culinary Suite &amp; Kitchen</span>
+<span class="font-title-md text-title-md text-on-surface mt-0.5 truncate">Culinary Suite, Karachi, Pakistan</span>
+<p class="font-body-sm text-body-sm text-secondary mt-1">Weekend in-person classes held here</p>
+</div>
+</div>
+</div>
+<!-- Email Card -->
+<div class="relative overflow-hidden rounded-[18px] bg-surface-container/75 backdrop-blur-[16px] p-space-lg shadow-xl group transition-all duration-300 hover:bg-surface-container-high/80">
+<div class="flex items-start gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-surface-container-highest/80 flex items-center justify-center shrink-0 text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[22px]">mail</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm uppercase text-outline tracking-wider">Electronic Inquiries</span>
+<a class="font-title-md text-title-md text-on-surface mt-0.5 hover:text-primary transition-colors truncate" href="mailto:contact@jamesthew.com">contact@jamesthew.com</a>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">General response within 24–48 hours</p>
+</div>
+</div>
+</div>
+<!-- Phone Placeholder Card -->
+<div class="relative overflow-hidden rounded-[18px] bg-surface-container/75 backdrop-blur-[16px] p-space-lg shadow-xl group transition-all duration-300 hover:bg-surface-container-high/80">
+<div class="flex items-start gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-surface-container-highest/80 flex items-center justify-center shrink-0 text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[22px]">phone</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm uppercase text-outline tracking-wider">Academy Desk</span>
+<span class="font-title-md text-title-md text-on-surface mt-0.5 tracking-wide">+92 (21) 358X-XXXX</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Available Tuesday to Sunday, 10 AM – 6 PM PKT</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Dark Emerald Map Mockup -->
+<div class="relative rounded-[18px] overflow-hidden bg-surface-container-lowest shadow-2xl">
+<div class="w-full h-72 bg-cover bg-center relative flex items-center justify-center" data-location="Clifton, Karachi, Pakistan" style="background-image: url('/images/contact-img-12baab.png')">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-high/40 to-transparent"></div>
+<!-- Glowing Copper Location Pin -->
+<div class="relative z-10 flex flex-col items-center group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<span class="absolute w-8 h-8 rounded-full bg-primary-container/30 animate-ping"></span>
+<div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center shadow-[0_0_20px_rgba(217,138,86,0.6)]">
+<span class="material-symbols-outlined text-surface-container-lowest text-[20px]">restaurant</span>
+</div>
+</div>
+<div class="mt-2 px-space-sm py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-lg flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium whitespace-nowrap">Chef James Thew Culinary Suite • Karachi</span>
+</div>
+</div>
+<!-- Note Overlay -->
+<div class="absolute bottom-3 left-3 right-3 z-10 p-space-sm rounded-xl bg-surface-container-high/85 backdrop-blur-md flex items-center gap-space-xs shadow-md">
+<span class="material-symbols-outlined text-primary-container text-[18px] shrink-0">pin_drop</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+                Suite 4B, Clifton Coastal Enclave, Karachi, Pakistan
+              </p>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Glass Inquiry Form -->
+<div class="lg:col-span-7">
+<div class="relative rounded-[18px] bg-surface-container/85 backdrop-blur-[24px] p-space-lg lg:p-space-xl shadow-2xl">
+<div class="flex flex-col gap-1 mb-space-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+              Send an Inquiry
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Our culinary concierge will attend to your request promptly.
+            </p>
+</div>
+<form class="flex flex-col gap-space-md" id="inquiryForm" method="post" asp-controller="Help" asp-action="Contact">
+@Html.AntiForgeryToken()
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Field: First Name -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-title-md text-title-md text-on-surface" for="firstName">
+                  First Name <span class="text-primary">*</span>
+                </label>
+<div class="relative flex items-center">
+<input class="w-full h-12 px-space-md rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md outline-none transition-all duration-200 focus:bg-surface-container-low shadow-sm" id="firstName" name="firstName" placeholder="e.g. Eleanor" required type="text" pattern="^[a-zA-Z\s]{2,50}$" minlength="2" maxlength="50" title="First name must contain only letters and spaces (2 to 50 characters)" value="@(User.Identity?.Name?.Split(' ')?.FirstOrDefault())"/>
+</div>
+</div>
+<!-- Field: Last Name -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-title-md text-title-md text-on-surface" for="lastName">
+                  Last Name
+                </label>
+<div class="relative flex items-center">
+<input class="w-full h-12 px-space-md rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md outline-none transition-all duration-200 focus:bg-surface-container-low shadow-sm" id="lastName" name="lastName" placeholder="e.g. Rigby" type="text" pattern="^[a-zA-Z\s]{1,50}$" maxlength="50" title="Last name must contain only letters and spaces (1 to 50 characters)" value="@(User.Identity?.Name?.Split(' ')?.Skip(1)?.FirstOrDefault())"/>
+</div>
+</div>
+</div>
+<!-- Field: Email & Phone -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-title-md text-title-md text-on-surface" for="email">
+                  Email Address <span class="text-primary">*</span>
+                </label>
+<div class="relative flex items-center">
+<input class="w-full h-12 px-space-md rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md outline-none transition-all duration-200 focus:bg-surface-container-low shadow-sm" id="email" name="email" placeholder="e.g. eleanor@domain.com" required type="email" pattern="^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address (e.g. name@domain.com)" value="@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value"/>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-title-md text-title-md text-on-surface" for="phone">
+                  Phone (Optional)
+                </label>
+<div class="relative flex items-center">
+<input class="w-full h-12 px-space-md rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md outline-none transition-all duration-200 focus:bg-surface-container-low shadow-sm" id="phone" name="phone" placeholder="e.g. +92 300 1234567" type="tel" pattern="^[\+]?[0-9\s\-]{7,16}$" title="Please enter a valid phone number (7 to 16 digits)"/>
+</div>
+</div>
+</div>
+<!-- Field: Message -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-title-md text-title-md text-on-surface" for="message">
+                Message <span class="text-primary">*</span>
+              </label>
+<div class="relative">
+<textarea class="w-full p-space-md rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md outline-none transition-all duration-200 focus:bg-surface-container-low shadow-sm resize-none" id="message" name="message" placeholder="Describe your inquiry, workshop date preference, or question in detail..." required minlength="5" rows="6"></textarea>
+</div>
+</div>
+<!-- Submit Button & Trust Note -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div>
+<button class="inline-flex items-center justify-center gap-space-xs px-space-xl py-3 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all cursor-pointer" type="submit">
+<span>Send Message</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+<!-- Trust Note -->
+<div class="flex items-center gap-space-xs pt-1">
+<span class="material-symbols-outlined text-secondary text-[16px] shrink-0">verified_user</span>
+<p class="font-body-sm text-body-sm text-outline">
+                  We respect your privacy. No promotional spam will ever be sent.
+                </p>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+

@@ -47,49 +47,104 @@ namespace JamesThew.Web.Data
                 var cItalian = cats.First(c => c.Name == "Italian").Id;
 
                 // 2. Users & Subscriptions
-                var adminEmail = "admin@jamesthew.com";
-                if (!context.Users.Any(u => u.Email == adminEmail))
+                // Remove unwanted dummy users (free@, expired@, blocked@)
+                var unwantedEmails = new[] { "free@jamesthew.com", "expired@jamesthew.com", "blocked@jamesthew.com" };
+                var unwantedUsers = context.Users.Where(u => unwantedEmails.Contains(u.Email.ToLower())).ToList();
+                if (unwantedUsers.Any())
                 {
-                    context.Users.Add(new User { FullName = "Admin James", Email = adminEmail, PasswordHash = "Admin@123", Role = "Admin", IsBlocked = false, CreatedAt = now });
+                    var unwantedIds = unwantedUsers.Select(u => u.Id).ToList();
+
+                    var unwantedSubs = context.Subscriptions.Where(s => unwantedIds.Contains(s.UserId)).ToList();
+                    if (unwantedSubs.Any()) context.Subscriptions.RemoveRange(unwantedSubs);
+
+                    var unwantedTokens = context.PasswordResetTokens.Where(t => unwantedIds.Contains(t.UserId)).ToList();
+                    if (unwantedTokens.Any()) context.PasswordResetTokens.RemoveRange(unwantedTokens);
+
+                    var unwantedEntries = context.ContestEntries.Where(e => e.UserId.HasValue && unwantedIds.Contains(e.UserId.Value)).ToList();
+                    foreach (var e in unwantedEntries) e.UserId = null;
+
+                    var unwantedFeedbacks = context.RecipeFeedbacks.Where(f => f.UserId.HasValue && unwantedIds.Contains(f.UserId.Value)).ToList();
+                    foreach (var f in unwantedFeedbacks) f.UserId = null;
+
+                    context.Users.RemoveRange(unwantedUsers);
+                    context.SaveChanges();
                 }
 
-                var freeEmail = "free@jamesthew.com";
-                if (!context.Users.Any(u => u.Email == freeEmail))
+                var adminEmail = "admin@jamesthew.com";
+                var adminUser = context.Users.FirstOrDefault(u => u.Email.ToLower() == adminEmail);
+                var adminHash = BCrypt.Net.BCrypt.HashPassword("Admin@123");
+                if (adminUser == null)
                 {
-                    context.Users.Add(new User { FullName = "Free User", Email = freeEmail, PasswordHash = "Free@123", Role = "Free", IsBlocked = false, CreatedAt = now });
+                    adminUser = new User
+                    {
+                        FullName = "Chef James (Admin)",
+                        Email = adminEmail,
+                        PasswordHash = adminHash,
+                        Role = "Admin",
+                        IsBlocked = false,
+                        CreatedAt = now
+                    };
+                    context.Users.Add(adminUser);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    adminUser.FullName = "Chef James (Admin)";
+                    adminUser.Role = "Admin";
+                    adminUser.IsBlocked = false;
+                    adminUser.PasswordHash = adminHash;
+                    context.SaveChanges();
                 }
 
                 var memberEmail = "member@jamesthew.com";
-                if (!context.Users.Any(u => u.Email == memberEmail))
+                var memberUser = context.Users.FirstOrDefault(u => u.Email.ToLower() == memberEmail);
+                var memberHash = BCrypt.Net.BCrypt.HashPassword("Member@123");
+                if (memberUser == null)
                 {
-                    var activeMember = new User { FullName = "Active Member", Email = memberEmail, PasswordHash = "Member@123", Role = "Member", IsBlocked = false, CreatedAt = now.AddDays(-30) };
-                    context.Users.Add(activeMember);
+                    memberUser = new User
+                    {
+                        FullName = "VIP Member",
+                        Email = memberEmail,
+                        PasswordHash = memberHash,
+                        Role = "Member",
+                        IsBlocked = false,
+                        CreatedAt = now.AddDays(-30)
+                    };
+                    context.Users.Add(memberUser);
                     context.SaveChanges();
-                    
-                    context.Subscriptions.Add(new Subscription { UserId = activeMember.Id, Plan = "Monthly", Amount = 10.00m, StartDate = now.AddDays(-5), ExpiryDate = now.AddDays(25), PaymentStatus = "Paid", CreatedAt = now.AddDays(-5) });
                 }
-
-                var expiredEmail = "expired@jamesthew.com";
-                if (!context.Users.Any(u => u.Email == expiredEmail))
+                else
                 {
-                    var expiredMember = new User { FullName = "Expired Member", Email = expiredEmail, PasswordHash = "Expired@123", Role = "Member", IsBlocked = false, CreatedAt = now.AddDays(-400) };
-                    context.Users.Add(expiredMember);
+                    memberUser.FullName = "VIP Member";
+                    memberUser.Role = "Member";
+                    memberUser.IsBlocked = false;
+                    memberUser.PasswordHash = memberHash;
                     context.SaveChanges();
-                    
-                    context.Subscriptions.Add(new Subscription { UserId = expiredMember.Id, Plan = "Yearly", Amount = 100.00m, StartDate = now.AddDays(-380), ExpiryDate = now.AddDays(-15), PaymentStatus = "Paid", CreatedAt = now.AddDays(-380) });
                 }
 
-                var blockedEmail = "blocked@jamesthew.com";
-                if (!context.Users.Any(u => u.Email == blockedEmail))
+                // Ensure VIP Member has a valid, active subscription (30 days)
+                var memberSub = context.Subscriptions
+                    .FirstOrDefault(s => s.UserId == memberUser.Id && s.ExpiryDate > now && (s.PaymentStatus == "Active" || s.PaymentStatus == "Paid" || s.PaymentStatus == "Success"));
+                if (memberSub == null)
                 {
-                    context.Users.Add(new User { FullName = "Blocked User", Email = blockedEmail, PasswordHash = "Blocked@123", Role = "Free", IsBlocked = true, CreatedAt = now.AddDays(-10) });
+                    var oldSubs = context.Subscriptions.Where(s => s.UserId == memberUser.Id).ToList();
+                    if (oldSubs.Any()) context.Subscriptions.RemoveRange(oldSubs);
+
+                    context.Subscriptions.Add(new Subscription
+                    {
+                        UserId = memberUser.Id,
+                        Plan = "Monthly",
+                        Amount = 10.00m,
+                        StartDate = now.AddDays(-2),
+                        ExpiryDate = now.AddDays(28),
+                        PaymentStatus = "Active",
+                        CreatedAt = now.AddDays(-2)
+                    });
+                    context.SaveChanges();
                 }
 
-                context.SaveChanges();
-
-                var uAdmin = context.Users.First(u => u.Email == adminEmail).Id;
-                var uFree = context.Users.First(u => u.Email == freeEmail).Id;
-                var uMember = context.Users.First(u => u.Email == memberEmail).Id;
+                var uAdmin = context.Users.First(u => u.Email.ToLower() == adminEmail).Id;
+                var uMember = context.Users.First(u => u.Email.ToLower() == memberEmail).Id;
 
                 // 3. Recipes (12 total: 6 Free, 6 Premium)
                 if (context.Recipes.Count() < 12)
@@ -184,7 +239,7 @@ namespace JamesThew.Web.Data
                         // Active Contest Entries
                         new ContestEntry { ContestId = activeContest.Id, UserId = uMember, Title = "Minty Watermelon", EntryType = "Recipe", CategoryId = cJuice, Ingredients = "Watermelon, Mint", Procedure = "Blend together", ImagePath = "/images/entry-1.jpg", Status = "Pending", SubmittedAt = now.AddDays(-2) },
                         new ContestEntry { ContestId = activeContest.Id, GuestName = "Guest Jane", GuestEmail = "jane@guest.com", Title = "Citrus Blast", EntryType = "Recipe", CategoryId = cJuice, Ingredients = "Orange, Grapefruit", Procedure = "Squeeze and mix", ImagePath = "/images/entry-2.jpg", Status = "Pending", SubmittedAt = now.AddDays(-1) },
-                        new ContestEntry { ContestId = activeContest.Id, UserId = uFree, Title = "Carrot Apple Zing", EntryType = "Recipe", CategoryId = cJuice, Ingredients = "Carrot, Apple, Ginger", Procedure = "Juice together", ImagePath = "/images/entry-3.jpg", Status = "Pending", SubmittedAt = now.AddDays(-3) },
+                        new ContestEntry { ContestId = activeContest.Id, GuestName = "Culinary Student", GuestEmail = "student@culinary.com", Title = "Carrot Apple Zing", EntryType = "Recipe", CategoryId = cJuice, Ingredients = "Carrot, Apple, Ginger", Procedure = "Juice together", ImagePath = "/images/entry-3.jpg", Status = "Pending", SubmittedAt = now.AddDays(-3) },
                         
                         // Pasta Contest Entries (Closed)
                         new ContestEntry { ContestId = pastaContest.Id, UserId = uMember, Title = "Pesto Penne", EntryType = "Recipe", CategoryId = cItalian, Ingredients = "Penne, Basil Pesto", Procedure = "Boil and mix", ImagePath = "/images/entry-4.jpg", Status = "Winner", SubmittedAt = now.AddDays(-20) },
@@ -192,7 +247,7 @@ namespace JamesThew.Web.Data
                         
                         // Veg Tip Contest Entries (Closed)
                         new ContestEntry { ContestId = vegContest.Id, GuestName = "Guest Alice", GuestEmail = "alice@guest.com", Title = "Crispy Roast Potatoes", EntryType = "Tip", Description = "Boil with baking soda before roasting.", ImagePath = "", Status = "Winner", SubmittedAt = now.AddDays(-50) },
-                        new ContestEntry { ContestId = vegContest.Id, UserId = uFree, Title = "Steaming broccoli", EntryType = "Tip", Description = "Steam for exactly 4 minutes.", ImagePath = "", Status = "Pending", SubmittedAt = now.AddDays(-45) }
+                        new ContestEntry { ContestId = vegContest.Id, GuestName = "Guest David", GuestEmail = "david@guest.com", Title = "Steaming broccoli", EntryType = "Tip", Description = "Steam for exactly 4 minutes.", ImagePath = "", Status = "Pending", SubmittedAt = now.AddDays(-45) }
                     };
 
                     foreach (var e in entriesToSeed)
@@ -238,12 +293,12 @@ namespace JamesThew.Web.Data
 
                     var recipeFeedbacksToSeed = new List<RecipeFeedback>
                     {
-                        new RecipeFeedback { RecipeId = r1, UserId = uMember, Name = "Active Member", Email = "member@jamesthew.com", Rating = 5, Comment = "Very refreshing!", CreatedAt = now.AddDays(-1) },
+                        new RecipeFeedback { RecipeId = r1, UserId = uMember, Name = "VIP Member", Email = "member@jamesthew.com", Rating = 5, Comment = "Very refreshing!", CreatedAt = now.AddDays(-1) },
                         new RecipeFeedback { RecipeId = r1, UserId = null, Name = "Guest Tim", Email = "tim@guest.com", Rating = 4, Comment = "Nice and simple.", CreatedAt = now.AddDays(-2) },
-                        new RecipeFeedback { RecipeId = r1, UserId = uFree, Name = "Free User", Email = "free@jamesthew.com", Rating = 5, Comment = "Loved it!", CreatedAt = now.AddDays(-3) },
-                        new RecipeFeedback { RecipeId = r2, UserId = uMember, Name = "Active Member", Email = "member@jamesthew.com", Rating = 5, Comment = "A classic masterpiece.", CreatedAt = now.AddDays(-10) },
+                        new RecipeFeedback { RecipeId = r1, UserId = uMember, Name = "VIP Member", Email = "member@jamesthew.com", Rating = 5, Comment = "Loved it!", CreatedAt = now.AddDays(-3) },
+                        new RecipeFeedback { RecipeId = r2, UserId = uMember, Name = "VIP Member", Email = "member@jamesthew.com", Rating = 5, Comment = "A classic masterpiece.", CreatedAt = now.AddDays(-10) },
                         new RecipeFeedback { RecipeId = r2, UserId = null, Name = "Guest Sarah", Email = "sarah@guest.com", Rating = 3, Comment = "A bit hard to make.", CreatedAt = now.AddDays(-8) },
-                        new RecipeFeedback { RecipeId = r2, UserId = uFree, Name = "Free User", Email = "free@jamesthew.com", Rating = 4, Comment = "Great taste!", CreatedAt = now.AddDays(-5) },
+                        new RecipeFeedback { RecipeId = r2, UserId = null, Name = "Guest Claire", Email = "claire@guest.com", Rating = 4, Comment = "Great taste!", CreatedAt = now.AddDays(-5) },
                         new RecipeFeedback { RecipeId = r1, UserId = null, Name = "Guest Mike", Email = "mike@guest.com", Rating = 5, Comment = "Perfect for summer.", CreatedAt = now.AddHours(-5) },
                         new RecipeFeedback { RecipeId = r2, UserId = null, Name = "Guest Leo", Email = "leo@guest.com", Rating = 5, Comment = "Amazing recipe.", CreatedAt = now.AddHours(-12) }
                     };

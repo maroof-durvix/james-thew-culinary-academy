@@ -1,394 +1,151 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.Tip>
 @{
-    ViewData["Title"] = "Manage Tips";
+    ViewData["Title"] = "Manage Culinary Tips";
+    Layout = "_AdminLayout";
 }
 
-<div class="flex flex-col w-full text-on-surface">
-<!-- Page Header & Actions Bar -->
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-space-xl">
-<div>
-<h1 class="font-headline-xl text-on-surface mb-space-xs">Culinary Mastery Tips</h1>
-<p class="font-body-md text-on-surface-variant">Curate and manage professional kitchen secrets, knife skills, and technique advisory notes.</p>
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-[rgba(93,187,138,0.15)] border border-[rgba(93,187,138,0.3)] text-[#5DBB8A] flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <span>@TempData["Success"]</span>
+    </div>
+}
+
+<div class="flex flex-col w-full text-on-surface pb-16">
+    <!-- Page Header & Actions Bar -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-space-xl">
+        <div>
+            <h1 class="font-headline-xl text-on-surface mb-space-xs">Culinary Mastery Tips</h1>
+            <p class="font-body-md text-on-surface-variant">Curate and manage professional kitchen secrets, knife skills, and technique advisory notes.</p>
+        </div>
+        <div class="flex items-center gap-space-md">
+            <a asp-action="TipForm" class="flex items-center gap-space-sm px-6 py-2.5 rounded-full bg-primary hover:bg-[#E8A173] text-[#0A211E] font-semibold text-body-md transition-all shadow-[0_4px_16px_rgba(217,138,86,0.25)]">
+                <span class="material-symbols-outlined">add</span>
+                <span>+ Add Tip</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- KPI Quick Metrics (Bento Row) -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mb-space-xl">
+        <div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-lg rounded-[18px] border border-[rgba(246,239,227,0.12)] shadow-sm">
+            <div class="flex items-center justify-between mb-space-sm">
+                <span class="font-label-sm text-outline uppercase tracking-wider">Total Active Tips</span>
+                <span class="material-symbols-outlined text-primary">lightbulb</span>
+            </div>
+            <div class="font-headline-lg text-on-surface mb-space-xs">@Model.Count()</div>
+            <div class="flex items-center gap-1 font-body-sm text-secondary">
+                <span class="material-symbols-outlined text-sm">verified</span>
+                <span>Technique Library</span>
+            </div>
+        </div>
+
+        <div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-lg rounded-[18px] border border-[rgba(246,239,227,0.12)] shadow-sm">
+            <div class="flex items-center justify-between mb-space-sm">
+                <span class="font-label-sm text-outline uppercase tracking-wider">Free Insights</span>
+                <span class="material-symbols-outlined text-tertiary">lock_open</span>
+            </div>
+            <div class="font-headline-lg text-on-surface mb-space-xs">@Model.Count(t => t.Access == "Free")</div>
+            <div class="flex items-center gap-1 font-body-sm text-on-surface-variant">
+                <span>Publicly accessible</span>
+            </div>
+        </div>
+
+        <div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-lg rounded-[18px] border border-[rgba(246,239,227,0.12)] shadow-sm">
+            <div class="flex items-center justify-between mb-space-sm">
+                <span class="font-label-sm text-outline uppercase tracking-wider">Masterclass Premium</span>
+                <span class="material-symbols-outlined text-primary-container">workspace_premium</span>
+            </div>
+            <div class="font-headline-lg text-on-surface mb-space-xs">@Model.Count(t => t.Access == "Premium")</div>
+            <div class="flex items-center gap-1 font-body-sm text-primary">
+                <span>VIP Subscriber tier</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Toolbar -->
+    <div class="mb-6 max-w-md">
+        <div class="relative">
+            <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+            <input id="admin-tip-search" oninput="filterAdminTips()" class="w-full pl-10 pr-4 py-2.5 bg-[#0A211E] border border-[rgba(246,239,227,0.16)] rounded-xl text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary transition-colors" placeholder="Search tips by title or category..." type="text"/>
+        </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-surface-container-high/75 backdrop-blur-[16px] border border-[rgba(246,239,227,0.12)] rounded-2xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-[rgba(246,239,227,0.08)] bg-[#184238]/30">
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Tip Title &amp; Details</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Category</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Author</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Access Type</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Date Added</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990] text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[rgba(246,239,227,0.08)]" id="admin-tips-table-body">
+                    @foreach (var tip in Model)
+                    {
+                        <tr class="admin-tip-row hover:bg-[rgba(24,66,56,0.5)] transition-colors" data-search="@($"{tip.Title} {tip.Category?.Name}".ToLower())">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-4">
+                                    <img src="@tip.ImagePath" alt="@tip.Title" class="w-12 h-12 rounded-lg object-cover bg-surface-container shrink-0" onerror="this.src='/images/tip-default.jpg'"/>
+                                    <div>
+                                        <div class="font-semibold text-on-surface">@tip.Title</div>
+                                        <div class="text-xs text-[#7F9990] line-clamp-1">@tip.Description</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="px-2.5 py-1 rounded-full text-label-sm bg-[#184238] border border-[rgba(246,239,227,0.1)] text-[#B7C7BF]">
+                                    @tip.Category?.Name
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-body-sm text-on-surface">
+                                @(tip.Author?.FullName ?? "Chef James Thew")
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="px-2.5 py-1 rounded-full text-label-sm font-semibold @(tip.Access == "Premium" ? "bg-[rgba(217,138,86,0.18)] text-primary border border-[rgba(217,138,86,0.45)]" : "bg-[rgba(159,216,184,0.15)] text-[#9FD8B8] border border-[rgba(159,216,184,0.35)]")">
+                                    @tip.Access
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-body-sm text-[#7F9990]">
+                                @tip.CreatedAt.ToString("MMM dd, yyyy")
+                            </td>
+                            <td class="py-4 px-6 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <a asp-controller="Tips" asp-action="Details" asp-route-id="@tip.Id" class="p-1.5 rounded-lg bg-[#184238] text-on-surface-variant hover:text-primary transition-colors" title="View Tip">
+                                        <span class="material-symbols-outlined text-sm">visibility</span>
+                                    </a>
+                                    <a asp-action="TipForm" asp-route-id="@tip.Id" class="p-1.5 rounded-lg bg-[#184238] text-on-surface-variant hover:text-[#5DBB8A] transition-colors" title="Edit Tip">
+                                        <span class="material-symbols-outlined text-sm">edit</span>
+                                    </a>
+                                    <form asp-action="DeleteTip" asp-route-id="@tip.Id" method="post" class="inline" onsubmit="return confirm('Are you sure you want to permanently delete this tip?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="p-1.5 rounded-lg bg-[#184238] text-error hover:bg-error/20 transition-colors cursor-pointer" title="Delete Tip">
+                                            <span class="material-symbols-outlined text-sm">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div class="flex items-center gap-space-md">
-<button class="flex items-center gap-space-sm px-space-lg py-space-sm rounded-full bg-primary-container text-on-primary-container font-label-md transition-all hover:bg-primary hover:shadow-[0_4px_20px_rgba(217,138,86,0.3)]" onclick="openAddTipModal()">
-<span class="material-symbols-outlined">add</span>
-<span>+ Add Tip</span>
-</button>
-</div>
-</div>
-<!-- KPI Quick Metrics (Bento Row) -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-xl">
-<div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-lg rounded-[18px] border border-[rgba(246,239,227,0.12)] shadow-sm">
-<div class="flex items-center justify-between mb-space-sm">
-<span class="font-label-sm text-outline uppercase tracking-wider">Total Active Tips</span>
-<span class="material-symbols-outlined text-primary">lightbulb</span>
-</div>
-<div class="font-headline-lg text-on-surface mb-space-xs">128</div>
-<div class="flex items-center gap-1 font-body-sm text-secondary">
-<span class="material-symbols-outlined text-sm">trending_up</span>
-<span>+12 added this month</span>
-</div>
-</div>
-<div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-lg rounded-[18px] border border-[rgba(246,239,227,0.12)] shadow-sm">
-<div class="flex items-center justify-between mb-space-sm">
-<span class="font-label-sm text-outline uppercase tracking-wider">Free Insights</span>
-<span class="material-symbols-outlined text-tertiary">lock_open</span>
-</div>
-<div class="font-headline-lg text-on-surface mb-space-xs">45</div>
-<div class="flex items-center gap-1 font-body-sm text-on-surface-variant">
-<span>Publicly accessible</span>
-</div>
-</div>
-<div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-lg rounded-[18px] border border-[rgba(246,239,227,0.12)] shadow-sm">
-<div class="flex items-center justify-between mb-space-sm">
-<span class="font-label-sm text-outline uppercase tracking-wider">Masterclass Premium</span>
-<span class="material-symbols-outlined text-primary-container">workspace_premium</span>
-</div>
-<div class="font-headline-lg text-on-surface mb-space-xs">83</div>
-<div class="flex items-center gap-1 font-body-sm text-primary">
-<span>Exclusive subscriber tier</span>
-</div>
-</div>
-<div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-lg rounded-[18px] border border-[rgba(246,239,227,0.12)] shadow-sm">
-<div class="flex items-center justify-between mb-space-sm">
-<span class="font-label-sm text-outline uppercase tracking-wider">Engagement Rate</span>
-<span class="material-symbols-outlined text-secondary">analytics</span>
-</div>
-<div class="font-headline-lg text-on-surface mb-space-xs">94.2%</div>
-<div class="flex items-center gap-1 font-body-sm text-secondary">
-<span class="material-symbols-outlined text-sm">verified</span>
-<span>High retention</span>
-</div>
-</div>
-</div>
-<!-- Filters & Search Toolbar -->
-<div class="bg-surface-container-high/75 backdrop-blur-[16px] p-space-md rounded-[18px] border border-[rgba(246,239,227,0.12)] mb-space-lg flex flex-col lg:flex-row gap-space-md items-center justify-between">
-<div class="flex flex-wrap items-center gap-space-md w-full lg:w-auto">
-<!-- Search -->
-<div class="relative flex items-center flex-1 sm:w-72">
-<span class="material-symbols-outlined absolute left-3 text-outline text-sm">search</span>
-<input class="w-full bg-[#0A211E] text-on-surface text-body-sm rounded-[12px] pl-9 pr-4 py-2 border border-[rgba(246,239,227,0.16)] focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" id="tip-search" placeholder="Search tips by title or keyword..." type="text"/>
-</div>
-<!-- Category Filter -->
-<select class="bg-[#0A211E] text-on-surface text-body-sm rounded-[12px] px-3 py-2 border border-[rgba(246,239,227,0.16)] focus:border-primary focus:outline-none transition-all" id="filter-category">
-<option value="">All Categories</option>
-<option value="Knife Skills">Knife Skills</option>
-<option value="Sauces">Sauces & Emulsions</option>
-<option value="Pastry">Pastry & Baking</option>
-<option value="Meat">Meat Butchery</option>
-<option value="Equipment">Kitchen Equipment</option>
-</select>
-<!-- Access Filter -->
-<select class="bg-[#0A211E] text-on-surface text-body-sm rounded-[12px] px-3 py-2 border border-[rgba(246,239,227,0.16)] focus:border-primary focus:outline-none transition-all" id="filter-access">
-<option value="">All Access Types</option>
-<option value="free">Free</option>
-<option value="premium">Premium</option>
-</select>
-<!-- Author Filter -->
-<select class="bg-[#0A211E] text-on-surface text-body-sm rounded-[12px] px-3 py-2 border border-[rgba(246,239,227,0.16)] focus:border-primary focus:outline-none transition-all" id="filter-author">
-<option value="">All Authors</option>
-<option value="Chef James">Chef James</option>
-<option value="Sous Chef Clara">Sous Chef Clara</option>
-<option value="Chef Marcus">Chef Marcus</option>
-</select>
-</div>
-<div class="flex items-center gap-space-sm w-full lg:w-auto justify-end">
-<button class="px-space-md py-2 rounded-[12px] text-on-surface-variant hover:text-on-surface hover:bg-[rgba(246,239,227,0.08)] text-body-sm transition-all" onclick="resetFilters()">Reset Filters</button>
-</div>
-</div>
-<!-- Tips Table Container -->
-<div class="bg-surface-container-high/75 backdrop-blur-[16px] rounded-[18px] border border-[rgba(246,239,227,0.12)] overflow-hidden mb-space-lg shadow-xl">
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="border-b border-[rgba(246,239,227,0.08)] bg-[#0A211E]/50">
-<th class="py-4 px-6 font-label-sm text-outline tracking-wider uppercase">Title & Summary</th>
-<th class="py-4 px-4 font-label-sm text-outline tracking-wider uppercase">Category</th>
-<th class="py-4 px-4 font-label-sm text-outline tracking-wider uppercase">Author</th>
-<th class="py-4 px-4 font-label-sm text-outline tracking-wider uppercase">Access Toggle</th>
-<th class="py-4 px-4 font-label-sm text-outline tracking-wider uppercase">Date</th>
-<th class="py-4 px-6 font-label-sm text-outline tracking-wider uppercase text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-[rgba(246,239,227,0.08)] font-body-sm" id="tips-table-body">
-<!-- Row 1 -->
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors group">
-<td class="py-4 px-6">
-<div class="font-title-md text-on-surface group-hover:text-primary transition-colors">Perfect Chiffonade on Delicate Herbs</div>
-<div class="text-on-surface-variant text-body-sm line-clamp-1">Master the rolling technique to prevent bruising delicate basil and mint leaves.</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm bg-[rgba(217,138,86,0.15)] text-primary border border-[rgba(217,138,86,0.3)]">Knife Skills</span>
-</td>
-<td class="py-4 px-4 text-on-surface">Chef James</td>
-<td class="py-4 px-4">
-<label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" onchange="toggleAccess(this)" type="checkbox"/>
-<div class="w-11 h-6 bg-[rgba(246,239,227,0.2)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
-<span class="ml-3 font-label-sm text-primary peer-checked:inline-block">Premium</span>
-</label>
-</td>
-<td class="py-4 px-4 text-outline">Oct 14, 2023</td>
-<td class="py-4 px-6 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="viewTip('Perfect Chiffonade on Delicate Herbs')" title="View">
-<span class="material-symbols-outlined text-sm">visibility</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-secondary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="editTip('Perfect Chiffonade on Delicate Herbs')" title="Edit">
-<span class="material-symbols-outlined text-sm">edit</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-all" onclick="openDeleteModal('Perfect Chiffonade on Delicate Herbs')" title="Delete">
-<span class="material-symbols-outlined text-sm">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors group">
-<td class="py-4 px-6">
-<div class="font-title-md text-on-surface group-hover:text-primary transition-colors">Emulsifying Hollandaise Without Splitting</div>
-<div class="text-on-surface-variant text-body-sm line-clamp-1">Temperature control secrets and the ice cube emergency fix for broken sauces.</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm bg-[rgba(159,216,184,0.15)] text-[#9FD8B8] border border-[rgba(159,216,184,0.35)]">Sauces</span>
-</td>
-<td class="py-4 px-4 text-on-surface">Sous Chef Clara</td>
-<td class="py-4 px-4">
-<label class="relative inline-flex items-center cursor-pointer">
-<input class="sr-only peer" onchange="toggleAccess(this)" type="checkbox"/>
-<div class="w-11 h-6 bg-[rgba(246,239,227,0.2)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
-<span class="ml-3 font-label-sm text-secondary">Free</span>
-</label>
-</td>
-<td class="py-4 px-4 text-outline">Nov 02, 2023</td>
-<td class="py-4 px-6 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="viewTip('Emulsifying Hollandaise Without Splitting')" title="View">
-<span class="material-symbols-outlined text-sm">visibility</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-secondary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="editTip('Emulsifying Hollandaise Without Splitting')" title="Edit">
-<span class="material-symbols-outlined text-sm">edit</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-all" onclick="openDeleteModal('Emulsifying Hollandaise Without Splitting')" title="Delete">
-<span class="material-symbols-outlined text-sm">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors group">
-<td class="py-4 px-6">
-<div class="font-title-md text-on-surface group-hover:text-primary transition-colors">The Maillard Reaction in Pan-Searing</div>
-<div class="text-on-surface-variant text-body-sm line-clamp-1">Surface moisture elimination for achieving an even, restaurant-quality crust on ribeye.</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm bg-[rgba(217,138,86,0.15)] text-primary border border-[rgba(217,138,86,0.3)]">Meat</span>
-</td>
-<td class="py-4 px-4 text-on-surface">Chef James</td>
-<td class="py-4 px-4">
-<label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" onchange="toggleAccess(this)" type="checkbox"/>
-<div class="w-11 h-6 bg-[rgba(246,239,227,0.2)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
-<span class="ml-3 font-label-sm text-primary">Premium</span>
-</label>
-</td>
-<td class="py-4 px-4 text-outline">Dec 19, 2023</td>
-<td class="py-4 px-6 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="viewTip('The Maillard Reaction in Pan-Searing')" title="View">
-<span class="material-symbols-outlined text-sm">visibility</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-secondary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="editTip('The Maillard Reaction in Pan-Searing')" title="Edit">
-<span class="material-symbols-outlined text-sm">edit</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-all" onclick="openDeleteModal('The Maillard Reaction in Pan-Searing')" title="Delete">
-<span class="material-symbols-outlined text-sm">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors group">
-<td class="py-4 px-6">
-<div class="font-title-md text-on-surface group-hover:text-primary transition-colors">Lamination Secrets for Croissant Dough</div>
-<div class="text-on-surface-variant text-body-sm line-clamp-1">Butter temperature control and turn pacing for pristine honeycomb crumb structures.</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm bg-[rgba(217,138,86,0.15)] text-primary border border-[rgba(217,138,86,0.3)]">Pastry</span>
-</td>
-<td class="py-4 px-4 text-on-surface">Chef Marcus</td>
-<td class="py-4 px-4">
-<label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" onchange="toggleAccess(this)" type="checkbox"/>
-<div class="w-11 h-6 bg-[rgba(246,239,227,0.2)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
-<span class="ml-3 font-label-sm text-primary">Premium</span>
-</label>
-</td>
-<td class="py-4 px-4 text-outline">Jan 08, 2024</td>
-<td class="py-4 px-6 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="viewTip('Lamination Secrets for Croissant Dough')" title="View">
-<span class="material-symbols-outlined text-sm">visibility</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-secondary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="editTip('Lamination Secrets for Croissant Dough')" title="Edit">
-<span class="material-symbols-outlined text-sm">edit</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-all" onclick="openDeleteModal('Lamination Secrets for Croissant Dough')" title="Delete">
-<span class="material-symbols-outlined text-sm">delete</span>
-</button>
-</div>
-</td>
-</tr>
-<!-- Row 5 -->
-<tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors group">
-<td class="py-4 px-6">
-<div class="font-title-md text-on-surface group-hover:text-primary transition-colors">Sharpening on Japanese Waterstones</div>
-<div class="text-on-surface-variant text-body-sm line-clamp-1">Finding the correct 15-degree bevel angle and building a proper slurry for 1000/6000 grit stones.</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm bg-[rgba(159,216,184,0.15)] text-[#9FD8B8] border border-[rgba(159,216,184,0.35)]">Knife Skills</span>
-</td>
-<td class="py-4 px-4 text-on-surface">Chef James</td>
-<td class="py-4 px-4">
-<label class="relative inline-flex items-center cursor-pointer">
-<input class="sr-only peer" onchange="toggleAccess(this)" type="checkbox"/>
-<div class="w-11 h-6 bg-[rgba(246,239,227,0.2)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
-<span class="ml-3 font-label-sm text-secondary">Free</span>
-</label>
-</td>
-<td class="py-4 px-4 text-outline">Jan 22, 2024</td>
-<td class="py-4 px-6 text-right">
-<div class="flex items-center justify-end gap-2">
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="viewTip('Sharpening on Japanese Waterstones')" title="View">
-<span class="material-symbols-outlined text-sm">visibility</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-secondary hover:bg-[rgba(246,239,227,0.08)] transition-all" onclick="editTip('Sharpening on Japanese Waterstones')" title="Edit">
-<span class="material-symbols-outlined text-sm">edit</span>
-</button>
-<button class="p-2 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-all" onclick="openDeleteModal('Sharpening on Japanese Waterstones')" title="Delete">
-<span class="material-symbols-outlined text-sm">delete</span>
-</button>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<!-- Pagination Footer -->
-<div class="py-space-md px-space-lg flex flex-col sm:flex-row items-center justify-between border-t border-[rgba(246,239,227,0.08)] gap-space-md bg-[#0A211E]/30">
-<div class="text-body-sm text-outline">
-        Showing <span class="text-on-surface font-medium">1</span> to <span class="text-on-surface font-medium">5</span> of <span class="text-on-surface font-medium">128</span> entries
-      </div>
-<div class="flex items-center gap-space-xs">
-<button class="px-space-md py-1.5 rounded-[10px] bg-[rgba(246,239,227,0.06)] text-outline hover:text-on-surface hover:bg-[rgba(246,239,227,0.12)] text-body-sm transition-all disabled:opacity-50" disabled="">Previous</button>
-<button class="px-3 py-1.5 rounded-[10px] bg-primary-container text-on-primary-container font-label-md transition-all">1</button>
-<button class="px-3 py-1.5 rounded-[10px] bg-[rgba(246,239,227,0.06)] text-on-surface hover:bg-[rgba(246,239,227,0.12)] text-body-sm transition-all">2</button>
-<button class="px-3 py-1.5 rounded-[10px] bg-[rgba(246,239,227,0.06)] text-on-surface hover:bg-[rgba(246,239,227,0.12)] text-body-sm transition-all">3</button>
-<span class="px-2 text-outline">...</span>
-<button class="px-3 py-1.5 rounded-[10px] bg-[rgba(246,239,227,0.06)] text-on-surface hover:bg-[rgba(246,239,227,0.12)] text-body-sm transition-all">26</button>
-<button class="px-space-md py-1.5 rounded-[10px] bg-[rgba(246,239,227,0.06)] text-on-surface hover:bg-[rgba(246,239,227,0.12)] text-body-sm transition-all">Next</button>
-</div>
-</div>
-</div>
-<!-- Delete Confirmation Modal (Hidden by default) -->
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden" id="delete-modal">
-<div class="bg-[#184238] border border-[rgba(246,239,227,0.2)] p-space-xl rounded-[24px] max-w-md w-full mx-4 shadow-2xl relative animate-in fade-in zoom-in duration-200">
-<div class="w-12 h-12 rounded-full bg-error-container/30 border border-error/40 flex items-center justify-center text-error mb-space-md">
-<span class="material-symbols-outlined">warning</span>
-</div>
-<h3 class="font-headline-md text-on-surface mb-space-xs">Confirm Tip Deletion</h3>
-<p class="font-body-md text-on-surface-variant mb-space-lg">Are you sure you want to delete <span class="text-on-surface font-medium" id="delete-tip-title">this tip</span>? This action cannot be undone and will remove it from all active member feeds.</p>
-<div class="flex items-center justify-end gap-space-md">
-<button class="px-space-lg py-2 rounded-full bg-[rgba(246,239,227,0.08)] text-on-surface hover:bg-[rgba(246,239,227,0.15)] font-label-md transition-all" onclick="closeDeleteModal()">Cancel</button>
-<button class="px-space-lg py-2 rounded-full bg-error text-on-error font-label-md hover:opacity-90 shadow-[0_4px_16px_rgba(255,180,171,0.25)] transition-all" onclick="confirmDelete()">Delete Tip</button>
-</div>
-</div>
-</div>
-<!-- Toast Notification System -->
-<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none" id="toast-notification">
-<div class="bg-[#0A211E] border border-primary/40 text-on-surface px-space-lg py-space-md rounded-[14px] shadow-2xl flex items-center gap-space-md">
-<span class="material-symbols-outlined text-primary">check_circle</span>
-<div>
-<div class="font-title-md" id="toast-title">Action Successful</div>
-<div class="font-body-sm text-on-surface-variant" id="toast-message">Changes have been saved successfully.</div>
-</div>
-</div>
-</div>
-<!-- Client-side Interactive Script -->
+
 <script>
-    let tipToDelete = '';
-
-    function openDeleteModal(title) {
-      tipToDelete = title;
-      document.getElementById('delete-tip-title').innerText = '"' + title + '"';
-      document.getElementById('delete-modal').classList.remove('hidden');
+    function filterAdminTips() {
+        const query = (document.getElementById('admin-tip-search').value || '').toLowerCase();
+        const rows = document.querySelectorAll('.admin-tip-row');
+        rows.forEach(row => {
+            const data = row.getAttribute('data-search');
+            row.style.display = data.includes(query) ? '' : 'none';
+        });
     }
-
-    function closeDeleteModal() {
-      document.getElementById('delete-modal').classList.add('hidden');
-      tipToDelete = '';
-    }
-
-    function confirmDelete() {
-      closeDeleteModal();
-      showToast('Tip Deleted', 'Successfully removed ' + tipToDelete + ' from database.');
-    }
-
-    function toggleAccess(checkbox) {
-      const parentLabel = checkbox.nextElementSibling.nextElementSibling;
-      if (checkbox.checked) {
-        parentLabel.innerText = 'Premium';
-        parentLabel.className = 'ml-3 font-label-sm text-primary';
-        showToast('Access Updated', 'Tip changed to Premium status.');
-      } else {
-        parentLabel.innerText = 'Free';
-        parentLabel.className = 'ml-3 font-label-sm text-secondary';
-        showToast('Access Updated', 'Tip changed to Free status.');
-      }
-    }
-
-    function viewTip(title) {
-      showToast('Viewing Tip', 'Loading preview mode for: ' + title);
-    }
-
-    function editTip(title) {
-      showToast('Edit Mode', 'Opening editor workspace for: ' + title);
-    }
-
-    function openAddTipModal() {
-      showToast('New Tip Creator', 'Opening multi-step tip authoring suite.');
-    }
-
-    function resetFilters() {
-      document.getElementById('tip-search').value = '';
-      document.getElementById('filter-category').value = '';
-      document.getElementById('filter-access').value = '';
-      document.getElementById('filter-author').value = '';
-      showToast('Filters Reset', 'Showing all master tips.');
-    }
-
-    function showToast(title, message) {
-      const toast = document.getElementById('toast-notification');
-      document.getElementById('toast-title').innerText = title;
-      document.getElementById('toast-message').innerText = message;
-      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
-      setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
-      }, 3500);
-    }
-
-    // Search filter simulation
-    document.getElementById('tip-search').addEventListener('input', function(e) {
-      const term = e.target.value.toLowerCase();
-      const rows = document.querySelectorAll('#tips-table-body tr');
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        if(text.includes(term)) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
-      });
-    });
-  </script>
-</div>
+</script>

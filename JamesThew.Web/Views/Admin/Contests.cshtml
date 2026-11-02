@@ -1,322 +1,188 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.Contest>
 @{
-    ViewData["Title"] = "Manage Contests";
+    ViewData["Title"] = "Manage Culinary Contests";
+    Layout = "_AdminLayout";
 }
 
-<div class="flex flex-col w-full text-on-surface">
-<!-- Top Action & Overview Header -->
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-space-md mb-space-xl">
-<div>
-<span class="text-label-sm uppercase tracking-wider text-primary">Culinary Competitions</span>
-<h1 class="font-headline text-headline-xl text-on-surface mt-1">Manage Contests</h1>
-<p class="text-body-md text-on-surface-variant max-w-2xl mt-1">
-        Curate seasonal challenges, monitor community participation, and distribute prestigious culinary accolades.
-      </p>
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-[rgba(93,187,138,0.15)] border border-[rgba(93,187,138,0.3)] text-[#5DBB8A] flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <span>@TempData["Success"]</span>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-error/15 border border-error/30 text-error flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">error</span>
+        <span>@TempData["Error"]</span>
+    </div>
+}
+
+<div class="flex flex-col w-full text-on-surface pb-16">
+    <!-- Top Action & Overview Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-space-md mb-space-xl">
+        <div>
+            <span class="text-label-sm uppercase tracking-wider text-primary">Culinary Competitions</span>
+            <h1 class="font-headline text-headline-xl text-on-surface mt-1">Manage Contests</h1>
+            <p class="text-body-md text-on-surface-variant max-w-2xl mt-1">
+                Curate seasonal challenges, monitor community participation, and evaluate culinary creations.
+            </p>
+        </div>
+        <div>
+            <button class="inline-flex items-center gap-space-sm bg-primary hover:bg-[#E8A173] text-[#0A211E] px-6 py-2.5 rounded-full font-title-md shadow-lg transition-all cursor-pointer" onclick="toggleSlideOver(true)">
+                <span class="material-symbols-outlined">add</span>
+                Create Contest
+            </button>
+        </div>
+    </div>
+
+    <!-- KPI Statistics Row -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-xl">
+        <div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
+            <span class="text-label-sm text-outline uppercase tracking-wider">Total Contests</span>
+            <div class="flex items-baseline justify-between mt-space-sm">
+                <span class="font-headline text-4xl text-on-surface">@Model.Count()</span>
+                <span class="text-primary text-body-sm font-medium">All challenges</span>
+            </div>
+        </div>
+        <div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
+            <span class="text-label-sm text-outline uppercase tracking-wider">Active Challenges</span>
+            <div class="flex items-baseline justify-between mt-space-sm">
+                <span class="font-headline text-4xl text-on-surface">@Model.Count(c => c.Status == "Active")</span>
+                <span class="text-secondary text-body-sm font-medium">Live &amp; accepting</span>
+            </div>
+        </div>
+        <div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
+            <span class="text-label-sm text-outline uppercase tracking-wider">Total Submissions</span>
+            <div class="flex items-baseline justify-between mt-space-sm">
+                <span class="font-headline text-4xl text-on-surface">@Model.Sum(c => c.Entries.Count)</span>
+                <span class="text-secondary text-body-sm font-medium">Community dishes</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contests Table Section -->
+    <div class="bg-surface-container-low/70 backdrop-blur-xl rounded-xl border border-outline-variant/10 shadow-xl overflow-hidden mb-space-xl">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-outline-variant/10 bg-[#184238]/30">
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Contest Title</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Timeline</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Status</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990]">Entries</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-[#7F9990] text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/10 text-body-md text-on-surface">
+                    @foreach (var contest in Model)
+                    {
+                        <tr class="hover:bg-[rgba(24,66,56,0.5)] transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="font-headline text-title-lg text-[#F6EFE3]">@contest.Title</div>
+                                <div class="text-body-sm text-on-surface-variant line-clamp-1">@contest.Description</div>
+                            </td>
+                            <td class="py-4 px-6 text-body-sm text-[#B7C7BF]">
+                                <div>@contest.StartDate.ToString("MMM dd") - @contest.EndDate.ToString("MMM dd, yyyy")</div>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="px-3 py-1 rounded-full text-label-sm font-semibold @(contest.Status == "Active" ? "bg-[rgba(93,187,138,0.15)] text-[#5DBB8A] border border-[rgba(93,187,138,0.3)]" : "bg-surface-container-high text-on-surface-variant")">
+                                    @contest.Status
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 font-semibold text-primary">
+                                @contest.Entries.Count submissions
+                            </td>
+                            <td class="py-4 px-6 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <a asp-action="ContestEntries" class="p-1.5 rounded-lg bg-[#184238] text-on-surface-variant hover:text-primary transition-colors" title="Review Entries">
+                                        <span class="material-symbols-outlined text-sm">visibility</span>
+                                    </a>
+                                    <form asp-action="DeleteContest" asp-route-id="@contest.Id" method="post" class="inline" onsubmit="return confirm('Delete this contest and its records?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="p-1.5 rounded-lg bg-[#184238] text-error hover:bg-error/20 transition-colors cursor-pointer" title="Delete Contest">
+                                            <span class="material-symbols-outlined text-sm">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Create Contest SlideOver Drawer -->
+    <div class="fixed inset-0 z-50 hidden" id="slideOver">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0" id="slideBackdrop" onclick="toggleSlideOver(false)"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-xl bg-[#0A211E] border-l border-outline-variant/30 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="slidePanel">
+                <!-- Header -->
+                <div class="px-space-lg py-space-md border-b border-outline-variant/20 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">emoji_events</span>
+                        <h2 class="font-headline text-headline-sm text-on-surface">Create New Contest</h2>
+                    </div>
+                    <button class="p-2 text-on-surface-variant hover:text-on-surface rounded-full hover:bg-surface-container transition-colors cursor-pointer" onclick="toggleSlideOver(false)">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <!-- Form -->
+                <form asp-action="CreateContest" method="post" class="flex-1 flex flex-col justify-between overflow-y-auto">
+                    @Html.AntiForgeryToken()
+                    <div class="p-space-lg space-y-space-lg">
+                        <div>
+                            <label class="block text-label-md text-on-surface-variant mb-space-xs">Contest Title <span class="text-primary">*</span></label>
+                            <input name="title" class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="e.g., Summer Artisanal Pasta Masterclass" required />
+                        </div>
+                        <div>
+                            <label class="block text-label-md text-on-surface-variant mb-space-xs">Description &amp; Guidelines <span class="text-primary">*</span></label>
+                            <textarea name="description" rows="5" class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl p-space-md border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="Detail the challenge requirements, judging criteria, and technique expectations..." required></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-space-md">
+                            <div>
+                                <label class="block text-label-md text-on-surface-variant mb-space-xs">Start Date <span class="text-primary">*</span></label>
+                                <input name="startDate" type="date" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")" class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" required />
+                            </div>
+                            <div>
+                                <label class="block text-label-md text-on-surface-variant mb-space-xs">End Date <span class="text-primary">*</span></label>
+                                <input name="endDate" type="date" value="@DateTime.UtcNow.AddMonths(1).ToString("yyyy-MM-dd")" class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-3 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="px-space-lg py-space-md border-t border-outline-variant/20 bg-[#052420] flex items-center justify-end gap-space-sm">
+                        <button type="button" class="px-space-lg py-2.5 rounded-full text-on-surface-variant hover:text-on-surface text-body-md font-medium transition-colors cursor-pointer" onclick="toggleSlideOver(false)">Cancel</button>
+                        <button type="submit" class="bg-primary hover:bg-[#E8A173] text-[#0A211E] px-space-lg py-2.5 rounded-full font-title-md shadow-lg transition-all cursor-pointer">Publish Contest</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-<button class="inline-flex items-center gap-space-sm bg-primary-container text-on-primary-container px-space-lg py-space-sm rounded-full font-title-lg shadow-lg hover:bg-primary transition-all duration-300" onclick="toggleSlideOver(true)">
-<span class="material-symbols-outlined">add</span>
-        Create Contest
-      </button>
-</div>
-</div>
-<!-- KPI Statistics Row -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md mb-space-xl">
-<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
-<span class="text-label-sm text-outline uppercase tracking-wider">Active Contests</span>
-<div class="flex items-baseline justify-between mt-space-sm">
-<span class="font-headline text-4xl text-on-surface">04</span>
-<span class="text-secondary text-body-sm font-medium flex items-center gap-1">+1 this week</span>
-</div>
-</div>
-<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
-<span class="text-label-sm text-outline uppercase tracking-wider">Total Submissions</span>
-<div class="flex items-baseline justify-between mt-space-sm">
-<span class="font-headline text-4xl text-on-surface">1,284</span>
-<span class="text-secondary text-body-sm font-medium flex items-center gap-1">+18% vs last</span>
-</div>
-</div>
-<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
-<span class="text-label-sm text-outline uppercase tracking-wider">Prize Pool Distributed</span>
-<div class="flex items-baseline justify-between mt-space-sm">
-<span class="font-headline text-4xl text-on-surface">$12,450</span>
-<span class="text-primary text-body-sm font-medium">8 Contests</span>
-</div>
-</div>
-<div class="bg-surface-container-low/70 backdrop-blur-xl p-space-lg rounded-xl border border-outline-variant/10 shadow-xl">
-<span class="text-label-sm text-outline uppercase tracking-wider">Participant Reach</span>
-<div class="flex items-baseline justify-between mt-space-sm">
-<span class="font-headline text-4xl text-on-surface">4.8k</span>
-<span class="text-secondary text-body-sm font-medium">Global Chefs</span>
-</div>
-</div>
-</div>
-<!-- Contests Table Section -->
-<div class="bg-surface-container-low/70 backdrop-blur-xl rounded-xl border border-outline-variant/10 shadow-xl overflow-hidden mb-space-xl">
-<!-- Filter bar -->
-<div class="p-space-lg flex flex-col md:flex-row md:items-center md:justify-between gap-space-md border-b border-outline-variant/10">
-<div class="flex items-center gap-space-sm">
-<button class="px-space-md py-space-xs rounded-full text-label-md bg-primary-container/20 text-primary border border-primary/40 font-medium">All Contests (8)</button>
-<button class="px-space-md py-space-xs rounded-full text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Active (4)</button>
-<button class="px-space-md py-space-xs rounded-full text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Closed (4)</button>
-</div>
-<div class="flex items-center gap-space-sm">
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-sm">filter_list</span>
-<select class="bg-surface-container text-on-surface text-body-sm rounded-xl pl-9 pr-8 py-2 border border-outline-variant/30 focus:border-primary focus:outline-none appearance-none">
-<option>Sort by Deadline</option>
-<option>Sort by Entries</option>
-<option>Sort by Title</option>
-</select>
-</div>
-</div>
-</div>
-<!-- Table Container -->
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="border-b border-outline-variant/10 text-label-sm text-outline uppercase">
-<th class="py-space-md px-space-lg font-medium">Contest Title</th>
-<th class="py-space-md px-space-lg font-medium">Category</th>
-<th class="py-space-md px-space-lg font-medium">Timeline</th>
-<th class="py-space-md px-space-lg font-medium">Status</th>
-<th class="py-space-md px-space-lg font-medium">Entries</th>
-<th class="py-space-md px-space-lg font-medium text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant/10 text-body-md">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-container/50 transition-colors group">
-<td class="py-space-md px-space-lg">
-<div class="font-title-md text-on-surface flex items-center gap-3">
-<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="Close up of a magnificent gourmet autumn pumpkin soup served in a black ceramic bowl with toasted pumpkin seeds, vibrant orange color, Moody dark kitchen background with dramatic warm side lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg6d5nhQ2Oza28VPEDRu-bKyTDj0KW_V_-fAoagsb983yiYycVc27hLEJ8gxPpMhGFTsfMSyR_PKY0vDk8UCyH1bsO1pe9LRBl82YFuqa-Bw78OTZIae44MafbiFzLSILdIDdS-gQaiu3SaHTMRgx123zsOZv7Iy9ijtKoe9yMRoNw9ZtbY13mvVhMouO-MTYbpzUF-QgcXKMbixOCYnDJ1a84JnhLD6nuKtRAXJLsx_mhJ2fh8Xtn"/>
-<div>
-<span>Autumn Truffle & Squash Masterclass</span>
-<p class="text-body-sm text-on-surface-variant font-normal">Prize: $1,500 + Copper Cookware Set</p>
-</div>
-</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Recipe</span>
-</td>
-<td class="py-space-md px-space-lg">
-<div class="text-body-sm text-on-surface">Oct 01 — Nov 15</div>
-<div class="text-label-sm text-outline">3 days left</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#5DBB8A]/15 text-[#5DBB8A] border border-[#5DBB8A]/30">Active</span>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="font-title-md text-on-surface">342</span>
-</td>
-<td class="py-space-md px-space-lg text-right">
-<div class="flex items-center justify-end gap-space-sm">
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-body-sm transition-all">Close</button>
-<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-surface-container/50 transition-colors group">
-<td class="py-space-md px-space-lg">
-<div class="font-title-md text-on-surface flex items-center gap-3">
-<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="Artisanal sourdough bread loaf cut in half showing perfect airy crumb structure, dusting of flour on a dark wooden countertop, warm moody restaurant lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXy4nkiZ1l5pz6cOGzUFHdXZ3weIivau6fbAQamZ-8-OBpTt7qfTyzUOh5KM3aYe1ZAXnclXq-m_28pgoLNIuckw8j4njhiOgvb380dNPpbodUdF96UdtznVsRQGqACn-vKeQ1c1CzVg6PatJF4CU8H87QT101Qiok6wTbubygJKmRCqSX9ZCDAIltCT6420QhnrFFrI9NJpYbXRZdqS-uesEyaec9xax6fAd02cLXdaGqZuEb-xWC"/>
-<div>
-<span>The Art of Fermentation & Sourdough</span>
-<p class="text-body-sm text-on-surface-variant font-normal">Prize: Professional Proofing Basket & Knife Set</p>
-</div>
-</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Both</span>
-</td>
-<td class="py-space-md px-space-lg">
-<div class="text-body-sm text-on-surface">Oct 15 — Nov 30</div>
-<div class="text-label-sm text-outline">18 days left</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#5DBB8A]/15 text-[#5DBB8A] border border-[#5DBB8A]/30">Active</span>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="font-title-md text-on-surface">518</span>
-</td>
-<td class="py-space-md px-space-lg text-right">
-<div class="flex items-center justify-end gap-space-sm">
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-body-sm transition-all">Close</button>
-<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-container/50 transition-colors group">
-<td class="py-space-md px-space-lg">
-<div class="font-title-md text-on-surface flex items-center gap-3">
-<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="A professional culinary knife sharpening stone with water droplets reflecting warm kitchen lighting, meticulous technique, high-end culinary workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSMPXR03D6wfONdEm3EG605-70CQQWXE1pxs3z8ZVtBTWMk0lwmO666an1_pVIHqMaWfbgNetzwhp643T7kpQeOiqtzcmAlWIKFK8S5cnUZb2oyFv8GZlF_aLqhtgcCiLgH8bGMpZs8QMG49WC3k_iiXiWCM4zfqxxlusOgBDY_2ftYVOpYpLPYGFBcvmq0wjk2eWocCjtLmkxCY0VsCVbFGpjfBoRyS6HTf16rD-EUYKIwakTmKIF"/>
-<div>
-<span>Kitchen Knife Skills & Safety Tips</span>
-<p class="text-body-sm text-on-surface-variant font-normal">Prize: Damascus Steel Chef Knife</p>
-</div>
-</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Tip</span>
-</td>
-<td class="py-space-md px-space-lg">
-<div class="text-body-sm text-on-surface">Sep 01 — Oct 01</div>
-<div class="text-label-sm text-outline">Ended</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#7F9990]/15 text-[#7F9990] border border-[#7F9990]/20">Closed</span>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="font-title-md text-on-surface">244</span>
-</td>
-<td class="py-space-md px-space-lg text-right">
-<div class="flex items-center justify-end gap-space-sm">
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
-<button class="px-3 py-1.5 rounded-lg bg-surface-container/40 text-outline text-body-sm cursor-not-allowed" disabled="">Closed</button>
-<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-surface-container/50 transition-colors group">
-<td class="py-space-md px-space-lg">
-<div class="font-title-md text-on-surface flex items-center gap-3">
-<img class="w-10 h-10 rounded-lg object-cover flex-shrink-0" data-alt="Handcrafted artisanal cocktails in crystal glassware garnished with aromatic herbs, dark moody cocktail lounge ambiance with subtle amber lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtxaFkOntmQq-TBpM5myDligLm5cFqIYJWdnUsslcdPpBwW4RySrYtgj4FUQkm-7DHj45LskqpR2o_22NEpHc-_pTZjSE3j9DLKYr33P-M2vroZKHa88mZH5FenjIO0NiHk21JoHa0moWsGpyv_nRbn8ENLCuvVquewWsZyDtkmlerfbLYrdzm6Rf6C0zm0S-mrjl_aYd68AoJqeyGzjgZvzBU3sJHnoO2UxRphv_H4D2BmlxaNQej"/>
-<div>
-<span>Botanical Infusions & Elixirs</span>
-<p class="text-body-sm text-on-surface-variant font-normal">Prize: Master Mixology Kit</p>
-</div>
-</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="px-2.5 py-1 rounded-full text-label-sm bg-surface-variant text-on-surface-variant">Recipe</span>
-</td>
-<td class="py-space-md px-space-lg">
-<div class="text-body-sm text-on-surface">Nov 01 — Dec 15</div>
-<div class="text-label-sm text-outline">Starts soon</div>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-medium bg-[#F5A623]/12 text-[#F5A623] border border-[#F5A623]/25">Upcoming</span>
-</td>
-<td class="py-space-md px-space-lg">
-<span class="font-title-md text-on-surface">0</span>
-</td>
-<td class="py-space-md px-space-lg text-right">
-<div class="flex items-center justify-end gap-space-sm">
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-primary-container/30 hover:text-primary text-body-sm transition-all">View Entries</button>
-<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface text-body-sm transition-all">Close</button>
-<button class="p-1.5 rounded-lg text-error hover:bg-error-container/20 transition-all"><span class="material-symbols-outlined text-sm">delete</span></button>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<!-- Pagination footer -->
-<div class="p-space-md px-space-lg flex items-center justify-between border-t border-outline-variant/10 text-body-sm text-on-surface-variant">
-<span>Showing 1 to 4 of 8 total contests</span>
-<div class="flex items-center gap-space-sm">
-<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">Previous</button>
-<button class="px-3 py-1 rounded-lg bg-primary text-on-primary-fixed font-medium">1</button>
-<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">2</button>
-<button class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">Next</button>
-</div>
-</div>
-</div>
-<!-- Create New Contest Slide-Over Panel Overlay -->
-<div class="fixed inset-0 z-50 overflow-hidden hidden" id="slideOver">
-<!-- Backdrop -->
-<div class="absolute inset-0 bg-[#00110F]/80 backdrop-blur-md opacity-0 transition-opacity duration-300" id="slideBackdrop" onclick="toggleSlideOver(false)"></div>
-<!-- Sliding Panel -->
-<div class="absolute inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300 ease-in-out" id="slidePanel">
-<div class="w-screen max-w-xl bg-[#0A211E] border-l border-outline-variant/20 shadow-2xl flex flex-col h-full">
-<!-- Panel Header -->
-<div class="px-space-lg py-space-md border-b border-outline-variant/20 flex items-center justify-between bg-[#052420]">
-<div class="flex items-center gap-space-sm">
-<span class="material-symbols-outlined text-primary">trophy</span>
-<h2 class="font-headline text-headline-sm text-on-surface">Create New Contest</h2>
-</div>
-<button class="p-2 text-on-surface-variant hover:text-on-surface rounded-full hover:bg-surface-container transition-colors" onclick="toggleSlideOver(false)">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<!-- Panel Body Form -->
-<div class="flex-1 overflow-y-auto p-space-lg space-y-space-lg">
-<div>
-<label class="block text-label-md text-on-surface-variant mb-space-xs">Contest Title</label>
-<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="e.g., Holiday Pastry & Confection Showcase" type="text"/>
-</div>
-<div>
-<label class="block text-label-md text-on-surface-variant mb-space-xs">Category</label>
-<div class="grid grid-cols-3 gap-space-sm">
-<label class="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#001714] border border-outline-variant/30 cursor-pointer hover:border-primary transition-all">
-<input class="text-primary focus:ring-0" name="contest_category" type="radio"/>
-<span class="text-body-sm text-on-surface font-medium">Recipe</span>
-</label>
-<label class="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#001714] border border-outline-variant/30 cursor-pointer hover:border-primary transition-all">
-<input class="text-primary focus:ring-0" name="contest_category" type="radio"/>
-<span class="text-body-sm text-on-surface font-medium">Tip</span>
-</label>
-<label class="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#001714] border border-outline-variant/30 cursor-pointer hover:border-primary transition-all">
-<input checked="" class="text-primary focus:ring-0" name="contest_category" type="radio"/>
-<span class="text-body-sm text-on-surface font-medium">Both</span>
-</label>
-</div>
-</div>
-<div>
-<label class="block text-label-md text-on-surface-variant mb-space-xs">Description & Requirements</label>
-<textarea class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl p-space-md border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="Detail the guidelines, key ingredients, preparation standards, and evaluation criteria for participating chefs..." rows="4"></textarea>
-</div>
-<div>
-<label class="block text-label-md text-on-surface-variant mb-space-xs">Prize Details</label>
-<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="e.g., $1,000 Cash Prize + Chef James Thew Signature Knife" type="text"/>
-</div>
-<div class="grid grid-cols-2 gap-space-md">
-<div>
-<label class="block text-label-md text-on-surface-variant mb-space-xs">Start Date</label>
-<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" type="date"/>
-</div>
-<div>
-<label class="block text-label-md text-on-surface-variant mb-space-xs">Deadline</label>
-<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" type="date"/>
-</div>
-</div>
-<div>
-<label class="block text-label-md text-on-surface-variant mb-space-xs">Cover Imagery Prompt</label>
-<input class="w-full bg-[#001714] text-on-surface text-body-md rounded-xl px-space-md py-2.5 border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none" placeholder="Describe contest promotional image..." type="text"/>
-</div>
-</div>
-<!-- Panel Footer -->
-<div class="px-space-lg py-space-md border-t border-outline-variant/20 bg-[#052420] flex items-center justify-end gap-space-sm">
-<button class="px-space-lg py-2.5 rounded-full text-on-surface-variant hover:text-on-surface text-body-md font-medium transition-colors" onclick="toggleSlideOver(false)">Cancel</button>
-<button class="bg-primary-container text-on-primary-container px-space-lg py-2.5 rounded-full font-title-lg shadow-lg hover:bg-primary transition-all duration-300" onclick="toggleSlideOver(false)">Publish Contest</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Client Interaction Script -->
+
 <script>
     function toggleSlideOver(open) {
-      const slideOver = document.getElementById('slideOver');
-      const backdrop = document.getElementById('slideBackdrop');
-      const panel = document.getElementById('slidePanel');
+        const slideOver = document.getElementById('slideOver');
+        const backdrop = document.getElementById('slideBackdrop');
+        const panel = document.getElementById('slidePanel');
 
-      if (open) {
-        slideOver.classList.remove('hidden');
-        setTimeout(() => {
-          backdrop.classList.add('opacity-100');
-          panel.classList.remove('translate-x-full');
-        }, 10);
-      } else {
-        backdrop.classList.remove('opacity-100');
-        panel.classList.add('translate-x-full');
-        setTimeout(() => {
-          slideOver.classList.add('hidden');
-        }, 300);
-      }
+        if (open) {
+            slideOver.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.add('opacity-100');
+                panel.classList.remove('translate-x-full');
+            }, 10);
+        } else {
+            backdrop.classList.remove('opacity-100');
+            panel.classList.add('translate-x-full');
+            setTimeout(() => {
+                slideOver.classList.add('hidden');
+            }, 300);
+        }
     }
-  </script>
-</div>
+</script>

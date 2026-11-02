@@ -1,0 +1,147 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.Tip>
+@{
+    ViewData["Title"] = "My Kitchen Tips";
+    Layout = "_DashboardLayout";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-[rgba(93,187,138,0.15)] border border-[rgba(93,187,138,0.3)] text-[#5DBB8A] flex items-center gap-3">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <span>@TempData["Success"]</span>
+    </div>
+}
+
+<!-- Top Action & Search Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-space-xl">
+    <div>
+        <span class="text-label-md uppercase tracking-wider text-primary mb-1 block">Culinary Intelligence</span>
+        <h2 class="text-headline-xl font-headline text-on-surface">My Kitchen Tips &amp; Techniques</h2>
+    </div>
+    <div class="flex items-center gap-4">
+        <div class="relative flex-1 md:w-80">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+            <input id="tip-search" oninput="filterTips()" class="w-full bg-surface-container text-on-surface placeholder:text-on-surface-variant text-body-sm rounded-xl pl-9 pr-4 py-2.5 border border-outline-variant focus:outline-none focus:border-primary transition-all" placeholder="Filter submitted tips..." type="text"/>
+        </div>
+        <a asp-action="AddTip" class="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary font-title-md rounded-full shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-[#E8A173] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)] transition-all cursor-pointer whitespace-nowrap">
+            <span class="material-symbols-outlined text-[20px]">add</span>
+            + Add Tip
+        </a>
+    </div>
+</div>
+
+<!-- KPI / Stats Summary Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-space-xl">
+    <div class="bg-surface-container/70 backdrop-blur-[16px] rounded-xl p-space-lg shadow-sm border border-[rgba(246,239,227,0.12)]">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-label-sm text-on-surface-variant uppercase">Total Tips Published</span>
+            <span class="material-symbols-outlined text-primary text-[22px]">lightbulb</span>
+        </div>
+        <div class="text-headline-lg font-headline text-on-surface">@Model.Count()</div>
+        <div class="text-body-sm text-[#5DBB8A] mt-1 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">check_circle</span> Active Contributions
+        </div>
+    </div>
+    <div class="bg-surface-container/70 backdrop-blur-[16px] rounded-xl p-space-lg shadow-sm border border-[rgba(246,239,227,0.12)]">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-label-sm text-on-surface-variant uppercase">Free Public Tips</span>
+            <span class="material-symbols-outlined text-[#9FD8B8] text-[22px]">public</span>
+        </div>
+        <div class="text-headline-lg font-headline text-on-surface">@Model.Count(t => t.Access == "Free")</div>
+        <div class="text-body-sm text-on-surface-variant mt-1">Community Accessible</div>
+    </div>
+    <div class="bg-surface-container/70 backdrop-blur-[16px] rounded-xl p-space-lg shadow-sm border border-[rgba(246,239,227,0.12)]">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-label-sm text-on-surface-variant uppercase">Premium Secrets</span>
+            <span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+        </div>
+        <div class="text-headline-lg font-headline text-on-surface">@Model.Count(t => t.Access == "Premium")</div>
+        <div class="text-body-sm text-primary mt-1">Exclusive Member Tier</div>
+    </div>
+</div>
+
+<!-- Structured Table Container -->
+@if (!Model.Any())
+{
+    <div class="bg-surface-container/70 backdrop-blur-[16px] rounded-xl p-12 text-center border border-[rgba(246,239,227,0.12)]">
+        <span class="material-symbols-outlined text-primary text-[48px] mb-3">lightbulb</span>
+        <h3 class="text-headline-md font-headline text-on-surface mb-2">No Tips Published Yet</h3>
+        <p class="text-body-md text-on-surface-variant max-w-md mx-auto mb-6">You haven't shared any culinary shortcuts or techniques yet. Share your kitchen wisdom with the community!</p>
+        <a asp-action="AddTip" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-on-primary font-title-md rounded-full shadow-lg hover:bg-[#E8A173] transition-all">
+            <span class="material-symbols-outlined text-[20px]">add_circle</span>
+            Publish First Tip
+        </a>
+    </div>
+}
+else
+{
+    <div class="bg-surface-container/70 backdrop-blur-[16px] rounded-xl shadow-sm border border-[rgba(246,239,227,0.12)] overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-[rgba(246,239,227,0.08)] bg-surface-container-high/50">
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Tip Title &amp; Preview</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Category</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Access</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Date Submitted</th>
+                        <th class="py-4 px-6 text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[rgba(246,239,227,0.08)]" id="tips-table-body">
+                    @foreach (var tip in Model)
+                    {
+                        <tr class="tip-row hover:bg-[rgba(24,66,56,0.5)] transition-colors group" data-title="@tip.Title.ToLower()">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-4">
+                                    <img src="@tip.ImagePath" alt="@tip.Title" class="w-12 h-12 rounded-lg object-cover shrink-0 bg-surface-container-high" onerror="this.src='/images/tip-default.jpg'"/>
+                                    <div>
+                                        <div class="font-title-md text-on-surface group-hover:text-primary transition-colors">@tip.Title</div>
+                                        <div class="text-body-sm text-on-surface-variant line-clamp-1">@tip.Description</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-label-md bg-[#184238] border border-[rgba(246,239,227,0.08)] text-[#B7C7BF]">
+                                    @tip.Category?.Name
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-label-sm uppercase font-semibold @(tip.Access == "Premium" ? "bg-[rgba(217,138,86,0.18)] border border-[rgba(217,138,86,0.45)] text-primary" : "bg-[rgba(159,216,184,0.15)] border border-[rgba(159,216,184,0.35)] text-[#9FD8B8]")">
+                                    @if (tip.Access == "Premium")
+                                    {
+                                        <span class="material-symbols-outlined text-[12px]">crown</span>
+                                    }
+                                    @tip.Access
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-body-sm text-on-surface-variant">
+                                @tip.CreatedAt.ToString("MMM dd, yyyy")
+                            </td>
+                            <td class="py-4 px-6 text-right">
+                                <a asp-controller="Tips" asp-action="Details" asp-route-id="@tip.Id" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-surface-container-high text-primary hover:text-on-primary hover:bg-primary transition-all text-label-md font-semibold">
+                                    <span>View</span>
+                                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<script>
+    function filterTips() {
+        const query = document.getElementById('tip-search').value.toLowerCase();
+        const rows = document.querySelectorAll('.tip-row');
+        rows.forEach(row => {
+            const title = row.getAttribute('data-title');
+            if (title.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>

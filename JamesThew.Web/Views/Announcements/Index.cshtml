@@ -1,0 +1,310 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.Announcement>
+@{
+    ViewData["Title"] = "Announcements & Guild News - Chef James Thew";
+    var winnerAnnouncement = Model?.FirstOrDefault(a => a.Type == "Winner");
+    var feed = Model != null ? (winnerAnnouncement != null ? Model.Where(a => a.Id != winnerAnnouncement.Id).ToList() : Model.ToList()) : new List<JamesThew.Web.Models.Entities.Announcement>();
+    var activeContests = ViewBag.ActiveContests as IEnumerable<JamesThew.Web.Models.Entities.Contest> ?? new List<JamesThew.Web.Models.Entities.Contest>();
+}
+
+<div class="w-full px-margin-mobile lg:px-margin py-space-xl">
+  <!-- Breadcrumb & Header Unit -->
+  <div class="flex flex-col gap-space-sm mb-space-xl">
+    <nav aria-label="Breadcrumb" class="flex items-center gap-space-xs text-label-sm font-label-sm uppercase tracking-wider text-outline">
+      <a class="hover:text-primary transition-colors" asp-controller="Home" asp-action="Index">Home</a>
+      <span class="text-outline-variant">/</span>
+      <span class="text-primary-container">Announcements</span>
+    </nav>
+    <div class="flex flex-col gap-space-xs">
+      <span class="font-label-md text-label-md text-primary tracking-widest uppercase font-semibold">
+        Official Dispatches &amp; Honors
+      </span>
+      <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight font-normal">
+        Announcements &amp; Guild News
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed mt-space-xs">
+        Official proclamations, seasonal contest winner announcements, and culinary updates directly from Chef James Thew.
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Content Layout (2/3 Feed, 1/3 Sidebar) -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+    <!-- Left Column: Main Feed (8 Columns) -->
+    <section class="lg:col-span-8 flex flex-col gap-space-lg">
+      @if (winnerAnnouncement != null)
+      {
+        var wEntry = winnerAnnouncement.WinnerEntry;
+        var wName = wEntry?.User?.FullName ?? (string.IsNullOrEmpty(wEntry?.GuestName) ? "Honored Culinary Creator" : wEntry.GuestName);
+
+        <!-- Pinned Card: Winner Proclamation -->
+        <article id="pinned-winner-card" class="announcement-item relative rounded-2xl bg-surface-container/90 backdrop-blur-xl p-space-lg lg:p-space-xl shadow-2xl overflow-hidden border border-primary-container/30 transition-all duration-300" data-type="winner">
+          <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
+          <div class="relative z-10 flex flex-col gap-space-md">
+            <div class="flex flex-wrap items-center justify-between gap-space-sm">
+              <div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-primary-container/20 text-primary-container font-label-md text-label-md font-semibold tracking-wider uppercase">
+                <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                Official Winner Proclamation
+              </div>
+              <time class="font-label-sm text-label-sm text-outline tracking-wider uppercase">
+                @winnerAnnouncement.PostedAt.ToString("MMMM dd, yyyy")
+              </time>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+              <div class="md:col-span-8 flex flex-col gap-space-xs">
+                <span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider">
+                  @(winnerAnnouncement.Contest?.Title ?? "Amateur Gourmet Division • Karachi")
+                </span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface leading-snug">
+                  @winnerAnnouncement.Title
+                </h2>
+                @if (wEntry != null)
+                {
+                  <p class="font-title-md text-title-md text-primary italic">
+                    Winning Formulation: “@wEntry.Title” by @wName
+                  </p>
+                }
+              </div>
+              <!-- Winner Visual Frame -->
+              <div class="md:col-span-4 rounded-xl overflow-hidden shadow-lg aspect-[4/3] bg-surface-container-highest">
+                <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="Gourmet saffron glazed seabass resting on shaved braised fennel with translucent meyer lemon emulsion, Michelin culinary presentation on dark ceramic dish, cinematic dim restaurant kitchen lighting, copper and emerald reflections." src="~/images/gourmet-saffron-glazed-seabass-resting-on-shaved-e509e5.jpg" alt="Winning Seabass Formulation" />
+              </div>
+            </div>
+
+            <!-- Chef James's Personal Critique -->
+            <div class="relative mt-space-xs p-space-md rounded-xl bg-surface-container-low/80">
+              <span class="material-symbols-outlined absolute top-3 left-3 text-primary/20 text-3xl select-none">format_quote</span>
+              <blockquote class="font-headline-sm text-headline-sm italic text-on-surface font-normal pl-space-lg leading-relaxed">
+                “@winnerAnnouncement.Message”
+              </blockquote>
+              <figcaption class="text-right font-label-md text-label-md text-primary-container mt-space-xs tracking-wider uppercase">
+                — Chef James Thew
+              </figcaption>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+              <a asp-controller="Contests" asp-action="PastWinners" class="inline-flex items-center justify-center px-space-lg py-3 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary transition-all">
+                <span>View Full Honor Roll</span>
+                <span class="material-symbols-outlined ml-1.5 text-base">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      }
+
+      <!-- Chronological Feed Header Divider -->
+      <div id="feed-divider" class="flex items-center gap-space-md pt-space-xs">
+        <span class="font-label-md text-label-md text-outline uppercase tracking-widest whitespace-nowrap">Chronological Guild Log</span>
+        <div class="w-full h-px bg-surface-container-highest"></div>
+      </div>
+
+      <!-- Feed List -->
+      @if (feed.Any())
+      {
+        @foreach (var item in feed)
+        {
+          <article class="announcement-item group rounded-2xl bg-surface-container/70 backdrop-blur-md p-space-lg hover:bg-surface-container transition-all duration-200 shadow-md border border-outline-variant/30" data-type="@item.Type.ToLower()">
+            <div class="flex flex-col gap-space-sm">
+              <div class="flex flex-wrap items-center justify-between gap-space-xs">
+                <span class="inline-flex items-center gap-space-xs px-2.5 py-1 rounded-full @(item.Type == "Winner" ? "bg-primary-container/20 text-primary" : "bg-secondary/15 text-secondary") font-label-md text-label-md font-semibold tracking-wider uppercase">
+                  <span class="material-symbols-outlined text-[14px]">@(item.Type == "Winner" ? "emoji_events" : "campaign")</span>
+                  @item.Type Dispatch
+                </span>
+                <time class="font-label-sm text-label-sm text-outline">@item.PostedAt.ToString("MMM dd, yyyy")</time>
+              </div>
+
+              <div class="flex flex-col gap-space-xs">
+                <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+                  @item.Title
+                </h3>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  @item.Message
+                </p>
+              </div>
+
+              @if (item.Contest != null)
+              {
+                <div class="pt-space-xs flex items-center justify-between border-t border-surface-container-highest/40 mt-space-xs">
+                  <span class="font-label-sm text-outline">Linked Challenge: @item.Contest.Title</span>
+                  <a asp-controller="Contests" asp-action="Index" class="text-primary font-title-md text-sm hover:underline flex items-center gap-1">
+                    <span>View Challenge</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </a>
+                </div>
+              }
+            </div>
+          </article>
+        }
+      }
+      else if (winnerAnnouncement == null)
+      {
+        <div class="py-16 text-center bg-surface-container/40 rounded-2xl border border-outline-variant/30 p-space-lg">
+          <span class="material-symbols-outlined text-5xl text-outline mb-2">campaign</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">No Dispatches Posted Yet</h3>
+          <p class="font-body-sm text-on-surface-variant mt-1">Check back shortly for official culinary proclamations and news.</p>
+        </div>
+      }
+
+      <!-- No Filter Results State Card -->
+      <div id="no-filter-results" class="hidden py-16 text-center bg-surface-container/40 rounded-2xl border border-outline-variant/30 p-space-lg">
+        <span class="material-symbols-outlined text-5xl text-outline mb-2">filter_list_off</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">No Dispatches Found</h3>
+        <p class="font-body-sm text-on-surface-variant mt-1">There are no announcements currently matching this category.</p>
+        <button type="button" onclick="filterAnnouncements('all')" class="mt-4 px-5 py-2.5 rounded-full bg-primary-container text-surface-container-lowest text-xs font-semibold hover:bg-primary transition-all cursor-pointer">
+          Show All Dispatches
+        </button>
+      </div>
+    </section>
+
+    <!-- Right Column: Sidebar (4 Columns) -->
+    <aside class="lg:col-span-4 flex flex-col gap-space-lg sticky top-24">
+      <!-- Active Contests Widget -->
+      @if (activeContests.Any())
+      {
+        <div class="bg-surface-container/75 backdrop-blur-md rounded-[18px] p-space-lg shadow-lg border border-outline-variant/30">
+          <div class="flex items-center justify-between mb-space-sm">
+            <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-[20px]">local_fire_department</span>
+              <span>Live Competitions</span>
+            </h3>
+            <span class="px-2.5 py-0.5 rounded-full bg-surface-bright text-tertiary font-label-sm text-label-sm font-semibold">Active</span>
+          </div>
+
+          <!-- Featured Copper Kit Image Inset -->
+          <div class="rounded-xl overflow-hidden aspect-[16/9] bg-surface-container-lowest my-space-sm shadow-md">
+            <img class="w-full h-full object-cover" data-alt="Heirloom hand-forged 7-piece copper cookware collection sitting on a dark emerald marble kitchen countertop with gentle warm amber reflection and steam rising in a professional culinary studio." src="~/images/heirloom-hand-forged-7-piece-copper-cookware-col-9127d0.jpg" alt="Master Copper Kit Prize" />
+          </div>
+
+          <div class="space-y-space-md">
+            @foreach (var ac in activeContests)
+            {
+              <div class="p-space-sm rounded-xl bg-surface-container-low border border-outline-variant/20">
+                <h4 class="font-title-md text-sm text-on-surface leading-tight mb-1">@ac.Title</h4>
+                <p class="font-body-sm text-xs text-on-surface-variant mb-2">Closes @ac.EndDate.ToString("MMM dd, yyyy")</p>
+                <a asp-controller="Contests" asp-action="Participate" asp-route-contestId="@ac.Id" class="inline-flex items-center gap-1 text-primary text-xs font-semibold hover:underline">
+                  <span>Enter Contest</span>
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Filter Announcements Card -->
+      <div class="rounded-2xl bg-surface-container/90 backdrop-blur-xl p-space-lg shadow-xl border border-outline-variant/30">
+        <div class="flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <h4 class="font-headline-sm text-headline-sm text-on-surface">Filter Announcements</h4>
+            <span class="material-symbols-outlined text-outline text-[18px]">tune</span>
+          </div>
+          <div class="flex flex-wrap gap-2" id="announcement-filter-group">
+            <button data-filter="all" class="announcement-filter-btn px-3.5 py-1.5 rounded-full bg-primary-container text-surface-container-lowest font-label-md text-label-md transition-all shadow-sm font-semibold cursor-pointer" type="button">
+              All Dispatches
+            </button>
+            <button data-filter="winner" class="announcement-filter-btn px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:text-primary hover:bg-surface-bright font-label-md text-label-md transition-colors cursor-pointer" type="button">
+              Contest Winners
+            </button>
+            <button data-filter="update" class="announcement-filter-btn px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:text-primary hover:bg-surface-bright font-label-md text-label-md transition-colors cursor-pointer" type="button">
+              Curriculum Updates
+            </button>
+            <button data-filter="newcontest" class="announcement-filter-btn px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:text-primary hover:bg-surface-bright font-label-md text-label-md transition-colors cursor-pointer" type="button">
+              Competitions
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subscribe Widget -->
+      <div class="p-space-lg rounded-[18px] bg-gradient-to-br from-surface-container-high to-surface-container border border-primary-container/20 shadow-xl">
+        <span class="font-label-sm text-primary uppercase tracking-widest block mb-1">Culinary Fellowship</span>
+        <h4 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">Join Chef James's Guild</h4>
+        <p class="font-body-sm text-on-surface-variant mb-space-md">
+          Receive private dispatches, early notifications on upcoming competitions, and unlimited recipe access.
+        </p>
+        <a asp-controller="Plans" asp-action="Index" class="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-sm font-semibold hover:bg-primary transition-all">
+          Explore Plans ($10/mo)
+        </a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+@section Scripts {
+<script>
+    function filterAnnouncements(filterType) {
+        const normalizedFilter = (filterType || 'all').toLowerCase();
+
+        // 1. Update Filter Buttons Styling
+        const buttons = document.querySelectorAll('.announcement-filter-btn');
+        buttons.forEach(btn => {
+            const btnFilter = (btn.dataset.filter || 'all').toLowerCase();
+            if (btnFilter === normalizedFilter) {
+                btn.className = "announcement-filter-btn px-3.5 py-1.5 rounded-full bg-primary-container text-surface-container-lowest font-label-md text-label-md transition-all shadow-sm font-semibold cursor-pointer";
+            } else {
+                btn.className = "announcement-filter-btn px-3.5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:text-primary hover:bg-surface-bright font-label-md text-label-md transition-colors cursor-pointer";
+            }
+        });
+
+        // 2. Filter Announcement Cards
+        const items = document.querySelectorAll('.announcement-item');
+        let visibleCount = 0;
+        let visibleFeedCount = 0;
+
+        items.forEach(item => {
+            const itemType = (item.dataset.type || '').toLowerCase();
+            const isMatch = (normalizedFilter === 'all' || itemType === normalizedFilter);
+
+            if (isMatch) {
+                item.style.display = '';
+                visibleCount++;
+                if (item.id !== 'pinned-winner-card') {
+                    visibleFeedCount++;
+                }
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // 3. Update Feed Divider
+        const divider = document.getElementById('feed-divider');
+        if (divider) {
+            divider.style.display = (visibleFeedCount > 0) ? '' : 'none';
+        }
+
+        // 4. Update No Results Message
+        const noResults = document.getElementById('no-filter-results');
+        if (noResults) {
+            noResults.style.display = (visibleCount === 0) ? 'block' : 'none';
+        }
+
+        // 5. Update URL state without page reload
+        try {
+            const url = new URL(window.location);
+            if (normalizedFilter === 'all') {
+                url.searchParams.delete('filter');
+            } else {
+                url.searchParams.set('filter', normalizedFilter);
+            }
+            window.history.replaceState({}, '', url);
+        } catch (e) { }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.announcement-filter-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                filterAnnouncements(this.dataset.filter);
+            });
+        });
+
+        // Check if query param exists or server ViewBag
+        const params = new URLSearchParams(window.location.search);
+        const urlFilter = params.get('filter');
+        const initialFilter = urlFilter || '@(ViewBag.CurrentFilter ?? "all")';
+        if (initialFilter && initialFilter !== 'all') {
+            filterAnnouncements(initialFilter);
+        }
+    });
+</script>
+}

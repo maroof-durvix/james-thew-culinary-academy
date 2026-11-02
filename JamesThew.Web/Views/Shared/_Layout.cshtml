@@ -1,27 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>@ViewData["Title"] - JamesThew.com</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/JamesThew.Web.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" asp-append-version="true"/>
+    <link rel="shortcut icon" href="~/favicon.ico" asp-append-version="true"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        @@layer base {
+            html, body { margin: 0; padding: 0; }
+            body { overscroll-behavior: none; }
+            main > :first-child { margin-top: 0 !important; }
+            main > :last-child { margin-bottom: 0 !important; }
+        }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-highest": "#1d3a35", "tertiary": "#a4d0c2", "on-primary": "#512300", "inverse-surface": "#c9e9e2", "error-container": "#93000a", "on-primary-fixed": "#311300", "surface": "#001714", "outline-variant": "#53443b", "on-secondary-fixed-variant": "#185038", "on-error-container": "#ffdad6", "inverse-on-surface": "#183531", "surface-tint": "#ffb689", "tertiary-fixed": "#c0ecdd", "on-primary-fixed-variant": "#713708", "on-primary-container": "#572700", "secondary": "#9ad3b3", "surface-container-lowest": "#00110f", "surface-container": "#052420", "on-surface": "#c9e9e2", "on-surface-variant": "#d9c2b6", "outline": "#a18d82", "primary": "#ffb689", "primary-fixed-dim": "#ffb689", "surface-container-high": "#112f2b", "on-error": "#690005", "on-tertiary-fixed": "#002019", "secondary-fixed": "#b5efce", "primary-fixed": "#ffdbc8", "surface-dim": "#001714", "surface-container-low": "#02201c", "on-secondary": "#003824", "inverse-primary": "#8e4d1f", "on-tertiary-fixed-variant": "#254e43", "tertiary-fixed-dim": "#a4d0c2", "on-background": "#c9e9e2", "on-tertiary": "#0a372d", "secondary-container": "#1b533a", "primary-container": "#d98a56", "on-secondary-container": "#8cc5a5", "background": "#001714", "tertiary-container": "#7ba598", "on-tertiary-container": "#0f3b31", "surface-variant": "#1d3a35", "secondary-fixed-dim": "#9ad3b3", "surface-bright": "#223e3a", "on-secondary-fixed": "#002113", "error": "#ffb4ab"
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    spacing: { "space-sm": "0.5rem", "margin": "3rem", "space-xl": "2.5rem", "gutter-mobile": "1rem", "space-xs": "0.25rem", "gutter": "1.5rem", "space-md": "1rem", "space-lg": "1.5rem", "margin-mobile": "1.25rem" },
+                    fontFamily: { "body-sm": ["Inter"], "label-sm": ["Inter"], "body-lg": ["Inter"], "headline-xl-mobile": ["EB Garamond"], "body-md": ["Inter"], "headline-lg": ["EB Garamond"], "title-lg": ["Inter"], "display-lg": ["EB Garamond"], "display-lg-mobile": ["EB Garamond"], "label-md": ["Inter"], "headline-md": ["EB Garamond"], "title-md": ["Inter"], "headline-xl": ["EB Garamond"], "headline-sm": ["EB Garamond"] },
+                    fontSize: { "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "500" }], "title-lg": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "display-lg-mobile": ["38px", { "lineHeight": "46px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-md": ["26px", { "lineHeight": "34px", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.015em", "fontWeight": "400" }], "headline-sm": ["22px", { "lineHeight": "28px", "fontWeight": "600" }] }
+                }
+            }
+        };
+    </script>
 </head>
-<body class="d-flex flex-column min-vh-100">
-    <header>
-        <partial name="_PublicNavbar" />
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+        <div class="h-20 w-full px-margin-mobile lg:px-margin flex items-center justify-between gap-gutter">
+            <a class="flex items-center hover:opacity-90 transition-opacity shrink-0" asp-controller="Home" asp-action="Index">
+                <img alt="JamesThew.com" class="h-10 w-auto object-contain" src="~/images/logo.png" asp-append-version="true" />
+            </a>
+            @{
+                var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+                var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+
+                bool isHome = currentController.Equals("Home", StringComparison.OrdinalIgnoreCase) && currentAction.Equals("Index", StringComparison.OrdinalIgnoreCase);
+                bool isAbout = currentController.Equals("About", StringComparison.OrdinalIgnoreCase);
+                bool isRecipes = currentController.Equals("Recipes", StringComparison.OrdinalIgnoreCase);
+                bool isTips = currentController.Equals("Tips", StringComparison.OrdinalIgnoreCase);
+                bool isContests = currentController.Equals("Contests", StringComparison.OrdinalIgnoreCase);
+                bool isAnnouncements = currentController.Equals("Announcements", StringComparison.OrdinalIgnoreCase);
+                bool isHelp = currentController.Equals("Help", StringComparison.OrdinalIgnoreCase);
+            }
+            <nav class="hidden xl:flex items-center gap-space-lg">
+                <a aria-current="@(isHome ? "page" : "false")"
+                   class="transition-colors py-space-sm font-title-md @(isHome ? "text-primary-container font-semibold" : "text-on-surface-variant hover:text-on-surface")"
+                   asp-controller="Home" asp-action="Index">Home</a>
+                
+                <div class="relative group py-space-sm">
+                    <button class="flex items-center gap-space-xs font-title-md text-title-md transition-colors cursor-pointer @(isAbout ? "text-primary-container font-semibold" : "text-on-surface-variant group-hover:text-on-surface")" type="button">
+                        About <span class="material-symbols-outlined text-[18px] text-outline transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <div class="absolute left-0 top-full pt-space-xs opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="w-56 p-space-xs bg-surface-container-high/95 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isAbout && currentAction.Equals("Chef", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="About" asp-action="Chef">Chef James</a>
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isAbout && currentAction.Equals("Classes", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="About" asp-action="Classes">Cookery Classes</a>
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isAbout && currentAction.Equals("Mission", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="About" asp-action="Mission">Our Mission</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group py-space-sm">
+                    <button class="flex items-center gap-space-xs font-title-md text-title-md transition-colors cursor-pointer @(isRecipes ? "text-primary-container font-semibold" : "text-on-surface-variant group-hover:text-on-surface")" type="button">
+                        Recipes <span class="material-symbols-outlined text-[18px] text-outline transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <div class="absolute left-0 top-full pt-space-xs opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="w-56 p-space-xs bg-surface-container-high/95 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isRecipes && currentAction.Equals("Free", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="Recipes" asp-action="Free">Free Recipes</a>
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isRecipes && currentAction.Equals("Premium", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="Recipes" asp-action="Premium">Premium Recipes</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group py-space-sm">
+                    <button class="flex items-center gap-space-xs font-title-md text-title-md transition-colors cursor-pointer @(isTips ? "text-primary-container font-semibold" : "text-on-surface-variant group-hover:text-on-surface")" type="button">
+                        Tips &amp; Tricks <span class="material-symbols-outlined text-[18px] text-outline transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <div class="absolute left-0 top-full pt-space-xs opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="w-56 p-space-xs bg-surface-container-high/95 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isTips && currentAction.Equals("Free", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="Tips" asp-action="Free">Free Tips</a>
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isTips && currentAction.Equals("Premium", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="Tips" asp-action="Premium">Premium Tips</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="font-title-md text-title-md transition-colors py-space-sm @(isContests ? "text-primary-container font-semibold" : "text-on-surface-variant hover:text-on-surface")" asp-controller="Contests" asp-action="Index">Contests</a>
+                
+                <a class="font-title-md text-title-md transition-colors py-space-sm @(isAnnouncements ? "text-primary-container font-semibold" : "text-on-surface-variant hover:text-on-surface")" asp-controller="Announcements" asp-action="Index">Announcements</a>
+
+                <div class="relative group py-space-sm">
+                    <button class="flex items-center gap-space-xs font-title-md text-title-md transition-colors cursor-pointer @(isHelp ? "text-primary-container font-semibold" : "text-on-surface-variant group-hover:text-on-surface")" type="button">
+                        Help <span class="material-symbols-outlined text-[18px] text-outline transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <div class="absolute left-0 top-full pt-space-xs opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="w-56 p-space-xs bg-surface-container-high/95 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isHelp && currentAction.Equals("Faq", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="Help" asp-action="Faq">FAQ</a>
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isHelp && currentAction.Equals("Feedback", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="Help" asp-action="Feedback">Give Feedback</a>
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm transition-colors @(isHelp && currentAction.Equals("Contact", StringComparison.OrdinalIgnoreCase) ? "bg-primary-container/20 text-primary font-semibold" : "text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface")" asp-controller="Help" asp-action="Contact">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <div class="relative group py-space-sm">
+                    <button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest transition-all text-on-surface" type="button">
+                        <span class="w-7 h-7 rounded-full bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-xs uppercase">
+                            @(User.Identity.Name?.Substring(0, 1) ?? "U")
+                        </span>
+                        <span class="font-title-md text-sm hidden md:inline">@User.Identity.Name</span>
+                        <span class="material-symbols-outlined text-[16px] text-outline transition-transform duration-200 group-hover:rotate-180">expand_more</span>
+                    </button>
+                    <div class="absolute right-0 top-full pt-space-xs opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="w-48 p-space-xs bg-surface-container-high/95 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center gap-2" asp-controller="Dashboard" asp-action="Index">
+                                <span class="material-symbols-outlined text-[18px]">dashboard</span> Dashboard
+                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-primary hover:bg-surface-container-highest transition-colors flex items-center gap-2" asp-controller="Admin" asp-action="Index">
+                                    <span class="material-symbols-outlined text-[18px]">admin_panel_settings</span> Admin Panel
+                                </a>
+                            }
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors flex items-center gap-2" asp-controller="Dashboard" asp-action="Profile">
+                                <span class="material-symbols-outlined text-[18px]">person</span> Profile
+                            </a>
+                            <div class="h-px bg-surface-container-highest my-1"></div>
+                            <a class="block px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-error hover:bg-error-container/20 transition-colors flex items-center gap-2" asp-controller="Auth" asp-action="Logout">
+                                <span class="material-symbols-outlined text-[18px]">logout</span> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="flex items-center gap-space-md">
+                    <a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-colors px-space-sm py-space-xs" asp-controller="Auth" asp-action="Login">Login</a>
+                    <a class="inline-flex items-center justify-center px-space-lg py-space-xs rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:bg-primary hover:shadow-[0_6px_24px_rgba(217,138,86,0.4)] transition-all" asp-controller="Plans" asp-action="Index">Join Now</a>
+                </div>
+            }
+        </div>
     </header>
-    <main role="main" class="flex-shrink-0">
-        @RenderBody()
+
+    <main class="w-full pt-20 bg-background">
+        <div class="flex flex-col w-full">
+            @RenderBody()
+        </div>
     </main>
-    <partial name="_Footer" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <footer class="w-full bg-surface-container-lowest shadow-[0_-1px_12px_rgba(0,0,0,0.35)] pt-space-xl pb-space-lg">
+        <div class="w-full px-margin-mobile lg:px-margin">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-space-xl">
+                <!-- Column 1: Brand & Socials -->
+                <div class="flex flex-col gap-space-md">
+                    <a class="flex items-center hover:opacity-90 transition-opacity" asp-controller="Home" asp-action="Index">
+                        <img alt="JamesThew.com" class="h-9 w-auto object-contain" src="~/images/logo.png" asp-append-version="true" />
+                    </a>
+                    <p class="font-title-md text-title-md text-primary font-medium">5-Star Hotel Chef &amp; Cookbook Author</p>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Atmospheric culinary sanctuary blending master kitchencraft with artisanal precision, bespoke cookery classes, and elite fine-dining mastery.</p>
+                    <div class="flex items-center gap-space-sm pt-space-xs">
+                        <a aria-label="Website" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary-container hover:text-surface-container-lowest transition-colors" href="#">
+                            <span class="material-symbols-outlined text-[18px]">public</span>
+                        </a>
+                        <a aria-label="Instagram" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary-container hover:text-surface-container-lowest transition-colors" href="#">
+                            <span class="material-symbols-outlined text-[18px]">photo_camera</span>
+                        </a>
+                        <a aria-label="YouTube" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary-container hover:text-surface-container-lowest transition-colors" href="#">
+                            <span class="material-symbols-outlined text-[18px]">play_circle</span>
+                        </a>
+                        <a aria-label="Awards" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary-container hover:text-surface-container-lowest transition-colors" href="#">
+                            <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="flex flex-col gap-space-md">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface">Quick Links</h3>
+                    <ul class="space-y-space-sm">
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="About" asp-action="Chef">About Chef James</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Recipes" asp-action="Free">Free Recipes</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Tips" asp-action="Free">Free Tips</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Contests" asp-action="Index">Active Contests</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="About" asp-action="Classes">Cookery Classes</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Plans" asp-action="Index">Plans</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Support -->
+                <div class="flex flex-col gap-space-md">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface">Support</h3>
+                    <ul class="space-y-space-sm">
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Help" asp-action="Faq">FAQ</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Help" asp-action="Feedback">Give Feedback</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Help" asp-action="Contact">Contact Us</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Legal" asp-action="Terms">Terms of Service</a></li>
+                        <li class="list-none"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" asp-controller="Legal" asp-action="Privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Academy Suite -->
+                <div class="flex flex-col gap-space-md">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface">Academy Suite</h3>
+                    <p class="font-body-sm text-body-sm text-secondary leading-relaxed">Join Chef James's Weekend Cookery Classes near home at affordable fees!</p>
+                    <div class="flex flex-col gap-space-sm pt-space-xs">
+                        <div class="flex items-start gap-space-sm">
+                            <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">mail</span>
+                            <a href="mailto:contact@jamesthew.com" class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors">contact@jamesthew.com</a>
+                        </div>
+                        <div class="flex items-start gap-space-sm">
+                            <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">location_on</span>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Culinary Suite, Karachi, Pakistan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-space-md flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-surface-container-high">
+                <p class="font-label-sm text-label-sm text-outline">© 2026 JamesThew.com — All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

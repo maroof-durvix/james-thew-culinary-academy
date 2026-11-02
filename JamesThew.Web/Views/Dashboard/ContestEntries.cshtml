@@ -1,0 +1,181 @@
+@model IEnumerable<JamesThew.Web.Models.Entities.ContestEntry>
+@{
+    ViewData["Title"] = "My Contest Entries";
+    Layout = "_DashboardLayout";
+}
+
+<!-- Header / Intro Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+    <div>
+        <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-primary text-[18px]">military_tech</span>
+            <span class="font-label-md text-primary tracking-wider uppercase">Culinary Competitions</span>
+        </div>
+        <h2 class="font-headline-xl text-on-surface">My Contest Entries</h2>
+        <p class="font-body-md text-on-surface-variant mt-1 max-w-xl">
+            Track your submissions to James Thew's culinary challenges. Review judging statuses and elite accolades.
+        </p>
+    </div>
+    <div class="flex items-center gap-3">
+        <a asp-controller="Contests" asp-action="Index" class="bg-primary hover:bg-primary-fixed-dim text-on-primary font-title-md px-6 py-3 rounded-full flex items-center gap-2 transition-all shadow-[0_4px_16px_rgba(217,138,86,0.25)] hover:shadow-[0_6px_24px_rgba(217,138,86,0.40)]">
+            <span class="material-symbols-outlined text-[20px]">add_circle</span>
+            Join Active Contest
+        </a>
+    </div>
+</div>
+
+<!-- KPI Quick Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-8">
+    <div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-4 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+        </div>
+        <div>
+            <div class="font-display-lg text-on-surface text-[32px] leading-none mb-1">@Model.Count()</div>
+            <div class="font-label-sm text-on-surface-variant uppercase tracking-wider">Total Submissions</div>
+        </div>
+        <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"></div>
+    </div>
+    <div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-4 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-xl bg-[#F5A623]/15 flex items-center justify-center text-[#F5A623]">
+            <span class="material-symbols-outlined text-[24px]">hourglass_top</span>
+        </div>
+        <div>
+            <div class="font-display-lg text-on-surface text-[32px] leading-none mb-1">@Model.Count(e => e.Status == "Pending")</div>
+            <div class="font-label-sm text-on-surface-variant uppercase tracking-wider">Pending Evaluation</div>
+        </div>
+        <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#F5A623]/5 to-transparent pointer-events-none"></div>
+    </div>
+    <div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-4 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary-container">
+            <span class="material-symbols-outlined text-[24px]">trophy</span>
+        </div>
+        <div>
+            <div class="font-display-lg text-on-surface text-[32px] leading-none mb-1">@Model.Count(e => e.Status == "Winner")</div>
+            <div class="font-label-sm text-on-surface-variant uppercase tracking-wider">Accolades Won</div>
+        </div>
+        <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-primary-container/5 to-transparent pointer-events-none"></div>
+    </div>
+</div>
+
+<!-- Filter Tabs & Search Bar -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
+    <div class="flex items-center gap-2 p-1 bg-surface-container-low rounded-full self-start">
+        <button class="px-5 py-2 rounded-full font-label-md text-on-surface bg-primary-container/20 transition-all cursor-pointer" id="tab-all" onclick="filterEntries('all')">All (@Model.Count())</button>
+        <button class="px-5 py-2 rounded-full font-label-md text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" id="tab-pending" onclick="filterEntries('pending')">Pending (@Model.Count(e => e.Status == "Pending"))</button>
+        <button class="px-5 py-2 rounded-full font-label-md text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" id="tab-winner" onclick="filterEntries('winner')">Winners (@Model.Count(e => e.Status == "Winner"))</button>
+    </div>
+    <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px]">search</span>
+        <input class="bg-surface-container-low text-on-surface placeholder:text-on-surface-variant text-body-sm rounded-full pl-9 pr-4 py-2 w-full sm:w-72 focus:outline-none focus:ring-1 focus:ring-primary transition-all" id="entrySearch" onkeyup="searchEntries()" placeholder="Search entries or contests..." type="text"/>
+    </div>
+</div>
+
+<!-- Contest Entries Table Container -->
+@if (!Model.Any())
+{
+    <div class="bg-surface-container-low rounded-xl p-12 text-center border border-outline-variant/30">
+        <span class="material-symbols-outlined text-primary text-[48px] mb-3">military_tech</span>
+        <h3 class="text-headline-md font-headline text-on-surface mb-2">No Competition Submissions Yet</h3>
+        <p class="text-body-md text-on-surface-variant max-w-md mx-auto mb-6">You haven't participated in any culinary competitions yet. Put your skills to the test in active challenges!</p>
+        <a asp-controller="Contests" asp-action="Index" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-on-primary font-title-md rounded-full shadow-lg hover:bg-primary-fixed-dim transition-all">
+            <span class="material-symbols-outlined text-[20px]">emoji_events</span>
+            Explore Active Contests
+        </a>
+    </div>
+}
+else
+{
+    <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse" id="entriesTable">
+                <thead>
+                    <tr class="border-b border-outline-variant/30">
+                        <th class="py-4 px-6 font-label-sm text-on-surface-variant uppercase tracking-wider">Contest Name</th>
+                        <th class="py-4 px-6 font-label-sm text-on-surface-variant uppercase tracking-wider">Entry Title</th>
+                        <th class="py-4 px-6 font-label-sm text-on-surface-variant uppercase tracking-wider">Type</th>
+                        <th class="py-4 px-6 font-label-sm text-on-surface-variant uppercase tracking-wider">Submitted Date</th>
+                        <th class="py-4 px-6 font-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+                        <th class="py-4 px-6 font-label-sm text-on-surface-variant uppercase tracking-wider text-right">Details</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/20">
+                    @foreach (var entry in Model)
+                    {
+                        <tr class="hover:bg-surface-container-high/50 transition-colors group entry-row" data-category="@entry.Status.ToLower()">
+                            <td class="py-5 px-6">
+                                <div class="font-title-md text-on-surface group-hover:text-primary transition-colors">@(entry.Contest?.Title ?? "Open Contest")</div>
+                                <div class="font-body-sm text-on-surface-variant">@(entry.Category?.Name ?? "Culinary Craft")</div>
+                            </td>
+                            <td class="py-5 px-6">
+                                <div class="font-body-md text-on-surface font-medium">@entry.Title</div>
+                            </td>
+                            <td class="py-5 px-6">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-label-sm bg-surface-container-highest text-on-surface-variant border border-outline-variant/30">
+                                    <span class="material-symbols-outlined text-[14px] mr-1 @(entry.EntryType == "Recipe" ? "text-primary" : "text-secondary")">
+                                        @(entry.EntryType == "Recipe" ? "restaurant" : "lightbulb")
+                                    </span>
+                                    @entry.EntryType
+                                </span>
+                            </td>
+                            <td class="py-5 px-6 font-body-sm text-on-surface-variant">
+                                @entry.SubmittedAt.ToString("MMM dd, yyyy")
+                            </td>
+                            <td class="py-5 px-6">
+                                @if (entry.Status == "Winner")
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-label-sm font-semibold bg-[#D98A56]/15 text-[#D98A56] border border-[#D98A56]/40 shadow-[0_2px_10px_rgba(217,138,86,0.15)]">
+                                        <span class="material-symbols-outlined text-[14px] mr-1.5">trophy</span> Winner
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-label-sm font-semibold bg-[#F5A623]/15 text-[#F5A623] border border-[#F5A623]/30">
+                                        <span class="material-symbols-outlined text-[14px] mr-1.5">hourglass_top</span> Pending
+                                    </span>
+                                }
+                            </td>
+                            <td class="py-5 px-6 text-right">
+                                <span class="text-label-sm text-on-surface-variant font-mono">#ENTRY-@entry.Id</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<script>
+    let currentFilter = 'all';
+
+    function filterEntries(status) {
+        currentFilter = status;
+        document.querySelectorAll('#tab-all, #tab-pending, #tab-winner').forEach(btn => {
+            btn.classList.remove('bg-primary-container/20', 'text-on-surface');
+            btn.classList.add('text-on-surface-variant');
+        });
+        const activeTab = document.getElementById('tab-' + status);
+        if (activeTab) {
+            activeTab.classList.remove('text-on-surface-variant');
+            activeTab.classList.add('bg-primary-container/20', 'text-on-surface');
+        }
+        applyFilters();
+    }
+
+    function searchEntries() {
+        applyFilters();
+    }
+
+    function applyFilters() {
+        const query = (document.getElementById('entrySearch')?.value || '').toLowerCase();
+        const rows = document.querySelectorAll('.entry-row');
+        rows.forEach(row => {
+            const cat = row.getAttribute('data-category');
+            const text = row.innerText.toLowerCase();
+            const matchesCat = (currentFilter === 'all' || cat === currentFilter);
+            const matchesQuery = text.includes(query);
+            row.style.display = (matchesCat && matchesQuery) ? '' : 'none';
+        });
+    }
+</script>

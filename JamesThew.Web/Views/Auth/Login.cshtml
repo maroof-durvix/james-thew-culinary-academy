@@ -1,0 +1,190 @@
+@model JamesThew.Web.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="relative w-full min-h-[85vh] grid grid-cols-1 lg:grid-cols-12 overflow-hidden bg-surface">
+<!-- Left Hero Brand Column (Desktop: 6 cols / 50%) -->
+<div class="relative lg:col-span-6 flex flex-col justify-between p-8 sm:p-12 lg:p-16 min-h-[460px] lg:min-h-screen overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105" data-alt="Dark atmospheric fine dining commercial kitchen at night" style="background-image: url('/images/login-img-05d991.jpg')">
+</div>
+<!-- Emerald Gradient Vignette & Mood Filter -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface-container-low/85 to-surface/70 mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-surface/90 via-transparent to-surface/80"></div>
+<div class="absolute -top-32 -left-32 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+
+<!-- Brand Header -->
+<div class="relative z-10 flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high/80 backdrop-blur-md flex items-center justify-center text-primary-container shadow-md">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">skillet</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md tracking-tight text-on-surface block leading-none">JamesThew<span class="text-primary-container">.com</span></span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-secondary/80 mt-1 block">5-Star Culinary Academy</span>
+</div>
+</div>
+
+<!-- Center / Lower Atmospheric Culinary Quote & Access Seal -->
+<div class="relative z-10 max-w-lg my-auto pt-16 pb-12 lg:py-0">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-highest/60 backdrop-blur-md text-secondary mb-6 shadow-sm">
+<span class="material-symbols-outlined text-sm text-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Member Portal • Executive Kitchen Access</span>
+</div>
+<blockquote class="font-headline-xl text-headline-xl text-on-surface italic leading-snug mb-4 font-normal">
+  “Precision in kitchencraft begins with quiet dedication to the finest ingredients and timeless techniques.”
+</blockquote>
+<div class="flex items-center gap-3">
+<div class="h-0.5 w-8 bg-primary-container"></div>
+<cite class="font-title-md text-title-md text-primary-fixed not-italic tracking-wide">Chef James Thew</cite>
+</div>
+</div>
+
+<!-- Footnote / Decorative Culinary Grid Details -->
+<div class="relative z-10 hidden sm:flex items-center justify-between text-tertiary/70 font-label-sm text-label-sm uppercase tracking-widest pt-6">
+<span>Curated Masterclasses</span>
+<span>•</span>
+<span>Bespoke Pantry Vault</span>
+<span>•</span>
+<span>Private Cellar Notes</span>
+</div>
+</div>
+
+<!-- Right Interaction Glass Column (Desktop: 6 cols / 50%) -->
+<div class="relative lg:col-span-6 flex flex-col items-center justify-center p-6 sm:p-12 lg:p-16 bg-gradient-to-b from-surface-container-low via-surface to-surface-container-lowest">
+<div class="absolute top-1/4 right-1/4 w-80 h-80 bg-primary-container/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+<!-- Top Navigation Link back home -->
+<div class="w-full max-w-md flex justify-start mb-6 z-10">
+<a class="group inline-flex items-center gap-2 text-tertiary hover:text-primary-container transition-colors duration-200 font-label-md text-label-md" asp-controller="Home" asp-action="Index">
+<span class="material-symbols-outlined text-lg transition-transform group-hover:-translate-x-1">arrow_back</span>
+<span>Return to JamesThew.com</span>
+</a>
+</div>
+
+<!-- Authentication Glass Card -->
+<div class="relative z-10 w-full max-w-md rounded-[18px] bg-surface-container/75 backdrop-blur-xl p-8 sm:p-10 shadow-2xl">
+<!-- Header -->
+<div class="mb-6">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-medium mb-2">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign in to access your saved recipes, secret tips, and masterclass notebook.</p>
+</div>
+
+<!-- Alerts / Validation Summary -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-secondary-container/40 border border-secondary text-secondary flex items-start gap-3">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <div class="text-sm">@TempData["SuccessMessage"]</div>
+    </div>
+}
+
+@if (ViewData["ExpiredMessage"] != null)
+{
+    <div class="mb-6 p-4 rounded-xl bg-amber-500/15 border border-amber-500/50 text-amber-200 flex flex-col gap-3">
+        <div class="flex items-start gap-2.5">
+            <span class="material-symbols-outlined text-[22px] text-amber-400 mt-0.5">warning</span>
+            <div class="text-sm font-medium leading-relaxed">@ViewData["ExpiredMessage"]</div>
+        </div>
+        <a asp-controller="Plans" asp-action="Recharge" class="inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-primary-container text-surface-container-lowest font-title-sm text-sm hover:bg-primary transition-all font-semibold shadow-md">
+            <span class="material-symbols-outlined text-sm">bolt</span>
+            <span>Recharge Plan Now</span>
+        </a>
+    </div>
+}
+
+@if ((bool?)ViewData["IsExpiredMember"] == true)
+{
+    <div class="mb-6 p-4 rounded-xl bg-error-container/30 border border-error/50 text-error flex flex-col gap-3">
+        <div class="flex items-start gap-2.5">
+            <span class="material-symbols-outlined text-[22px] mt-0.5">lock_clock</span>
+            <div class="text-sm font-medium leading-relaxed">Your paid VIP membership plan has expired. Please recharge or renew your plan to log in and unlock premium access.</div>
+        </div>
+        <a asp-controller="Plans" asp-action="Recharge" asp-route-email="@ViewData["ExpiredEmail"]" class="inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-primary-container text-surface-container-lowest font-title-sm text-sm hover:bg-primary transition-all font-semibold shadow-md">
+            <span class="material-symbols-outlined text-sm">autorenew</span>
+            <span>Recharge Plan Now</span>
+        </a>
+    </div>
+}
+
+<div asp-validation-summary="ModelOnly" class="mb-5 p-3.5 rounded-xl bg-error-container/30 border border-error/50 text-error text-body-sm font-medium"></div>
+
+<!-- Real Form Elements -->
+<form asp-controller="Auth" asp-action="Login" method="post" class="space-y-5" id="login-form">
+@Html.AntiForgeryToken()
+<input type="hidden" asp-for="ReturnUrl" />
+
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md uppercase tracking-wider text-secondary" asp-for="Email">Email Address</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-outline text-lg pointer-events-none">mail</span>
+<input asp-for="Email" class="w-full pl-11 pr-4 py-3.5 rounded-xl bg-surface-container-lowest/80 text-on-surface placeholder:text-outline font-body-md text-body-md transition-all duration-200 outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary shadow-inner" placeholder="admin@jamesthew.com" required="" type="email"/>
+</div>
+<span asp-validation-for="Email" class="text-error font-label-sm text-label-sm"></span>
+</div>
+
+<!-- Password Field -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md uppercase tracking-wider text-secondary" asp-for="Password">Password</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-outline text-lg pointer-events-none">lock</span>
+<input asp-for="Password" class="w-full pl-11 pr-12 py-3.5 rounded-xl bg-surface-container-lowest/80 text-on-surface placeholder:text-outline font-body-md text-body-md transition-all duration-200 outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary shadow-inner" placeholder="••••••••••••" required="" type="password" id="password-field"/>
+<button aria-label="Toggle password visibility" class="absolute right-3.5 p-1 text-outline hover:text-primary-container transition-colors rounded" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-lg" id="password-toggle-icon">visibility</span>
+</button>
+</div>
+<span asp-validation-for="Password" class="text-error font-label-sm text-label-sm"></span>
+</div>
+
+<!-- Row: Remember me + Forgot Password -->
+<div class="flex items-center justify-between pt-1">
+<label class="inline-flex items-center gap-2.5 cursor-pointer select-none group">
+<input asp-for="RememberMe" class="w-4 h-4 rounded bg-surface-container-lowest text-primary border-outline focus:ring-0 cursor-pointer"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Remember me</span>
+</label>
+<a class="font-title-md text-body-sm text-primary-container hover:text-primary-fixed transition-colors" asp-controller="Auth" asp-action="ForgotPassword">
+  Forgot Password?
+</a>
+</div>
+
+<!-- Primary Submit Button -->
+<button class="relative w-full mt-2 py-3.5 px-6 rounded-full bg-primary-container text-surface-container-lowest font-title-md text-title-md tracking-wide hover:bg-primary transition-all duration-300 shadow-[0_4px_20px_rgba(217,138,86,0.25)] hover:shadow-[0_6px_26px_rgba(217,138,86,0.40)] flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]" id="login-submit-btn" type="submit">
+<span>Login to Kitchen</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+
+<!-- Card Footer Divider / Link -->
+<div class="mt-8 pt-6 flex items-center justify-center bg-surface-container-high/40 -mx-8 -mb-10 sm:-mx-10 sm:-mb-10 px-8 py-5 rounded-b-[18px]">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+  New to James Thew? 
+  <a class="text-primary-container hover:text-primary-fixed font-title-md transition-colors ml-1" asp-controller="Auth" asp-action="Register">
+    Join Now
+  </a>
+</p>
+</div>
+</div>
+
+<!-- Quick Test Credentials Hint -->
+<div class="mt-6 text-center text-outline-variant font-label-sm text-label-sm flex flex-col gap-1">
+<div>Admin Account: <span class="text-primary font-mono">admin@jamesthew.com</span> / <span class="text-primary font-mono">Admin@123</span></div>
+<div>VIP Member (Paid User): <span class="text-secondary font-mono">member@jamesthew.com</span> / <span class="text-secondary font-mono">Member@123</span></div>
+</div>
+
+</div>
+</section>
+
+<script>
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('password-field');
+    const toggleIcon = document.getElementById('password-toggle-icon');
+    if (!passwordInput || !toggleIcon) return;
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.textContent = 'visibility_off';
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.textContent = 'visibility';
+    }
+}
+</script>
